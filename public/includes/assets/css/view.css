@@ -1,0 +1,99 @@
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    min-width: 900px;
+    width: 100%;
+    box-shadow: 0px 4px 11px 3px rgb(0 0 0 / 6%);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: var(--bs-white);
+    color: var(--bs-dark);
+    font-weight: 800;
+}
+
+th {
+    text-align: left;
+    padding: 36px 32px 20px;
+    color: var(--bs-gray-700);
+    border-bottom: 1px solid var(--bs-gray-200);
+    margin-bottom: 24px;
+    background: var(--bs-gray-200);
+}
+
+td {
+    text-align: left;
+    padding: 8px 32px 16px;
+    vertical-align: top;
+}
+
+tr:last-child td {
+    padding-bottom: 40px;
+}
+
+tr:first-child td {
+    padding-top: 32px;
+}
+
+.action {
+    background-color: red;
+}
+
+.action2 {
+    background-color: var(--bs-green);
+}
+
+.action,
+.action2 {
+    /* border: 1px solid var(--bs-green); */
+    border-radius: 25px;
+    color: var(--bs-white);
+    font-size: 14px;
+    padding: 7px 10px;
+    text-decoration: none;
+}
+
+.action:hover {
+    background-color: rgb(255, 80, 80);
+    color: var(--bs-white);
+}
+
+.action2:hover {
+    background-color: var(--bs-teal);
+    color: var(--bs-white);
+}
+
+form#newUserForm .col-md-6 {
+    width: 48%;
+    padding: 0;
+}
+
+.form-group {
+    display: inline-flex;
+    width: 100%;
+    gap: 24px;
+    margin-top: 4px;
+}
+
+form#newUserForm .form-group:not(.dual) .col-md-6 {
+    width: 100%;
+}
+
+form#newUserForm {
+    width: 70%;
+    max-width: 100%;
+    margin: 0;
+    column-gap: 12px;
+}
+
+.form-sep {
+    font-weight: 700;
+    margin-top: 40px;
+}
+
+.form-sep-edit {
+    font-weight: 700;
+    margin-top: 30px;
+}

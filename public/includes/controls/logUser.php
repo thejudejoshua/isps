@@ -27,7 +27,7 @@ switch($_POST){
                         
                         $array = $input->sanitizeInput($array);
 
-                        echo $logUser = $user->logUser($array);
+                        echo $user->logUser($array);
                     }else{
                         echo $checkEmail;
                     }

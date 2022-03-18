@@ -8,15 +8,23 @@ class Login extends Controller
     
     public function index()
     {
+        if(isset($_SESSION['logged'])){
 
-        $input = new Input;
-        $user = new User;
+            $redirect = $this->model('Redirect');
+            $dashboard = '/dashboard';
+            $redirect->redirectTo($dashboard);
 
-        $this->view('login/index', [
+        }else{
 
-        ]);
+            $input = new Input;
+            $user = new User;
+    
+            $this->view('login/index', [
+    
+            ]);
+
+        }
         
     }
-
     
 }

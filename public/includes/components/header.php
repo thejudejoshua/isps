@@ -46,6 +46,6 @@
     
     <title></title>
     
-    <link rel="stylesheet" href="/includes/assets/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="/includes/assets/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="/includes/assets/css/style.css">
 </head>

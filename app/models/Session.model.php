@@ -3,7 +3,9 @@
 class Session
 {
     public function startSession(){
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
     }
 
     public function destroySessions(){

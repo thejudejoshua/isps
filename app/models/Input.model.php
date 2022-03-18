@@ -4,12 +4,14 @@
 class Input
 {
 
-    public function devAddInput($email, $password)
+    public function checkPassword($password, $confirmPassword)
     {
-        $dev_email = $email;
-        $dev_password = password_hash($password, PASSWORD_BCRYPT, array("cost" == 10));
+        if($password != $confirmPassword){
+            return 'error=The Password and it\'s confirmation do not match. Try again.';
+        }else{
+            return $password;
+        }
 
-        return $array = [$dev_email, $dev_password];
     }
 
     public static function sanitizeInput($array)

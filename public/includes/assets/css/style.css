@@ -1,94 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-/* CSS RESET */
-
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('bootstrap.min.css');
+@import url('nav.css');
+@import url('view.css');
+* {
+    box-sizing: border-box;
+    position: relative;
     margin: 0;
     padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+    outline: none;
+    text-decoration: none !important;
+    list-style: none;
 }
 
 body,
@@ -97,7 +20,7 @@ html {
     position: relative;
     font-family: 'Nunito', sans-serif !important;
     font-size: 14px;
-    color: var(--bs-gray-700);
+    color: var(--bs-dark);
     background-color: var(--bs-white);
 }
 
@@ -143,9 +66,9 @@ h3 {
     width: 100%;
     padding: 12px 12px 12px;
     padding-left: 0;
-    font-size: 12px;
-    font-weight: 400;
-    color: #212529;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--bs-body-color);
     outline: 0 !important;
     border: none;
     border-bottom: 1px solid var(--bs-gray-300);
@@ -159,35 +82,62 @@ h3 {
 
 .custom-form::placeholder {
     color: var(--bs-gray-500);
-    font-weight: 700;
+    font-weight: 500;
 }
 
 .form-content {
     padding: 60px 40px;
 }
 
-.label {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
+.form-label {
+    font-size: 13px;
+    font-weight: 800;
+    color: var(--bs-green);
+    letter-spacing: 0.1px;
+    margin-bottom: 0;
+    display: inline-block;
 }
 
-.label span {
+.form-label span {
     font-size: 10px;
     font-weight: 700;
 }
 
 .custom-btn {
-    background-color: var(--bs-green);
     color: var(--bs-white);
     width: auto;
-    border-radius: 10px;
-    padding: 10px 48px;
-    font-weight: bold;
+    padding: 15px 48px;
+    border-radius: 6px;
+    background-image: linear-gradient(to right, var(--bs-green) 0%, var(--bs-teal) 51%, var(--bs-green) 100%);
+    background-size: 200% auto;
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    /* text-transform: uppercase; */
+    display: inline-block;
+    top: 0;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+    height: fit-content;
+}
+
+.custom-btn.secondary {
+    border: 1px solid var(--bs-teal);
+    background-image: linear-gradient(to right, #bfefe1 0%, #ffffff 51%, #bfefe1 100%);
+    color: var(--bs-green);
+}
+
+.custom-btn.secondary:hover {
+    color: var(--bs-green);
+}
+
+.custom-btn:focus {
+    box-shadow: none;
 }
 
 .custom-btn:hover {
     color: var(--bs-white);
+    background-position: right center;
+    top: -1px;
 }
 
 .contact {
@@ -203,6 +153,15 @@ h3 {
 
 #forgotPass:hover {
     text-decoration: underline;
+}
+
+.wrapper {
+    height: 100vh;
+    width: 100%;
+}
+
+.rem {
+    width: 100%;
 }
 
 @media (max-width: 768px) {

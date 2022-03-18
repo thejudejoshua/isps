@@ -10,12 +10,16 @@
                 <p class="contact mb-5">If you do not have sign in credentials, please contact an admin</p>
                 <form action="#" class="signin-form">
                     <div class="form-group mb-4">
-                        <label class="label mb-2" for="name">EMAIL <span>(Required)</span></label>
-                        <input type="email" name="email" class="custom-form" placeholder="example@gmail.com" required>
+                        <div class="rem">
+                            <label class="form-label mb-2" for="name">EMAIL <span>(Required)</span></label>
+                            <input type="email" name="email" class="custom-form" placeholder="example@gmail.com" required>
+                        </div>
                     </div>
                     <div class="form-group mb-4">
-                        <label class="label mb-2" for="password">PASSWORD  <span>(Required)</span></label>
-                        <input type="password" name="password" class="custom-form" placeholder="*****" required>
+                        <div class="rem">
+                            <label class="form-label mb-2" for="password">PASSWORD  <span>(Required)</span></label>
+                            <input type="password" name="password" class="custom-form" placeholder="*****" required>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <a id="forgotPass" href="#">I don't remember my password</a>
