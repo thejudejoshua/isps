@@ -11,7 +11,7 @@ Class User extends Db
     public function addUser($array)
     {
         try{
-            $send = "INSERT INTO ".$array['designation']." set
+            $send = "INSERT INTO `".$array['designation']."` set
                     `firstName` = ?,
                     `lastName` = ?,
                     `email` = ?,
@@ -94,17 +94,54 @@ Class User extends Db
     public function getAllUsers()
     {
         try{
-            $get = "SELECT `secretariat`.`id`,`secretariat`.`firstName`, `secretariat`.`lastName`, `secretariat`.`sector`, `secretariat`.`designation`, `secretariat`.`date_added` FROM `secretariat`
+            $get = "SELECT `secretariat`.`id`,`secretariat`.`firstName`, `secretariat`.`lastName`, `secretariat`.`sector`, `secretariat`.`designation`, `secretariat`.`email`, `secretariat`.`date_added` FROM `secretariat`
             UNION ALL
-            SELECT `director`.`id`,`director`.`firstName`, `director`.`lastName`, `director`.`sector`, `director`.`designation`, `director`.`date_added` FROM `director`
+            SELECT `director`.`id`,`director`.`firstName`, `director`.`lastName`, `director`.`sector`, `director`.`designation`,`director`.`email`, `director`.`date_added` FROM `director`
             UNION ALL
-            SELECT `budgeting officer`.`id`,`budgeting officer`.`firstName`, `budgeting officer`.`lastName`, `budgeting officer`.`sector`, `budgeting officer`.`designation`, `budgeting officer`.`date_added` FROM `budgeting officer`";
+            SELECT `budgeting officer`.`id`,`budgeting officer`.`firstName`, `budgeting officer`.`lastName`, `budgeting officer`.`sector`, `budgeting officer`.`designation`, `budgeting officer`.`email`, `budgeting officer`.`date_added` FROM `budgeting officer`";
             $stmt = $this->connect()->prepare($get);
             $stmt->execute([]);
             $data = $stmt->fetchAll();
             return $data;
         }catch(PDOException $e){
             return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function getUserData($id, $role)
+    {
+        try{
+            $get = "SELECT `id`, `firstName`, `lastName`, `email`, `phone`, `sector`, `designation`, `level`, `added_by`, `added_by_designation`, `added_by_sector`, `date_added` FROM `secretariat` WHERE `id` = :id AND `designation` = :role
+                    UNION ALL
+                    SELECT `id`, `firstName`, `lastName`, `email`, `phone`, `sector`, `designation`, `level`, `added_by`, `added_by_designation`, `added_by_sector`, `date_added` FROM `director` WHERE `id` = :id  AND `designation` = :role
+                    UNION ALL
+                    SELECT `id`, `firstName`, `lastName`, `email`, `phone`, `sector`, `designation`, `level`, `added_by`, `added_by_designation`, `added_by_sector`, `date_added` FROM `budgeting officer` WHERE `id` = :id AND `designation` = :role";
+
+            $stmt = $this->connect()->prepare($get);
+            $stmt->execute([
+                ':id' => $id,
+                ':role' => $role,
+                ':id' => $id,
+                ':role' => $role,
+                ':id' => $id,
+                ':role' => $role
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function runQuery($sql)//inset query to run to database
+    {
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        if($stmt->rowCount() == 0){
+            return false;
+        }else{
+            $data = $stmt->fetchAll();
+            return $data;
         }
     }
 }

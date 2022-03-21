@@ -3,22 +3,25 @@
 ?>
 
 <body>
-    <section id="cover" class="d-flex align-items-center">
-        <div id="mainContainer" class="d-flex align-items-center">
+    <section id="cover" class="d-flex justify-content-center align-items-center">
+        <div id="mainContainer">
+            <img id="animation-image" src="/includes/assets/img/account.png">
             <div id="main" class="form-content">
-                <h3 class="mb-1">Sign in to ISPS</h3>
-                <p class="contact mb-5">If you do not have sign in credentials, please contact an admin</p>
-                <form action="#" class="signin-form">
-                    <div class="form-group mb-4">
+                <div class="title">
+                    <h3 class="h2">Sign in</h3>
+                    <p class="description p5">If you do not have sign in credentials, please contact an admin.</p>
+                </div>
+                <form action="#" class="d-flex flex-column signin-form rem">
+                    <div class="form-group">
                         <div class="rem">
-                            <label class="form-label mb-2" for="name">EMAIL <span>(Required)</span></label>
-                            <input type="email" name="email" class="custom-form" placeholder="example@gmail.com" required>
+                            <label class="form-label" for="name"><i class="las la-envelope"></i>EMAIL <span>(Required)</span></label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="example@gmail.com" required>
                         </div>
                     </div>
-                    <div class="form-group mb-4">
+                    <div class="form-group ">
                         <div class="rem">
-                            <label class="form-label mb-2" for="password">PASSWORD  <span>(Required)</span></label>
-                            <input type="password" name="password" class="custom-form" placeholder="*****" required>
+                            <label class="form-label" for="password"><i class="las la-lock"></i>PASSWORD  <span>(Required)</span></label>
+                            <input type="password" name="password" id="password" class="password form-control" placeholder="*****" required><span id="toggle-pass" class="las la-eye"></span>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -30,9 +33,9 @@
 
                 </form>
             </div>
-            <div id="imgBox">
+            <!-- <div id="imgBox">
                 <img src="/includes/assets/img/coat_of_arms.png"/>
-            </div>
+            </div> -->
         </div>
     </section>
     <!-- <script src="js/bootstrap.js"></script> -->

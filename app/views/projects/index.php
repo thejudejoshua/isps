@@ -8,10 +8,10 @@
         <section class="content mt-5">
             <div class="top-title d-flex justify-content-between align-items-center">
                 <div class="">
-                    <h1 class="title">All Users</h1>
-                    <p class="p5">All created users are displayed here</p>
+                    <h1 class="title">All Projects</h1>
+                    <p class="p5">All projects created on this system are displayed here</p>
                 </div>
-                <a href="/users/add_user" class="custom-btn">+ Add User</a>
+                <a href="/projects/add_project" class="custom-btn">+ Add a New Project</a>
             </div>
             <hr>
             <table>
@@ -19,7 +19,6 @@
                     <tr>
                         <th><h3>Name</h3></th>
                         <th><h3>Sector</h3></th>
-                        <th><h3>Designation</h3></th>
                         <th><h3>Date Added</h3></th>
                         <th></th>
                     </tr>
@@ -34,7 +33,7 @@
                                     <td><p class="p5">'.$user['designation'].'</p></td>
                                     <td><p class="p5">'.date('d M, Y', strtotime( $user['date_added'])).'</p></td>
                                     <td>
-                                        <a href="/users/view_user?role='.$user['designation'].'&id='.$user['id'].'" class="action view-user">View</a>
+                                        <a href="/projects/view_user?role='.$user['designation'].'&id='.$user['id'].'" class="action view-user">View</a>
                                         <a href="#" class="action">Delete</a>
                                     </td>
                                 </tr>

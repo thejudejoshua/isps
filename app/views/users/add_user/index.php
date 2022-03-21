@@ -2,52 +2,43 @@
     require_once './includes/components/header.php';
 ?>
 
-<div class="wrapper row m-0 justify-content-end">
+<div class="wrapper d-flex">
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box col-md-10">
         
         <section class="content mt-5">
             <a href="/users">back to all users</a>
-            <h1 class="title">Create User</h1>
-            <h4>Fill the form below to create a new user.</h4>
             <hr>
-            <form id="newUserForm" class="row g-4 mt-4 justify-content-between">
-                <div class="form-group dual mt-0 mb-4">
-                    <div class="col-md-6">
+            <h1>Add new user</h1>
+            <p class="p5">Fill the form below to create a new user.</>
+            <hr>
+            <form id="newUserForm" class="d-flex flex-column signin-form">
+                <div class="form-group dual">
+                    <div class="">
                         <label for="firstName" class="form-label">Enter first name <span>(Required)</span></label>
-                        <input type="text" class="custom-form" name="firstName" id="firstName" placeholder="Enter first name" required>
+                        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Enter first name" required>
                     </div>
-                    <div class="col-md-6">
+                    <div class="">
                         <label for="lastName" class="form-label">Enter last name <span>(Required)</span></label>
-                        <input type="text" class="custom-form" name="lastName" id="lastName" placeholder="Enter last name" required>
+                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter last name" required>
                     </div>
                 </div>
-                <div class="form-group mb-4">
-                    <div class="col-md-6">
+                <div class="form-group">
+                    <div class="rem">
                         <label for="phoneNumber" class="form-label">Enter phone number <span>(Required)</span></label>
-                        <input type="tel" class="custom-form" name="phoneNumber" id="phoneNumber" placeholder="08120323923" required>
+                        <input type="tel" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="08120323923" required>
                     </div>
                 </div>
-                <div class="form-group mb-4">
-                    <div class="col-md-6">
+                <div class="form-group">
+                    <div class="rem">
                         <label for="email" class="form-label">Enter an email address <span>(Required)</span></label>
-                        <input type="email" class="custom-form" name="email" id="email" placeholder="example@email.com" required>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="example@email.com" required>
                     </div>
                 </div>
-                <!-- <div class="form-group mb-4">
-                    <div class="col-md-6">
-                        <label for="gender" class="form-label">Pick a Gender <span>(Required)</span></label>
-                        <select id="gender" name="gender" class="custom-form" required>
-                            <option value="" disabled selected hidden>Choose...</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                    </div>
-                </div> -->
-                <div class="form-group mb-4">
-                    <div class="col-md-6">
+                <div class="form-group">
+                    <div class="rem">
                         <label for="sector" class="form-label">Select a Sector <span>(Required)</span></label>
-                        <select id="sector" name="sector" class="custom-form" required>
+                        <select id="sector" name="sector" class="form-control" required>
                             <option value="" disabled selected hidden>Choose...</option>
                             <option>Highway Construction</option>
                             <option>Railway Construction</option>
@@ -57,27 +48,27 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group mb-4">
-                    <div class="col-md-6">
+                <div class="form-group">
+                    <div class="rem">
                         <label for="designaton" class="form-label">Choose a designation <span>(Required)</span></label>
-                        <select id="designaton" name="designaton" class="custom-form" required>
+                        <select id="designaton" name="designaton" class="form-control" required>
                             <option value="" disabled selected hidden>Choose...</option>
                             <option value="budgeting officer" data-rank="level 1">Budgeting Officer</option>
                             <option value="director" data-rank="Level 2">Director</option>
                             <option value="secretariat" data-rank="Level 3">Secretariat</option>
                         </select>
-                        <input type="hidden" name="rank" id="rank" class="custom-form"/>
+                        <input type="hidden" name="rank" id="rank" class="form-control"/>
                     </div>
                 </div>
-                <div class="form-group dual mb-4">
-                    <div class="col-md-6">
-                        <label for="password" class="form-label">Enter a password <span>(Required)</span></label>
-                        <input type="password" class="custom-form" name="password" id="password" placeholder="*****" required>
-                        <span class></span>
+                <div class="form-group dual">
+                    <div class="">
+                        <label for="password" class="form-label"><i class="las la-lock"></i>Enter a password <span>(Required)</span></label>
+                        <input type="password" class="password form-control" name="password" id="password" placeholder="*****" required>
+                        <span id="toggle-pass" class="las la-eye"></span>
                     </div>
-                    <div class="col-md-6">
-                        <label for="confirmPassword" class="form-label">Enter password again for confirmation <span>(Required)</span></label>
-                        <input type="password" class="custom-form" name="confirmPassword" id="confirmPassword" placeholder="*****" required>
+                    <div class="">
+                        <label for="confirmPassword" class="form-label"><i class="las la-lock"></i>Enter password again for confirmation <span>(Required)</span></label>
+                        <input type="password" class="password form-control" name="confirmPassword" id="confirmPassword" placeholder="*****" required>
                     </div>
                 </div>
                 <div class="form-group mt-5">

@@ -1,6 +1,5 @@
 <?php
 
-
 class Db
 {
     //Connect to the database
@@ -23,6 +22,5 @@ class Db
             echo "Connection failed: " . die($e->getMessage());
         }
     }
-
 
 }

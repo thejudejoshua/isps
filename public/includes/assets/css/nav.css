@@ -1,6 +1,6 @@
 #top-nav {
-    background-color: var(--bs-white);
-    color: var(--bs-green);
+    background-color: var(--neutral);
+    color: var(--primary);
     height: 80px;
 }
 
@@ -23,7 +23,7 @@
 
 .nav-link:hover,
 .nav-link:focus {
-    color: var(--bs-green);
+    color: var(--primary);
 }
 
 .dropdown-menu[data-bs-popper] {
@@ -32,7 +32,7 @@
 }
 
 .dropdown-item:hover {
-    background-color: var(--bs-green);
+    background-color: var(--primary);
     color: white;
 }
 
@@ -41,40 +41,49 @@
 }
 
 #side-nav {
-    background-color: var(--bs-gray-300);
+    background-color: var(--gray-600);
     height: 100vh;
-    width: 18%;
+    width: 20%;
     top: 0;
     left: 0;
-    padding: 48px 0 48px 0;
+    padding: 48px 32px 48px 0;
 }
 
 .side-link {
-    color: var(--bs-green);
-    border-radius: 0;
-    display: block;
+    border-radius: 0 32px 32px 0;
     font-weight: 700;
     margin: 0;
     padding: 18px 20px 18px 48px;
     text-align: left;
     text-decoration: none;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, border 0.4s;
     width: 100%;
+    display: flex;
+    align-items: center;
+    color: var(--gray-300);
+    border-left: 0px;
+}
+
+.side-link i {
+    font-size: 20px;
+    margin-right: 16px;
+    color: inherit;
 }
 
 .side-link:hover {
     background-color: rgb(215, 252, 220);
-    color: var(--bs-green);
+    color: var(--primary);
+    border-left: 6px solid;
 }
 
 .side-link:focus {
-    background-color: var(--bs-green);
-    color: white;
+    background-color: var(--primary);
+    color: var(--neutral);
 }
 
 .side-link.active {
-    color: var(--bs-green);
-    background-color: var(--bs-white);
+    color: var(--primary);
+    background-color: var(--neutral);
     border-left: 6px solid;
     padding-left: 38px;
 }
@@ -82,72 +91,4 @@
 .nav-pills {
     /* margin-top: 40px; */
     gap: 8px;
-}
-
-hr {
-    color: var(--bs-gray-200);
-    display: inline-block;
-    width: 100%;
-    margin: 24px 0;
-}
-
-.content-box {
-    margin: 0;
-    width: 82%;
-    padding: 0 48px 72px 48px;
-}
-
-.content {
-    width: 100%;
-}
-
-h4 {
-    font-size: 14px;
-    font-weight: 800;
-}
-
-table h4 {
-    color: var(--bs-gray-700);
-}
-
-table p {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--bs-gray-700);
-    text-transform: capitalize;
-}
-
-h4 span {
-    font-weight: 700;
-    font-size: 12px;
-    display: block;
-    color: var(--bs-gray-500);
-    margin-top: 2px;
-}
-
-.h1,
-h1 {
-    font-weight: 900;
-    font-size: 30px;
-    margin-bottom: 0;
-    color: var(--bs-green);
-}
-
-.sub-title {
-    color: darkgrey;
-    font-weight: 500;
-}
-
-#midwayBox {
-    width: 100%;
-}
-
-#midway {
-    display: inline;
-    margin-left: 20px;
-    width: 80px;
-}
-
-.col-sm-4>span {
-    padding-left: 25px;
 }

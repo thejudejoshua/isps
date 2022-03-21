@@ -1,6 +1,6 @@
 <?php
 
-class Users extends Controller
+class Projects extends Controller
 {
     public function index()
     {
@@ -12,16 +12,13 @@ class Users extends Controller
             
         }else{
 
-            $user = $this->model('User');
-            $usersList = $user->getAllUsers();
-
-            $this->view('users/index', [
-                'usersList' => $usersList
+            $this->view('projects/index', [
+                'usersList' => []
             ]);
         }
     }
 
-    public function add_user()
+    public function add_project()
     {
         if(!isset($_SESSION['logged'])){
 
@@ -30,13 +27,13 @@ class Users extends Controller
             $redirect->redirectTo($dashboard);
             
         }else{
-            $this->view('users/add_user/index', [
+            $this->view('projects/add_project/index', [
     
             ]);
         }
     }
 
-    public function view_user()
+    public function view_project()
     {
         if(!isset($_SESSION['logged'])){
 
@@ -61,7 +58,7 @@ class Users extends Controller
                 
                 if(is_array($userDataList))
                 {
-                    $this->view('users/view/index', [
+                    $this->view('projects/view/index', [
                         'userDataList' => $userDataList
                     ]);
 
