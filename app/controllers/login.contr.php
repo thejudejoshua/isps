@@ -16,8 +16,8 @@ class Login extends Controller
 
         }else{
 
-            $input = new Input;
-            $user = new User;
+            $input = $this->model('Input');
+            $user = $this->model('User');
     
             $this->view('login/index', [
     

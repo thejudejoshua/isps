@@ -4,7 +4,7 @@ class Users extends Controller
 {
     public function index()
     {
-        if(!isset($_SESSION['logged'])){
+        if(!isset($_SESSION['logged']) || $_SESSION['designation'] == 'budgeting officer'){
 
             $redirect = $this->model('Redirect');
             $dashboard = '/dashboard';
@@ -23,7 +23,7 @@ class Users extends Controller
 
     public function add_user()
     {
-        if(!isset($_SESSION['logged'])){
+        if(!isset($_SESSION['logged']) || $_SESSION['designation'] == 'budgeting officer'){
 
             $redirect = $this->model('Redirect');
             $dashboard = '/dashboard';
@@ -38,7 +38,7 @@ class Users extends Controller
 
     public function view_user()
     {
-        if(!isset($_SESSION['logged'])){
+        if(!isset($_SESSION['logged']) || $_SESSION['designation'] == 'budgeting officer'){
 
             $redirect = $this->model('Redirect');
             $dashboard = '/dashboard';
@@ -66,10 +66,12 @@ class Users extends Controller
                     ]);
 
                 }else{
-                    $this->index();
+                    $error = new Errors;
+                    $error->restricted();//403 error
                 }
             }else{
-                $this->index();
+                $error = new Errors;
+                $error->restricted();//403 error
             }
 
         }   

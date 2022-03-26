@@ -1,0 +1,249 @@
+[{
+        "Construction Type": [{
+            "label": "Construction Type",
+            "element": "select",
+            "options": {
+                "New Construction": 5,
+                "Relocation": 5,
+                "Major Widening": 0,
+                "Minor Widening": 0,
+                "Restoration/Rehabilitation": 0,
+                "New Bridge": 5,
+                "Bridge Replacement": 0,
+                "Bridge Rehabilitation": 0
+            }
+        }]
+    },
+    {
+        "Technical Considerations": [{
+                "label": "Average Daily Customers or Cargo",
+                "element": "input",
+                "type": "number",
+                "data-score": {
+                    "High": 40,
+                    "Medium": 30,
+                    "Low": 20
+                }
+            },
+            {
+                "label": "Volume to Capacity Ratio",
+                "element": "input",
+                "type": "number",
+                "data-score": {
+                    "High": 30,
+                    "Medium": 20,
+                    "Low": 10
+                }
+            },
+            {
+                "label": "Railway Classification",
+                "element": "select",
+                "options": {
+                    "Standard Guage": 30,
+                    "Single Guage": 20
+                }
+            },
+            {
+                "label": "Macro Corridor Completion",
+                "element": "select",
+                "options": {
+                    "Yes": 20,
+                    "No": 0
+                }
+            }
+        ]
+    },
+    {
+        "Regional Integration": [{
+                "label": "Enhances Inter-regional Trade",
+                "element": "select",
+                "options": {
+                    "Yes": 30,
+                    "No": 0
+                }
+            },
+            {
+                "label": "Economic benefits to other regions",
+                "element": "select",
+                "options": {
+                    "Yes": 10,
+                    "No": 0
+                }
+            },
+            {
+                "label": "Creates job oppotunities for other regions",
+                "element": "select",
+                "options": {
+                    "Yes": 10,
+                    "No": 0
+                }
+            }
+        ]
+    },
+    {
+        "Socio-Economic Development": [{
+                "label": "Number of jobs created",
+                "element": "input",
+                "type": "number",
+                "data-score": {
+                    "High": 20,
+                    "Medium": 15,
+                    "Low": 10
+                }
+            },
+            {
+                "label": "Number of jobs that would be retained",
+                "element": "input",
+                "type": "number",
+                "data-score": {
+                    "High": 15,
+                    "Medium": 10,
+                    "Low": 5
+                }
+            },
+            {
+                "label": "GDP of local economy (state)",
+                "element": "input",
+                "type": "number",
+                "data-score": {
+                    "High": 5,
+                    "Medium": 5,
+                    "Low": 5
+                }
+            },
+            {
+                "label": "Cost Effectiveness (cost/average daily traffic)",
+                "element": "input",
+                "type": "number",
+                "data-score": {
+                    "High": 15,
+                    "Medium": 10,
+                    "Low": 5
+                }
+            },
+            {
+                "label": "Project cost (amount to be spent by government)",
+                "element": "input",
+                "type": "number",
+                "data-score": {
+                    "High": 15,
+                    "Medium": 10,
+                    "Low": 5
+                }
+            },
+            {
+                "label": "Investment Payback Period (in years)",
+                "element": "input",
+                "type": "number",
+                "data-score": {
+                    "High": 20,
+                    "Medium": 15,
+                    "Low": 10
+                }
+            },
+            {
+                "label": "Compensation and Relocation",
+                "element": "select",
+                "options": {
+                    "Yes": 0,
+                    "No": 10
+                }
+            },
+            {
+                "label": "Population to be served",
+                "element": "input",
+                "type": "number",
+                "data-score": {
+                    "High": 20,
+                    "Medium": 15,
+                    "Low": 10
+                }
+            }
+        ]
+    },
+    {
+        "Environmental Considerations": [{
+                "label": "Ability to mitigate against environmental degradation",
+                "element": "select",
+                "options": {
+                    "Electric": 10,
+                    "Diesel/Gas": 0
+                }
+            },
+            {
+                "label": "Amount of Co2 Emmissions from the project",
+                "element": "input",
+                "type": "number",
+                "data-score": {
+                    "High": 15,
+                    "Medium": 10,
+                    "Low": 5
+                }
+            },
+            {
+                "label": "Environmental Impact Category",
+                "element": "select",
+                "options": {
+                    "Category A": 10,
+                    "Category B": 20,
+                    "Not known": 10
+                }
+            },
+            {
+                "label": "Waste management policy",
+                "element": "select",
+                "options": {
+                    "Yes": 10,
+                    "No": 0
+                }
+            },
+            {
+                "label": "Occupational Health and Safety policy",
+                "element": "select",
+                "options": {
+                    "Yes": 10,
+                    "No": 0
+                }
+            },
+            {
+                "label": "Use of naturally occuring materials within the corridor",
+                "element": "select",
+                "options": {
+                    "Yes": 5,
+                    "No": 0
+                }
+            }
+        ]
+    },
+    {
+        "Funding": [{
+            "label": "Private/Public/Local Participation",
+            "element": "select",
+            "options": {
+                "Fully Private": 40,
+                "PPP": 30,
+                "Fully Government": 20
+            }
+        }]
+    },
+    {
+        "Intermodal Connectivity": [{
+            "label": "Unique Multimodal Impacts",
+            "element": "select",
+            "options": {
+                "Yes": 40,
+                "No": 0
+            }
+        }]
+    },
+    {
+        "Urban Revitalisation": [{
+            "label": "Ability to spur urban renewal or compliment key business activities",
+            "element": "select",
+            "options": {
+                "Yes": 20,
+                "No": 0
+            }
+        }]
+    }
+]

@@ -2,211 +2,156 @@
     require_once './includes/components/header.php';
 ?>
 
-<div class="wrapper d-flex">
-    <?php require_once './includes/components/sideNav.php';?>
-    <div class="content-box col-md-10">
-        
-        <section class="content mt-5">
-            <a href="/projects">back to all projects</a>
-            <hr>
-            <h1>Add new projects</h1>
-            <p class="p5">Fill the form below to create a new project.</>
-            <hr>
-            <form id="newProjectForm" class="d-flex flex-column signin-form">
-                <div class="form-group">
-                    <div class="rem">
-                        <label for="projectName" class="form-label">Project Name<span>(Required)</span></label>
-                        <input type="text" class="form-control" name="projectName" id="projectName" placeholder="E.g. Construction of Ninth Mile" required>
-                    </div>
-                </div>
-                <div class="col-12 m-0">
-                    <label for="projectName" class="form-label">Project Name</label>
-                    <input type="text" class="custom-form" name="projectName" id="projectName"
-                        placeholder="Enter project name" required>
-                </div>
-                <div class="col-12">
-                    <label for="projectDesc" class="form-label">Project Description</label>
-                    <textarea class="custom-form" name="projectDescription" id="projectDesc" cols="30" rows="3"
-                        placeholder="Enter project description" required></textarea>
-                </div>
-                <div class="col-4">
-                    <label for="projectYear" class="form-label">Project Start Year</label>
-                    <input type="number" class="custom-form" name="projectYear" id="projectYear" min="0"
-                        placeholder="Enter start year" required>
-                </div>
-                <div class="col-4">
-                    <label for="projectDur" class="form-label">Project Duration (In Years)</label>
-                    <input type="number" class="custom-form" name="projectDuration" id="projectDur" min="0"
-                        placeholder="Enter duration" required>
-                </div>
+    <div class="wrapper d-flex">
+        <?php require_once './includes/components/sideNav.php';?>
+        <div class="content-box v100h">
 
-                <div class="col-4">
-                    <label for="projectCost" class="form-label">Project Cost (In Naira)</label>
-                    <input type="number" class="custom-form" name="projectCost" id="projectCost" min="0"
-                        placeholder="Enter cost" required>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="projectSector" class="form-label">Project Sector</label>
-                    <select id="projectSector" name="projectSector" class="custom-form" required>
-                        <option value="" disabled selected hidden>Choose...</option>
-                        <option>Highway Construction</option>
-                        <option>Railway Construction</option>
-                        <option>Power Generation</option>
-                        <option>Power Transmission</option>
-                        <option>Water Supply</option>
-                    </select>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="projectState" class="form-label">Project State</label>
-                    <select name="projecState" id="projectState" class="custom-form" required>
-                        <option value="" disabled selected hidden>Choose...</option>
-                        <option>State</option>
-                    </select>
-                </div>
-
-                <div class="col-md-4">
-                    <label for="projectLga" class="form-label">Project LGA</label>
-                    <select name="projectLGA" id="projectLga" class="custom-form" required>
-                        <option value="" disabled selected hidden>Choose...</option>
-                        <option>LGA</option>
-                    </select>
-                </div>
-
-                <h3 class="form-sep">Project Origin Information</h3>
-
-                <div class="col-md-6">
-                    <label for="originState" class="form-label">Origin State</label>
-                    <select name="originState" id="originState" class="custom-form">
-                        <option selected>Choose...</option>
-                        <option>State</option>
-                    </select>
-                </div>
-
-                <div class="col-6">
-                    <label for="originCity" class="form-label">Origin City</label>
-                    <input type="text" class="custom-form" name="originCity" id="originCity"
-                        placeholder="Enter Origin City">
-                </div>
-                <div class="col-6">
-                    <label for="originLongitude" class="form-label">Origin Longitude</label>
-                    <input type="text" class="custom-form" name="originLongitude" id="originLongitude"
-                        placeholder="Enter Origin Longitude">
-                </div>
-                <div class="col-6">
-                    <label for="originLatitude" class="form-label">Origin Latitude</label>
-                    <input type="text" class="custom-form" name="originLatitude" id="originLatitude"
-                        placeholder="Enter Origin Latitude">
-                </div>
-
-                <h3 class="form-sep">Project Midway Information (if any)</h3>
-
-                <div class="col-12" id="mid-box">
-                    <label for="midway" class="form-label">Number of midway points:</label>
-                    <input type="number" class="custom-form" id="midway" min="0" max="3" placeholder="0">
-                </div>
-
-                <h3 class="form-sep">Project Destination Information</h3>
-
-                <div class="col-md-6">
-                    <label for="destState" class="form-label">Destination State</label>
-                    <select name="destinationState" id="destState" class="custom-form">
-                        <option selected>Choose...</option>
-                        <option>State</option>
-                    </select>
-                </div>
-                <div class="col-6">
-                    <label for="destCity" class="form-label">Destination City</label>
-                    <input type="text" class="custom-form" name="destinationCity" id="destCity"
-                        placeholder="Enter Destination City">
-                </div>
-                <div class="col-6">
-                    <label for="destLongitude" class="form-label">Destination Longitude</label>
-                    <input type="text" class="custom-form" name="destinationLongitude" id="destLongitude"
-                        placeholder="Enter Destination Longitude">
-                </div>
-                <div class="col-6">
-                    <label for="destLatitude" class="form-label">Destination Latitude</label>
-                    <input type="text" class="custom-form" name="destinationLatitude" id="destLatitude"
-                        placeholder="Enter Destination Latitude">
-                </div>
-
-                <div class="col-12">
-                    <!-- <button type="submit" id="proceedBtn" class="btn custom-btn">Next</button> -->
-                    <a id="proceedBtn" href="highway-construction.html" class="btn custom-btn">Next</a>
-
-                </div>
-            </form>
-            <form id="newUserForm" class="d-flex flex-column signin-form">
-                <div class="form-group dual">
+            <section class="content mt-5">
+                <a href="/projects">back to all projects</a>
+                <hr>
+                <h2>Add new project</h2>
+                <p class="p5">Fill the form below to create a new project.</p>
+                <hr>
+                <form id="newProjectForm" class="d-flex flex-column">
                     <div class="">
-                        <label for="firstName" class="form-label">Enter first name <span>(Required)</span></label>
-                        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="Enter first name" required>
+                        <div class="form-group">
+                            <div class="full-width">
+                                <label for="projectName" class="form-label">Project Name <span>(Required)</span></label>
+                                <input type="text" class="form-control" name="projectName" id="projectName" placeholder="E.g. Construction of Ninth Mile" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="full-width">
+                                <label for="projectDescription" class="form-label">Project Description <span>(Required)</span></label>
+                                <textarea class="form-control" name="projectDescription" id="projectDescription" rows="4" placeholder="E.g. XYZ Project Description" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group dual">
+                            <div class="">
+                                <label for="projectStartYear" class="form-label">Project Start Year <span>(Required)</span></label>
+                                <input type="number" class="form-control" name="projectStartYear" id="projectStartYear" min="1920" max="2100" placeholder="E.g. 2022" required>
+                            </div>
+                            <div class="">
+                                <label for="projectDuration" class="form-label">Project Duration (In Years) <span>(Required)</span></label>
+                                <input type="number" class="form-control" name="projectDuration" id="projectDuration" min="0" placeholder="E.g. 4" required>
+                            </div>
+                            <div class="">
+                                <label for="projectCost" class="form-label">Project Cost (In Naira) <span>(Required)</span></label>
+                                <input type="text" class="form-control" name="projectCost" id="projectCost" placeholder="E.g. 2,309,332" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="full-width">
+                                <label for="projectSector" class="form-label">Project Sector <span>(Required)</span></label>
+                                <select id="projectSector" name="projectSector" class="form-control" required readonly>
+                                    <option value="" disabled selected hidden>Select a sector...</option>
+                                    <?php
+                                        foreach($data['sectorList'] as $key => $sector){
+                                            echo '
+                                                <option value="'.$sector['sector_name'].'">'.$sector['sector_name'].'</option>
+                                            ';
+                                        }
+                                    ?>
+                                </select>
+                            </div>
+                            <!-- <div class="">
+                                <label for="projectState" class="form-label">Project State <span>(Required)</span></label>
+                                <input type="text" class="form-control state" name="projecState" id="projectState" placeholder="E.g. Adamawa">
+                                <div class="show-off"></div>
+                            </div>
+                            <div class="">
+                                <div class="col-md-4">
+                                    <label for="projectLga" class="form-label">Project LGA</label>
+                                    <select type="text" class="form-control lga" name="projectLGA" id="projectLga" placeholder="E.g. Gombi" required>
+                                        <option selected hidden disabled>Select LGA...</option>
+                                    </select>
+                                </div>
+                            </div> -->
+                        </div>
                     </div>
-                    <div class="">
-                        <label for="lastName" class="form-label">Enter last name <span>(Required)</span></label>
-                        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter last name" required>
+                    <div class="form-group">
+                        <div class="full-width">
+                            <fieldset>
+                                <legend class="form-sep">Project Origin Information</legend>
+                                <div class="form-group dual">
+                                    <div class="">
+                                        <label for="originState" class="form-label">Project Origin State <span>(Required)</span></label>
+                                        <input type="text" class="form-control state" name="originState" id="originState" placeholder="E.g. Adamawa" required>
+                                        <div class="show-off"></div>
+                                    </div>
+                                    <div class="">
+                                        <div class="col-md-4">
+                                            <label for="originLGA" class="form-label">Project Origin LGA <span>(Required)</span></label>
+                                            <select type="text" class="form-control lga" name="originLGA" id="originLGA" placeholder="E.g. Gombi" required>
+                                                <option selected hidden disabled>Select LGA...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group dual">
+                                    <div class="">
+                                        <label for="originLongitude" class="form-label">Project Origin Longitude</label>
+                                        <input type="text" class="form-control lng" name="originLongitude" id="originLongitude" readonly placeholder="E.g. 3.4000">
+                                    </div>
+                                    <div class="">
+                                        <div class="col-md-4">
+                                            <label for="originLatitude" class="form-label">Project Origin Latitude</label>
+                                            <input type="text" class="form-control lat" name="originLatitude" id="originLatitude" readonly placeholder="E.g. 6.4500">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset id="mid-box">
+                                <legend class="form-sep">Project Midway Information (if any)</legend>
+                                <div class="form-group dual">
+                                    <label for="midway" class="form-label">Number of midway points:</label>
+                                    <div class="midway-actions">
+                                        <span id="minus">-</span>
+                                        <input readonly type="number" class="form-control" name="midwayPoints" id="midway" min="0" max="3" placeholder="0">
+                                        <span id="plus">+</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <legend class="form-sep">Project Destination Information</legend>
+                                <div class="form-group dual">
+                                    <div class="">
+                                        <label for="destState" class="form-label">Project Destination State <span>(Required)</span></label>
+                                        <input type="text" class="form-control state" name="destinationState" id="destState" placeholder="E.g. Adamawa" required>
+                                        <div class="show-off"></div>
+                                    </div>
+                                    <div class="">
+                                        <div class="col-md-4">
+                                            <label for="destinationLGA" class="form-label">Project Destination LGA <span>(Required)</span></label>
+                                            <select type="text" class="form-control lga" name="destinationLGA" id="destinationLGA" placeholder="E.g. Gombi" required>
+                                                <option selected hidden disabled>Select LGA...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group dual">
+                                    <div class="">
+                                        <label for="destinationLongitude" class="form-label">Project Destination Longitude</label>
+                                        <input type="text" class="form-control lng" name="destinationLongitude" id="destinationLongitude" readonly placeholder="E.g. 3.4000">
+                                    </div>
+                                    <div class="">
+                                        <div class="col-md-4">
+                                            <label for="destinationLatitude" class="form-label">Project Destination Latitude</label>
+                                            <input type="text" class="form-control lat" name="destinationLatitude" id="destinationLatitude" readonly placeholder="E.g. 6.4500">
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </diV>
+                    <div class="form-group">
+                        <button type="submit" class="btn" id="btn-submit">Enter Project Metrics</button>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="rem">
-                        <label for="phoneNumber" class="form-label">Enter phone number <span>(Required)</span></label>
-                        <input type="tel" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="08120323923" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="rem">
-                        <label for="email" class="form-label">Enter an email address <span>(Required)</span></label>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="example@email.com" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="rem">
-                        <label for="sector" class="form-label">Select a Sector <span>(Required)</span></label>
-                        <select id="sector" name="sector" class="form-control" required>
-                            <option value="" disabled selected hidden>Choose...</option>
-                            <option>Highway Construction</option>
-                            <option>Railway Construction</option>
-                            <option>Power Generation</option>
-                            <option>Power Transmission</option>
-                            <option>Water Supply</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="rem">
-                        <label for="designaton" class="form-label">Choose a designation <span>(Required)</span></label>
-                        <select id="designaton" name="designaton" class="form-control" required>
-                            <option value="" disabled selected hidden>Choose...</option>
-                            <option value="budgeting officer" data-rank="level 1">Budgeting Officer</option>
-                            <option value="director" data-rank="Level 2">Director</option>
-                            <option value="secretariat" data-rank="Level 3">Secretariat</option>
-                        </select>
-                        <input type="hidden" name="rank" id="rank" class="form-control"/>
-                    </div>
-                </div>
-                <div class="form-group dual">
-                    <div class="">
-                        <label for="password" class="form-label"><i class="las la-lock"></i>Enter a password <span>(Required)</span></label>
-                        <input type="password" class="password form-control" name="password" id="password" placeholder="*****" required>
-                        <span id="toggle-pass" class="las la-eye"></span>
-                    </div>
-                    <div class="">
-                        <label for="confirmPassword" class="form-label"><i class="las la-lock"></i>Enter password again for confirmation <span>(Required)</span></label>
-                        <input type="password" class="password form-control" name="confirmPassword" id="confirmPassword" placeholder="*****" required>
-                    </div>
-                </div>
-                <div class="form-group mt-5">
-                    <div class="col-12">
-                        <button type="submit" id="btn-submit" class="btn custom-btn">Save User Data</button>
-                    </div>
-                </div>
-            </form>
-        </section>
+                </form>
+            </section>
+        </div>
     </div>
-</div>                
 
-<?php
+    <?php
     require_once './includes/components/footer.php';
 ?>

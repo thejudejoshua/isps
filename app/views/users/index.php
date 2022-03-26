@@ -4,7 +4,7 @@
 
 <div class="wrapper d-flex">
     <?php require_once './includes/components/sideNav.php';?>
-    <div class="content-box col-md-10">
+    <div class="content-box v100h">
         <section class="content mt-5">
             <div class="top-title d-flex justify-content-between align-items-center">
                 <div class="">

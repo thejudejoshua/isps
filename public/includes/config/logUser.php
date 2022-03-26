@@ -1,15 +1,6 @@
 <?php
 
-spl_autoload_register(
-    function($cFile){
-        $fullPath = "../../../app/models/" . $cFile . ".model.php";
-        if(!file_exists($fullPath)){
-            return false;
-        }else{
-            include_once $fullPath;
-        }
-    }
-);
+require_once 'config.php';
 
 switch($_POST){
     case isset($_POST['email']):

@@ -17,6 +17,12 @@ class App{
                 $this->controller = $url[0];
                 unset($url[0]);
             }
+            else
+            {
+                $this->controller = 'errors';
+                $this->method = 'not_found';
+                unset($url[0]);
+            }
         }
 
         require_once '../app/controllers/'. $this->controller . '.contr.php';
@@ -41,7 +47,7 @@ class App{
     protected function parseUrl()
     {
         if(isset($_GET['url'])){
-            return $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+            return $url = explode('/', str_replace('\/', ' ', filter_var(str_replace(' ', '\/', rtrim($_GET['url'], '/')), FILTER_SANITIZE_URL)));
         }
     }
 

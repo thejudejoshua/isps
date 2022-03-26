@@ -3,7 +3,6 @@
     font-weight: 900;
     font-stretch: normal;
     font-style: normal;
-    letter-spacing: 3.2px;
 }
 
 h1,
@@ -12,7 +11,17 @@ h1,
     font-weight: 900;
     font-stretch: normal;
     font-style: normal;
-    letter-spacing: 1.44px;
+}
+
+span.description {
+    color: var(--gray-600);
+    display: block;
+    font-style: italic;
+}
+
+span.description span {
+    font-weight: 800;
+    font-style: normal;
 }
 
 h2,
@@ -21,7 +30,6 @@ h2,
     font-weight: 900;
     font-stretch: normal;
     font-style: normal;
-    letter-spacing: 0.64px;
 }
 
 h3,

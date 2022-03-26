@@ -91,6 +91,33 @@ Class User extends Db
         }
     }
 
+    public function checkFindUser($email)
+    {
+        try{
+            $send = "SELECT `dev_admin`.`id`, `dev_admin`.`firstName`, `dev_admin`.`lastName` FROM `dev_admin`WHERE`dev_admin`.`email` = :email
+                    UNION ALL
+                    SELECT `budgeting officer`.`id`, `budgeting officer`.`firstName`, `budgeting officer`.`lastName` FROM `budgeting officer` WHERE `budgeting officer`.`email` = :email
+                    UNION ALL
+                    SELECT `director`.`id`, `director`.`firstName`, `director`.`lastName` FROM `director` WHERE `director`.`email` = :email
+                    UNION ALL
+                    SELECT `secretariat`.`id`, `secretariat`.`firstName`, `secretariat`.`lastName` FROM `secretariat` WHERE `secretariat`.`email` = :email";
+            $stmt = $this->connect()->prepare($send);
+            $stmt->execute([
+                ':email' => $email,
+                ':email' => $email,
+                ':email' => $email,
+                ':email' => $email
+            ]);
+            if($stmt->rowCount() > 0){
+                return "error=The email has already been used for another user. Try again.";
+            }else{
+                return 'pass!';
+            }
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
     public function getAllUsers()
     {
         try{
