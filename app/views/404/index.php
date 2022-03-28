@@ -46,11 +46,7 @@
                     <div class="results-error-description">
                         <p class="p5">I didn't see a need for the file anymore, so I moved it out.</br>Try this links instead:</p>
                         <div class="return-links">
-                            <a href="/">Home</a>
-                            <a href="/about">About Me</a>
-                            <a href="/portfolio">Past works</a>
-                            <a href="/cv">CV</a>
-                            <a href="/contact">Send a message</a>
+                            <a href="/dashboard">Home</a>
                         </div>
                     </div>
                 </section>

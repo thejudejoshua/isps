@@ -46,11 +46,7 @@
                     <div class="results-error-description">
                         <p class="p5">Your visitor's badge does not have the access to view this.</br>Try this links instead:</p>
                         <div class="return-links">
-                            <a href="/">Home</a>
-                            <a href="/about">About Me</a>
-                            <a href="/portfolio">Past works</a>
-                            <a href="/cv">CV</a>
-                            <a href="/contact">Send a message</a>
+                            <a href="/dashboard">Home</a>
                         </div>
                     </div>
                 </section>

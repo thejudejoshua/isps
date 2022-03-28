@@ -11,7 +11,7 @@
                     <h1 class="title">All Users</h1>
                     <p class="p5">All created users are displayed here</p>
                 </div>
-                <a href="/users/add" class="custom-btn">+ Add User</a>
+                <a href="/users/add" class="btn">+ Add User</a>
             </div>
             <hr>
             <table>
