@@ -11,7 +11,7 @@ class Dashboard extends Controller
             $redirect->redirectTo($login);
             
         }else{
-            $this->view('dashboard/index', [
+            $this->views('dashboard/index', [
     
             ]);
         }

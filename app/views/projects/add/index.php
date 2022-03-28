@@ -37,22 +37,13 @@
                             </div>
                             <div class="">
                                 <label for="projectCost" class="form-label">Project Cost (In Naira) <span>(Required)</span></label>
-                                <input type="text" class="form-control" name="projectCost" id="projectCost" placeholder="E.g. 2,309,332" required>
+                                <input type="text" class="form-control number-input" name="projectCost" id="projectCost" placeholder="E.g. 2,309,332" required>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="full-width">
                                 <label for="projectSector" class="form-label">Project Sector <span>(Required)</span></label>
-                                <select id="projectSector" name="projectSector" class="form-control" required readonly>
-                                    <option value="" disabled selected hidden>Select a sector...</option>
-                                    <?php
-                                        foreach($data['sectorList'] as $key => $sector){
-                                            echo '
-                                                <option value="'.$sector['sector_name'].'">'.$sector['sector_name'].'</option>
-                                            ';
-                                        }
-                                    ?>
-                                </select>
+                                <input type="text" class="form-control" name="projectSector" id="projectSector" value="<?=$_SESSION['sector']?>" placeholder="E.g. Power Generator" readonly required>
                             </div>
                             <!-- <div class="">
                                 <label for="projectState" class="form-label">Project State <span>(Required)</span></label>

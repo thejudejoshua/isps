@@ -74,4 +74,81 @@ switch($_POST){
             break;
         }
     break;
+
+    case isset($_POST['Construction_Type']):
+        switch (true) {
+            default:
+                $project = new Project;
+                $input = new Input;
+                
+                foreach ($_POST as $key => $value) {
+                    isset($key) ? $key : '';
+                }
+                $array = $_POST;
+               
+                $emptyCheck = $input->caseEmpty($array);
+                if($emptyCheck === true){
+                    if($array['sector'] == 'Railway Construction'){
+                        $table_prefix = 'railway';
+                        $addedMetricsId = $project->addRailWayProjectMetrics($array);
+                    }
+
+                    $metricsData = $project->getMetrics($array['sector']);
+                    foreach ($metricsData as $key => $metrics){
+                        $metrics_data = json_decode($metrics['metrics_data'], TRUE);
+                    }
+
+                    foreach($metrics_data as $key => $val){
+                        foreach($val as $key => $metrics){
+                            foreach($metrics as $key => $label){
+                                foreach ($array as $formDataKey => $value) {
+                                    $newDataKey = str_replace('_', ' ', $formDataKey); //remove the underscore from the form-input names as in the $array
+                                    if($newDataKey === $label['label']){ //check if form-input and metrics label are the same
+                                        if($label['element'] == 'select')
+                                        {
+                                            $array[$formDataKey] = $label['options'][$value];
+                                        }else
+                                        {
+                                            $input = str_replace(',', '', $value);//remove all the commas from input formatting
+                                            $sql = "SELECT `id`, `".$formDataKey."` FROM `".$table_prefix."_projects_metrics` ORDER BY `".$formDataKey."` DESC";
+                                            $result = $project->runQuery($sql);
+                                            foreach ($result as $resultKey => $data)
+                                            {
+                                                if($addedMetricsId == $data['id'])
+                                                {
+                                                    $matches = array_search($data, $result) + 1;
+                                                    if($matches < ceil(count($result)/2))
+                                                    {
+                                                        $array[$formDataKey] = $label['data-score']['High'];
+                                                    }elseif($matches > ceil(count($result)/2))
+                                                    {
+                                                        $array[$formDataKey] = $label['data-score']['Medium'];
+                                                    }else
+                                                    {
+                                                        $array[$formDataKey] = $label['data-score']['Low'];
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    $score_array = $array;
+                    array_pop($score_array);
+                    array_pop($score_array);
+                    
+                    $total_score = array_sum($score_array);
+                    $array['total_score'] = $total_score;
+                    $array['metrics_id'] = $addedMetricsId;
+
+                    echo $project->addRailWayProjectScores($array);
+
+                }else{
+                    echo $emptyCheck;
+                }
+            break;
+        }
+    break;
 }

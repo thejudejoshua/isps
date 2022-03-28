@@ -19,7 +19,7 @@ class Login extends Controller
             $input = $this->model('Input');
             $user = $this->model('User');
     
-            $this->view('login/index', [
+            $this->views('login/index', [
     
             ]);
 

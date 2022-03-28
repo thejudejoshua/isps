@@ -140,7 +140,7 @@ $(document).ready(function() {
             type: "POST",
             success: function(response) {
                 $('body').replaceWith(response);
-                history.pushState(" ", " ", "/users/view_user");
+                history.pushState(" ", " ", "/users/view");
             }
         })
     });
@@ -296,7 +296,8 @@ $(document).ready(function() {
     //=================================================================================================
     //                                             A D D  P R O J E C T S
     //=================================================================================================
-    $('input#projectCost').keyup(function(e) {
+
+    $('input.number-input').keyup(function(e) {
         $(this).val(function(index, value) {
             // Keep only digits and decimal points:
             return value
@@ -359,6 +360,46 @@ $(document).ready(function() {
     //     }, 500);
 
     // });
+
+    $('#newProjectMetricsForm #btn-submit').click(function(e) {
+        e.preventDefault();
+        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        let link = '/includes/config/addProject.php';
+        let form = $('#newProjectMetricsForm')[0]; // You need to use standard javascript object here
+        let data = new FormData(form);
+
+        $.ajax({
+            url: link,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            data: data,
+            success: function(response) {
+                if (response.split("=")[0] === 'success!') {
+                    href = response.split("=")[1];
+                    // $('#recha').remove();
+                    alert('The project metrics was saved successfully!');
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 500);
+                } else {
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        const error_element = error[1].split("for ")[1];
+
+                        $('html, body').animate({
+                            scrollTop: $("#" + error_element).offset().top - 100
+                        }, 1000);
+
+                        alert(error[1]);
+                    } else {
+                        alert(response)
+                    }
+                    // $('#recha').remove();
+                }
+            }
+        })
+    });
 
     //=================================================================================================
     //                                             M O D A L  C L O S E

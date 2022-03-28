@@ -160,15 +160,4 @@ Class User extends Db
         }
     }
 
-    public function runQuery($sql)//inset query to run to database
-    {
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute();
-        if($stmt->rowCount() == 0){
-            return false;
-        }else{
-            $data = $stmt->fetchAll();
-            return $data;
-        }
-    }
 }

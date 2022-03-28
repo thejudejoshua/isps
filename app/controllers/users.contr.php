@@ -15,13 +15,13 @@ class Users extends Controller
             $user = $this->model('User');
             $usersList = $user->getAllUsers();
 
-            $this->view('users/index', [
+            $this->views('users/index', [
                 'usersList' => $usersList
             ]);
         }
     }
 
-    public function add_user()
+    public function add()
     {
         if(!isset($_SESSION['logged']) || $_SESSION['designation'] == 'budgeting officer'){
 
@@ -30,13 +30,13 @@ class Users extends Controller
             $redirect->redirectTo($dashboard);
             
         }else{
-            $this->view('users/add_user/index', [
+            $this->views('users/add/index', [
     
             ]);
         }
     }
 
-    public function view_user()
+    public function view()
     {
         if(!isset($_SESSION['logged']) || $_SESSION['designation'] == 'budgeting officer'){
 
@@ -61,7 +61,7 @@ class Users extends Controller
                 
                 if(is_array($userDataList))
                 {
-                    $this->view('users/view/index', [
+                    $this->views('users/view/index', [
                         'userDataList' => $userDataList
                     ]);
 

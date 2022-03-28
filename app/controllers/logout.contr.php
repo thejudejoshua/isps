@@ -4,7 +4,7 @@
     {
         public function index()
         {
-            $this->view('logout/index', []);
+            $this->views('logout/index', []);
         }
 
     }

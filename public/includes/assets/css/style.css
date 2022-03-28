@@ -58,17 +58,16 @@
 html,
 body {
     width: 100%;
-    height: 100vh;
     background: var(--neutral);
     scroll-behavior: smooth;
     color: var(--gray-800);
-    min-height: 100%;
+    height: 100%;
     font-family: 'Roboto', sans-serif !important;
     font-size: 12px;
 }
 
 body {
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 .d-flex {
@@ -158,7 +157,9 @@ span#toggle-pass:hover {
     margin: 0;
     width: 80%;
     padding: 72px 48px 72px 48px;
-    overflow-y: auto
+    overflow-y: auto;
+    left: 20%;
+    height: 100%;
 }
 
 hr {
@@ -191,7 +192,7 @@ hr {
 }
 
 .v100h {
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 .modal {
@@ -199,6 +200,7 @@ hr {
     top: 0;
     left: 0;
     background-color: rgba(24, 24, 24, 0.7);
+    height: 100%;
 }
 
 .modal-content {
@@ -212,6 +214,11 @@ hr {
 .modal-content-cta {
     margin-top: 24px;
     gap: 12px;
+}
+
+.modal-content-cta .btn {
+    padding-left: 32px;
+    padding-right: 32px;
 }
 
 .fadeOut {

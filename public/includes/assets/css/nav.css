@@ -47,6 +47,8 @@
     top: 0;
     left: 0;
     padding: 48px 32px 48px 0;
+    position: fixed;
+    z-index: 100;
 }
 
 .side-link {
@@ -91,4 +93,38 @@
 .nav-pills {
     /* margin-top: 40px; */
     gap: 8px;
+}
+
+.nav-pills li ul {
+    padding-left: 30px;
+    padding-top: 10px;
+    display: none;
+}
+
+.nav-pills li ul {
+    padding-left: 30px;
+    padding-top: 10px;
+    display: none;
+}
+
+.nav-pills li ul .side-link {
+    border-radius: 32px;
+    border-left: 0;
+    margin-bottom: 8px;
+    padding: 14px 36px;
+}
+
+.nav-pills li ul .side-link::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-top: 4px solid transparent;
+    border-left: 5px solid;
+    border-bottom: 4px solid transparent;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+.nav-pills li .side-link.active~ul {
+    display: block;
 }

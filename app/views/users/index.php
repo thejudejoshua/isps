@@ -11,7 +11,7 @@
                     <h1 class="title">All Users</h1>
                     <p class="p5">All created users are displayed here</p>
                 </div>
-                <a href="/users/add_user" class="custom-btn">+ Add User</a>
+                <a href="/users/add" class="custom-btn">+ Add User</a>
             </div>
             <hr>
             <table>
@@ -34,7 +34,7 @@
                                     <td><p class="p5">'.$user['designation'].'</p></td>
                                     <td><p class="p5">'.date('d M, Y', strtotime( $user['date_added'])).'</p></td>
                                     <td>
-                                        <a href="/users/view_user?role='.$user['designation'].'&id='.$user['id'].'" class="action view-user">View</a>
+                                        <a href="/users/view?role='.$user['designation'].'&id='.$user['id'].'" class="action view-user">View</a>
                                         <a href="#" class="action">Delete</a>
                                     </td>
                                 </tr>

@@ -16,7 +16,7 @@
             return new $model;
         }
 
-        protected function view($view, $data = [])
+        protected function views($view, $data = [])
         {
             require_once '../app/views/' . $view . '.php';
         }
