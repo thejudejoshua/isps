@@ -14,9 +14,8 @@ switch($_POST){
                     'last name'=>$_POST['lastName'],
                     'phone number'=>$_POST['phoneNumber'],
                     'email'=>$_POST['email'],
-                    'sector'=>isset($_POST['sector']) ? $_POST['sector'] : '',
+                    'sector'=>$_POST['sector'],
                     'designation'=>isset($_POST['designaton']) ? $_POST['designaton'] : '',
-                    'rank'=>isset($_POST['designaton']) && $_POST['designaton'] != 'secretariat' ? $_POST['rank'] : '',
                     'password'=>$_POST['password'],
                     'confirm password'=>$_POST['confirmPassword'],
                 ];
@@ -25,6 +24,29 @@ switch($_POST){
                 if($emptyCheck === true){
                     $checkEmail = $input->checkEmail($array['email']);
                     if ($checkEmail == $array['email']) {
+
+                        switch ($array['designation']) {
+                            case 'secretariat':
+                                $array['rank'] = '3';
+                                $array['approved'] = '1';
+                                $array['level'] = NULL;
+                                break;
+                                
+                            case 'director':
+                                $array['rank'] = '2';
+                                $array['approved'] = '0';
+                                $array['level'] = $_POST['rank'];
+                                break;
+                                
+                            default:
+                                $array['rank'] = '1';
+                                $array['approved'] = '0';
+                                $array['level'] = $_POST['rank'];
+                                break;
+                        }
+
+                        $array['date_added'] = date("Y-m-d");
+
                         $passed = $user->checkFindUser($array['email']);
 
                         if($passed == 'pass!'){

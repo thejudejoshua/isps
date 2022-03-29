@@ -4,7 +4,7 @@
 
 <div class="wrapper d-flex">
     <?php require_once './includes/components/sideNav.php';?>
-    <div class="content-box v100h">
+    <div class="content-box">
         <?php
             foreach ($data['userDataList'] as $user) {
                 echo '

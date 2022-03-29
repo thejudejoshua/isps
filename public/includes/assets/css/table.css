@@ -16,30 +16,50 @@ thead {
 
 th {
     text-align: left;
-    padding: 36px 32px 4px;
-    color: var(--gray-700);
+    padding: 24px 20px 24px;
+    color: var(--neutral);
     /* border-bottom: 1px solid var(--gray-200); */
     margin-bottom: 24px;
-    /* background: var(--gray-200); */
+    background: var(--primary);
 }
 
 th:first-child,
 td:first-child {
-    padding-left: 0;
+    padding-left: 36px;
+}
+
+th:last-child {
+    border-radius: 0 32px 32px 0;
+}
+
+th:first-child {
+    border-radius: 32px 0 0 32px;
 }
 
 td {
     text-align: left;
-    padding: 8px 32px 16px;
+    padding: 20px 32px 20px;
     vertical-align: middle;
 }
 
 tr:last-child td {
-    padding-bottom: 40px;
+    padding-bottom: 24px;
 }
 
 tr:first-child td {
     padding-top: 32px;
+}
+
+tbody tr:nth-child(even) {
+    background: var(--gray-200);
+}
+
+tbody tr:nth-child(even) td:first-child {
+    border-radius: 36px 0 0 36px;
+}
+
+tbody tr:nth-child(even) td:last-child {
+    border-radius: 0 36px 36px 0;
 }
 
 .action:last-child {
@@ -51,20 +71,20 @@ tr:first-child td {
 }
 
 .action {
-    border: 1px solid var(--gray-500);
+    border: 1px solid var(--primary);
     border-radius: 25px;
     padding: 7px 24px;
     text-decoration: none;
-    background-color: var(--gray-200);
-    color: var(--gray-800);
+    background-color: #d7fcdc;
+    color: var(--primary);
     display: inline-block;
     margin-right: 10px;
     transition: background 0.4s, color 0.4s;
 }
 
 .action:hover {
-    background-color: var(--gray);
-    border-color: var(--gray);
+    background-color: var(--primary);
+    border-color: var(--primary);
     color: var(--neutral);
 }
 
@@ -73,8 +93,8 @@ table h5 {
 }
 
 table p {
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 12px !important;
+    font-weight: 700 !important;
     color: var(--gray-700);
     text-transform: capitalize;
 }

@@ -14,8 +14,7 @@ class Projects extends Controller
 
             $project = $this->model('Project');
             $emptyMetrics = $project->findEmptyMetrics($_SESSION['name']);
-            // $allProjects  = $project->getAllProjects($_SESSION['sector']);
-            $allProjects  = $project->getAllProjects();
+            $allProjects  = $project->getAllUserSectorProjects($_SESSION['sector']);
 
             $this->views('projects/index', [
                 'emptyMetrics' => $emptyMetrics,
@@ -40,7 +39,7 @@ class Projects extends Controller
         }
     }
 
-    public function view()
+    public function view($sector = '', $projectname = '', $id = '')
     {
         if(!isset($_SESSION['logged'])){
 
@@ -49,34 +48,55 @@ class Projects extends Controller
             $redirect->redirectTo($dashboard);
             
         }else{
-            if(isset($_GET['id']) && isset($_GET['role']))
+            if(isset($id) && isset($sector) && isset($projectname))
             {
-
-                $array = [(INT)$_GET['id'], $_GET['role']];
-
+                
+                $array = [$id, $sector];
+                
                 $input = $this->model('Input');
                 $user = $this->model('User');
-
+                $project = $this->model('Project');
+                
                 $input->sanitizeInput($array);
                 $id = $array[0];
-                $role = $array[1];
+                $sector = $array[1];
 
-                $userDataList = $user->getUserData($id, $role);
-                
-                if(is_array($userDataList))
-                {
-                    $this->views('projects/view/index', [
-                        'userDataList' => $userDataList
-                    ]);
+                $projectData = $project->getProjectData($id);
+                $metricsData = $project->getMetrics($sector);
+              
+                $this->views('projects/view/index', [
+                    'project' => $projectname,
+                    'sector' => $sector,
+                    'id' => $id,
+                    'metricsData' => $metricsData,
+                    'projectData' => $projectData,
+                ]);
 
-                }else{
-                    $this->index();
-                }
             }else{
-                $this->index();
+                $error = new Errors;
+                $error->not_found();//404 error
             }
 
         }   
+    }
+
+    public function approve()
+    {
+        if(!isset($_SESSION['logged'])){
+
+            $redirect = $this->model('Redirect');
+            $dashboard = '/dashboard';
+            $redirect->redirectTo($dashboard);
+            
+        }else{
+
+            $project = $this->model('Project');
+            $allProjects  = $project->getUnapprovedProjects($_SESSION['sector']);
+
+            $this->views('projects/approve/index', [
+                'projectsList' => $allProjects
+            ]);
+        }
     }
     
     public function metrics($projectname = '', $id = '', $sector = '')

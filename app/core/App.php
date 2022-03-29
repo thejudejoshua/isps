@@ -36,6 +36,14 @@ class App{
                 $this->method = $url[1];
                 unset($url[1]);
             }
+            else
+            {
+                $this->controller = 'errors';
+                $this->method = 'not_found';
+                unset($url[1]);
+                require_once '../app/controllers/'. $this->controller . '.contr.php';
+                $this->controller = new $this->controller;
+            }
         }
 
         $this->params = $url ? array_values($url) : [];

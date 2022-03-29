@@ -13,7 +13,11 @@ class Users extends Controller
         }else{
 
             $user = $this->model('User');
-            $usersList = $user->getAllUsers();
+            if($_SESSION['sector'] == 'dev_admin_sector'){
+                $usersList = $user->getAllUsers();
+            }else{
+                $usersList = $user->getAllSectorUsers($_SESSION['sector']);
+            }
 
             $this->views('users/index', [
                 'usersList' => $usersList

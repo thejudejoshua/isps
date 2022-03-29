@@ -4,13 +4,17 @@
 
     <div class="wrapper d-flex">
         <?php require_once './includes/components/sideNav.php';?>
-        <div class="content-box v100h">
+        <div class="content-box">
 
             <section class="content mt-5">
                 <a href="/projects">back to all projects</a>
                 <hr>
-                <h2>Add new project</h2>
-                <p class="p5">Fill the form below to create a new project.</p>
+                <div class="top-title d-flex justify-content-between full-width align-items-center">
+                    <div class="">
+                        <h2>Add new project</h2>
+                        <p class="p5 subtitle">Fill the form below to create a new project.</p>
+                    </div>
+                </div>
                 <hr>
                 <form id="newProjectForm" class="d-flex flex-column">
                     <div class="">

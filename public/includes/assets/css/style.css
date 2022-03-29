@@ -19,6 +19,7 @@
     --links: #006ba7;
     --placeholders: #909090;
     --error: #d90606;
+    --notify: #f02e2e;
     --background-circles: #1d1d1d;
     --descriptions: #7a7a7a;
     --gray: #6c757d;
@@ -191,8 +192,20 @@ hr {
     height: 60vh;
 }
 
+.v70h {
+    height: 70vh;
+}
+
+.v80h {
+    height: 80vh;
+}
+
+.v90h {
+    height: 90vh;
+}
+
 .v100h {
-    /* height: 100vh; */
+    height: 100vh;
 }
 
 .modal {
@@ -201,6 +214,7 @@ hr {
     left: 0;
     background-color: rgba(24, 24, 24, 0.7);
     height: 100%;
+    z-index: 1000000;
 }
 
 .modal-content {
@@ -238,4 +252,28 @@ hr {
     font-size: 128px;
     margin-bottom: 24px;
     color: var(--background-circles);
+}
+
+span#notify {
+    width: auto;
+    height: auto;
+    border-radius: 30px;
+    color: var(--neutral);
+    align-self: center;
+    left: 60px;
+    background: var(--notify);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 8px;
+}
+
+.subtitle {
+    padding: 20px 24px;
+    background: rgb(215, 252, 220);
+    border-radius: 8px;
+    margin-top: 16px;
+    width: 100%;
+    color: var(--primary);
+    font-weight: 500;
+    line-height: 24px;
 }

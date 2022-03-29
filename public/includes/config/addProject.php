@@ -15,7 +15,7 @@ switch($_POST){
                     'project start year'=>$_POST['projectStartYear'],
                     'project duration'=>$_POST['projectDuration'],
                     'project cost'=>is_numeric($_POST['projectCost']) ? $_POST['projectCost'] : str_replace( ',', '', $_POST['projectCost']),
-                    'project sector'=>isset($_POST['projectSector']) ? $_POST['projectSector'] : '',
+                    'project sector'=> $_POST['projectSector'],
                     'project origin state'=>$_POST['originState'],
                     'project origin lga'=>isset($_POST['originLGA']) ? $_POST['originLGA'] : '',
                     'project destination state'=>$_POST['destinationState'],
@@ -60,7 +60,7 @@ switch($_POST){
                     $array['midway_lga'] = $midway_lga;
                     $array['midway_latitude'] = $midway_latitude;
                     $array['midway_longitude'] = $midway_longitude;
-                    $array['approved'] = '0';
+                    $array['approved'] = $_SESSION['designation'] != 'budgeting officer' ? '1' : '0';
                     $array['added_by'] = $_SESSION['name'];
                     $array['added_by_designation'] = $_SESSION['designation'];
                     $array['date_added'] = date("Y-m-d");
@@ -90,8 +90,16 @@ switch($_POST){
                 if($emptyCheck === true){
                     if($array['sector'] == 'Railway Construction'){
                         $table_prefix = 'railway';
-                        $addedMetricsId = $project->addRailWayProjectMetrics($array);
+                    }else if($array['sector'] == 'Highway Construction'){
+                        $table_prefix = 'highway';
                     }
+                    
+                    foreach($array as  $key => $value)
+                    {
+                        $array[$key] = str_replace(',', '', $value);
+                    }
+                    $function = 'add'.$table_prefix.'ProjectMetrics';
+                    $addedMetricsId = $project->$function($array);
 
                     $metricsData = $project->getMetrics($array['sector']);
                     foreach ($metricsData as $key => $metrics){
@@ -112,21 +120,38 @@ switch($_POST){
                                             $input = str_replace(',', '', $value);//remove all the commas from input formatting
                                             $sql = "SELECT `id`, `".$formDataKey."` FROM `".$table_prefix."_projects_metrics` ORDER BY `".$formDataKey."` DESC";
                                             $result = $project->runQuery($sql);
-                                            foreach ($result as $resultKey => $data)
+                                            foreach ($result as $resultKey => $resultData)
                                             {
-                                                if($addedMetricsId == $data['id'])
+                                                if($addedMetricsId == $resultData['id'])
                                                 {
-                                                    $matches = array_search($data, $result) + 1;
+                                                    $matches = array_search($resultData, $result) + 1;
                                                     if($matches < ceil(count($result)/2))
                                                     {
                                                         $array[$formDataKey] = $label['data-score']['High'];
                                                     }elseif($matches > ceil(count($result)/2))
                                                     {
-                                                        $array[$formDataKey] = $label['data-score']['Medium'];
+                                                        $array[$formDataKey] = $label['data-score']['Low'];
                                                     }else
                                                     {
-                                                        $array[$formDataKey] = $label['data-score']['Low'];
+                                                        $array[$formDataKey] = $label['data-score']['Medium'];
                                                     }
+                                                }else
+                                                {
+                                                    // var_dump($resultData);
+                                                    $matches = array_search($resultData, $result) + 1;
+                                                    if($matches < ceil(count($result)/2))
+                                                    {
+                                                        $newScore = $label['data-score']['High'];
+                                                    }elseif($matches > ceil(count($result)/2))
+                                                    {
+                                                        $newScore = $label['data-score']['Low'];
+                                                    }else
+                                                    {
+                                                        $newScore = $label['data-score']['Medium'];
+                                                    }
+
+                                                    $sql = "UPDATE `".$table_prefix."_projects_scores` SET `".$formDataKey."` = ".$newScore." WHERE `metrics_id` = ".$resultData['id']."";
+                                                    $project->runQuery($sql);
                                                 }
                                             }
                                         }
@@ -135,6 +160,7 @@ switch($_POST){
                             }
                         }
                     }
+
                     $score_array = $array;
                     array_pop($score_array);
                     array_pop($score_array);
@@ -143,7 +169,8 @@ switch($_POST){
                     $array['total_score'] = $total_score;
                     $array['metrics_id'] = $addedMetricsId;
 
-                    echo $project->addRailWayProjectScores($array);
+                    $function = 'add'.$table_prefix.'ProjectScores';
+                    echo $project->$function($array);
 
                 }else{
                     echo $emptyCheck;

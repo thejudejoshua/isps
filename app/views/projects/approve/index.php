@@ -8,10 +8,9 @@
         <section class="content">
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
-                    <h2 class="title">All Projects</h2>
-                    <p class="p5 subtitle">All projects created on this system are displayed here</p>
+                    <h2 class="title">All Unapproved Projects</h2>
+                    <p class="p5 subtitle">All projects that have not been approved on this system, are displayed here.</p>
                 </div>
-                <a href="/projects/add" class="btn">+ Add a New Project</a>
             </div>
             <hr>
             <?php
@@ -19,7 +18,7 @@
                 {
                     echo '
                         <div class="full-width text-align-center d-flex flex-column v50h justify-content-center">
-                            <p class="h4 notice"><i class="las la-exclamation-triangle"></i><br/>There are no projects added here yet. Use the "Add a New Project" button to add a new project!</p>
+                            <p class="h4 notice"><i class="las la-exclamation-triangle"></i><br/>There are no projects to approve. When the budgeting officer adds a project, it will appear here.</p>
                         </div>
                     ';
                 }else{
@@ -30,6 +29,7 @@
                                 <th><h4>Project Name</h4></th>
                                 <th><h4>Project Sector</h4></th>
                                 <th><h4>Project Score</h4></th>
+                                <th><h4>Added by</h4></th>
                                 <th><h4>Date Added</h4></th>
                                 <th></th>
                             </tr>
@@ -42,10 +42,10 @@
                                 <td><h5>'.$project['name'].'</h5></td>
                                 <td><p class="p5">'.$project['sector'].'</p></td>
                                 <td><p class="p5">'.$project['score'].'</p></td>
+                                <td><p class="p5">'.$project['added_by'].'</p></td>
                                 <td><p class="p5">'.date('d M, Y', strtotime( $project['date_added'])).'</p></td>
                                 <td>
-                                    <a href="/projects/view/'.$project['id'].'/'.$project['sector'].'" class="action view-project">View</a>
-                                    <a href="#" class="action">Delete</a>
+                                    <a href="/projects/view/'.$project['sector'].'/'.$project['name'].'/'.$project['id'].'" class="action view-project">View</a>
                                 </td>
                             </tr>
                         ';

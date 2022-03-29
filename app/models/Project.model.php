@@ -126,7 +126,7 @@ class Project extends Db
         
     }
 
-    public function addRailWayProjectMetrics($array)
+    public function addrailwayProjectMetrics($array)
     {
         try
         {
@@ -176,7 +176,7 @@ class Project extends Db
         }
     }
 
-    public function addRailWayProjectScores($array)
+    public function addrailwayProjectScores($array)
     {
         try
         {
@@ -189,6 +189,107 @@ class Project extends Db
                 $array['Volume_to_Capacity_Ratio'],
                 $array['Railway_Classification'],
                 $array['Macro_Corridor_Completion'],
+                $array['Enhances_Inter-regional_Trade'],
+                $array['Economic_benefits_to_other_regions'],
+                $array['Creates_job_oppotunities_for_other_regions'],
+                $array['Number_of_jobs_created'],
+                $array['Number_of_jobs_that_would_be_retained'],
+                $array['GDP_of_local_economy_(state)'],
+                $array['Cost_Effectiveness_(cost/average_daily_traffic)'],
+                $array['Project_cost_(amount_to_be_spent_by_government)'],
+                $array['Investment_Payback_Period_(in_years)'],
+                $array['Compensation_and_Relocation'],
+                $array['Population_to_be_served'],
+                $array['Ability_to_mitigate_against_environmental_degradation'],
+                $array['Amount_of_Co2_Emmissions_from_the_project'],
+                $array['Environmental_Impact_Category'],
+                $array['Waste_management_policy'],
+                $array['Occupational_Health_and_Safety_policy'],
+                $array['Use_of_naturally_occuring_materials_within_the_corridor'],
+                $array['Private/Public/Local_Participation'],
+                $array['Unique_Multimodal_Impacts'],
+                $array['Ability_to_spur_urban_renewal/compliment_key_business_activities']
+            ]);
+
+            $update = "UPDATE `projects` SET `score` = :score WHERE `id` = :id";
+            $stmt = $this->connect()->prepare($update);
+            $stmt->execute([
+                ':score' => $array['total_score'],
+                ':id' => $array['project_id']
+            ]);
+
+            return 'success!=/projects';
+                
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function addhighwayProjectMetrics($array)
+    {
+        try
+        {
+            $insert = "INSERT INTO `highway_projects_metrics`(`project_id`, `sector`, `Construction_Type`, `Average_Daily_Traffic`, `Volume_to_Capacity_Ratio`, `Roadway_Classification`, `Macro_Corridor_Completion`, `Accident_Rate`, `Enhances_Inter-regional_Trade`, `Economic_benefits_to_other_regions`, `Creates_job_oppotunities_for_other_regions`, `Number_of_jobs_created`, `Number_of_jobs_that_would_be_retained`, `GDP_of_local_economy_(state)`, `Cost_Effectiveness_(cost/average_daily_traffic)`, `Project_cost_(amount_to_be_spent_by_government)`, `Investment_Payback_Period_(in_years)`, `Compensation_and_Relocation`, `Population_to_be_served`, `Ability_to_mitigate_against_environmental_degradation`, `Amount_of_Co2_Emmissions_from_the_project`, `Environmental_Impact_Category`, `Waste_management_policy`, `Occupational_Health_and_Safety_policy`, `Use_of_naturally_occuring_materials_within_the_corridor`, `Private/Public/Local_Participation`, `Unique_Multimodal_Impacts`, `Ability_to_spur_urban_renewal/compliment_key_business_activities`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $stmt = $this->connect()->prepare($insert);
+            $stmt->execute([
+                $array['project_id'],
+                $array['sector'],
+                $array['Construction_Type'],
+                $array['Average_Daily_Traffic'],
+                $array['Volume_to_Capacity_Ratio'],
+                $array['Road_Classification'],
+                $array['Macro_Corridor_Completion'],
+                $array['Accident_Rate'],
+                $array['Enhances_Inter-regional_Trade'],
+                $array['Economic_benefits_to_other_regions'],
+                $array['Creates_job_oppotunities_for_other_regions'],
+                $array['Number_of_jobs_created'],
+                $array['Number_of_jobs_that_would_be_retained'],
+                $array['GDP_of_local_economy_(state)'],
+                $array['Cost_Effectiveness_(cost/average_daily_traffic)'],
+                $array['Project_cost_(amount_to_be_spent_by_government)'],
+                $array['Investment_Payback_Period_(in_years)'],
+                $array['Compensation_and_Relocation'],
+                $array['Population_to_be_served'],
+                $array['Ability_to_mitigate_against_environmental_degradation'],
+                $array['Amount_of_Co2_Emmissions_from_the_project'],
+                $array['Environmental_Impact_Category'],
+                $array['Waste_management_policy'],
+                $array['Occupational_Health_and_Safety_policy'],
+                $array['Use_of_naturally_occuring_materials_within_the_corridor'],
+                $array['Private/Public/Local_Participation'],
+                $array['Unique_Multimodal_Impacts'],
+                $array['Ability_to_spur_urban_renewal/compliment_key_business_activities']
+            ]);
+            $metrics_id = $this->connect()->lastInsertId();
+
+            $update = "UPDATE `projects` SET `metrics` = '1' WHERE `id` = :id";
+            $stmt = $this->connect()->prepare($update);
+            $stmt->execute([
+                ':id' => $array['project_id']
+            ]);
+
+            return $metrics_id;
+                
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function addhighwayProjectScores($array)
+    {
+        try
+        {
+            $insert = "INSERT INTO `highway_projects_scores`(`metrics_id`, `Construction_Type`, `Average_Daily_Traffic`, `Volume_to_Capacity_Ratio`, `Roadway_Classification`, `Macro_Corridor_Completion`, `Accident_Rate`, `Enhances_Inter-regional_Trade`, `Economic_benefits_to_other_regions`, `Creates_job_oppotunities_for_other_regions`, `Number_of_jobs_created`, `Number_of_jobs_that_would_be_retained`, `GDP_of_local_economy_(state)`, `Cost_Effectiveness_(cost/average_daily_traffic)`, `Project_cost_(amount_to_be_spent_by_government)`, `Investment_Payback_Period_(in_years)`, `Compensation_and_Relocation`, `Population_to_be_served`, `Ability_to_mitigate_against_environmental_degradation`, `Amount_of_Co2_Emmissions_from_the_project`, `Environmental_Impact_Category`, `Waste_management_policy`, `Occupational_Health_and_Safety_policy`, `Use_of_naturally_occuring_materials_within_the_corridor`, `Private/Public/Local_Participation`, `Unique_Multimodal_Impacts`, `Ability_to_spur_urban_renewal/compliment_key_business_activities`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $stmt = $this->connect()->prepare($insert);
+            $stmt->execute([
+                $array['metrics_id'],
+                $array['Construction_Type'],
+                $array['Average_Daily_Traffic'],
+                $array['Volume_to_Capacity_Ratio'],
+                $array['Road_Classification'],
+                $array['Macro_Corridor_Completion'],
+                $array['Accident_Rate'],
                 $array['Enhances_Inter-regional_Trade'],
                 $array['Economic_benefits_to_other_regions'],
                 $array['Creates_job_oppotunities_for_other_regions'],
@@ -243,7 +344,7 @@ class Project extends Db
     public function getAllProjects()
     {
         try{
-            $query = "SELECT `id`, `name`, `sector`, `cost`, `score`, `rank`, `date_added` FROM `projects` WHERE `metrics` != '0'";
+            $query = "SELECT * FROM `projects` WHERE `metrics` != '0'";
             $stmt = $this->connect()->prepare($query);
             $stmt->execute();
             $data = $stmt->fetchAll();
@@ -253,10 +354,10 @@ class Project extends Db
         }
     }
 
-    public function getAllUserProjects($sector)
+    public function getAllUserSectorProjects($sector)
     {
         try{
-            $query = "SELECT `id`, `name`, `sector`, `score`, `rank` FROM `projects` WHERE `metrics` != '0' AND `sector` = :sector";
+            $query = "SELECT * FROM `projects` WHERE `metrics` != '0' AND `sector` = :sector ORDER BY `score` DESC";
             $stmt = $this->connect()->prepare($query);
             $stmt->execute([
                 ':sector' => $sector
@@ -267,6 +368,22 @@ class Project extends Db
             return "error=Failed! <br>" . $e->getMessage();
         }
     }
+
+    public function getUnapprovedProjects($sector)
+    {
+        try{
+            $query = "SELECT * FROM `projects` WHERE `metrics` != '0' AND `approved` = '0' AND `sector`=:sector";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                ':sector' => $sector
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
 
     public function getProjectData($id)
     {

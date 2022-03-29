@@ -4,7 +4,7 @@
 
 <div class="wrapper d-flex">
     <?php require_once './includes/components/sideNav.php';?>
-    <div class="content-box v100h">
+    <div class="content-box">
         
         <section class="content mt-5">
             <a href="/users">back to all users</a>
@@ -38,23 +38,16 @@
                 <div class="form-group">
                     <div class="full-width">
                         <label for="sector" class="form-label">Select a Sector <span>(Required)</span></label>
-                        <select id="sector" name="sector" class="form-control" required>
-                            <option value=" " disabled selected hidden>Choose...</option>
-                            <option>Highway Construction</option>
-                            <option>Railway Construction</option>
-                            <option>Power Generation</option>
-                            <option>Power Transmission</option>
-                            <option>Water Supply</option>
-                        </select>
+                        <input type="sector" class="form-control" name="sector" id="sector" placeholder="Highway Constuction" value="<?=$_SESSION['sector']?>" readonly>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="full-width">
                         <label for="designaton" class="form-label">Choose a designation <span>(Required)</span></label>
                         <select id="designaton" name="designaton" class="form-control" required>
-                            <option value=" " disabled selected hidden>Choose...</option>
+                            <option value=" " disabled selected hidden>Choose a designation...</option>
                             <option value="budgeting officer">Budgeting Officer</option>
-                            <?= $_SESSION['designation'] == 'secretariat' ? '<option value="director">Director</option><option value="secretariat">Secretariat</option>' : ''?>
+                            <?= $_SESSION['designation'] == 'secretariat' || $_SESSION['designation'] == 'admin' ? '<option value="director">Director</option><option value="secretariat">Secretariat</option>' : ''?>
                         </select>
                     </div>
                 </div>

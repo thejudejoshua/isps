@@ -19,9 +19,12 @@ Class User extends Db
                     `sector` = ?,
                     `designation` = ?,
                     `level` = ?,
+                    `rank` = ?,
                     `added_by` = ?,
                     `added_by_sector` = ?,
                     `added_by_designation` = ?,
+                    `date_added` = ?,
+                    `approved` = ?,
                     `password` = ?";
             $stmt = $this->connect()->prepare($send);
             $stmt->execute([
@@ -31,10 +34,13 @@ Class User extends Db
                 $array['phone number'],
                 $array['sector'],
                 $array['designation'],
+                $array['level'],
                 $array['rank'],
                 $array['added_by'],
                 $array['added_by_sector'],
                 $array['added_by_designation'],
+                $array['date_added'],
+                $array['approved'],
                 $array['password']
             ]);
             return "success!";
@@ -121,13 +127,34 @@ Class User extends Db
     public function getAllUsers()
     {
         try{
-            $get = "SELECT `secretariat`.`id`,`secretariat`.`firstName`, `secretariat`.`lastName`, `secretariat`.`sector`, `secretariat`.`designation`, `secretariat`.`email`, `secretariat`.`date_added` FROM `secretariat`
+            $get = "SELECT `secretariat`.`id`,`secretariat`.`firstName`, `secretariat`.`lastName`, `secretariat`.`sector`, `secretariat`.`designation`, `secretariat`.`email`, `secretariat`.`added_by`, `secretariat`.`designation`, `secretariat`.`date_added` FROM `secretariat`
             UNION ALL
-            SELECT `director`.`id`,`director`.`firstName`, `director`.`lastName`, `director`.`sector`, `director`.`designation`,`director`.`email`, `director`.`date_added` FROM `director`
+            SELECT `director`.`id`,`director`.`firstName`, `director`.`lastName`, `director`.`sector`, `director`.`designation`,`director`.`email`, `director`.`added_by`, `director`.`designation`, `director`.`date_added` FROM `director`
             UNION ALL
-            SELECT `budgeting officer`.`id`,`budgeting officer`.`firstName`, `budgeting officer`.`lastName`, `budgeting officer`.`sector`, `budgeting officer`.`designation`, `budgeting officer`.`email`, `budgeting officer`.`date_added` FROM `budgeting officer`";
+            SELECT `budgeting officer`.`id`,`budgeting officer`.`firstName`, `budgeting officer`.`lastName`, `budgeting officer`.`sector`, `budgeting officer`.`designation`, `budgeting officer`.`email`, `budgeting officer`.`added_by`, `budgeting officer`.`designation`, `budgeting officer`.`date_added` FROM `budgeting officer`";
             $stmt = $this->connect()->prepare($get);
             $stmt->execute([]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function getAllSectorUsers($sector)
+    {
+        try{
+            $get = "SELECT `secretariat`.`id`,`secretariat`.`firstName`, `secretariat`.`lastName`, `secretariat`.`sector`, `secretariat`.`designation`, `secretariat`.`email`, `secretariat`.`added_by`, `secretariat`.`designation`, `secretariat`.`date_added` FROM `secretariat` WHERE `sector` = :sector
+            UNION ALL
+            SELECT `director`.`id`,`director`.`firstName`, `director`.`lastName`, `director`.`sector`, `director`.`designation`,`director`.`email`, `director`.`added_by`, `director`.`designation`, `director`.`date_added` FROM `director` WHERE `sector` = :sector
+            UNION ALL
+            SELECT `budgeting officer`.`id`,`budgeting officer`.`firstName`, `budgeting officer`.`lastName`, `budgeting officer`.`sector`, `budgeting officer`.`designation`, `budgeting officer`.`email`, `budgeting officer`.`added_by`, `budgeting officer`.`designation`, `budgeting officer`.`date_added` FROM `budgeting officer` WHERE `sector` = :sector";
+            $stmt = $this->connect()->prepare($get);
+            $stmt->execute([
+                ':sector'=>$sector,
+                ':sector'=>$sector,
+                ':sector'=>$sector,
+            ]);
             $data = $stmt->fetchAll();
             return $data;
         }catch(PDOException $e){

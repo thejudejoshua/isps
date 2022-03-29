@@ -114,6 +114,13 @@
     padding: 14px 36px;
 }
 
+.nav-pills li ul .side-link #notify {
+    left: 32px;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+}
+
 .nav-pills li ul .side-link::before {
     content: '';
     width: 0;
