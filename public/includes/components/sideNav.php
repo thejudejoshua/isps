@@ -14,11 +14,11 @@
                     </li>
                     <li>
                         <a class="side-link '; echo explode('/', $url)[1] == 'projects' ? 'active' : ''; echo'" href="/projects">
-                            <i class="las la-folder-open"></i>Projects'; echo $unapproved_projects > 0 ? '<span id="notify">'.$unapproved_projects.'</span>' : ''; echo'</a>
+                            <i class="las la-folder-open"></i>Projects'; echo $unapproved_projects > 0 ? '<span id="notify"></span>' : ''; echo'</a>
                             <ul>
                                 <li><a href="/projects" class="side-link '; echo explode('/', $url)[1] == 'projects' && isset(explode('/', $url)[2]) == '' ? 'active' : ''; echo'">All Projects</a></li>
                                 <li><a href="/projects/add" class="side-link '; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'add' ? 'active' : ''; echo'">Add new project</a></li>
-                                <li><a href="/projects/approve" class="side-link'; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'approve' ? ' active' : ''; echo'">Approve a project'; echo $unapproved_projects > 0 ? '<span id="notify"></span>' : ''; echo'</a></li>
+                                <li><a href="/projects/approve" class="side-link'; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'approve' ? ' active' : ''; echo'">Approve a project'; echo $unapproved_projects > 0 ? '<span id="notify">'.$unapproved_projects.'</span>' : ''; echo'</a></li>
                                 <li><a href="/projects/compare" class="side-link '; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'compare' ? 'active' : ''; echo'">Compare Projects</a></li>
                             </ul>
                     </li>

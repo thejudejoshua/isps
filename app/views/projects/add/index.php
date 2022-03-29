@@ -5,13 +5,13 @@
     <div class="wrapper d-flex">
         <?php require_once './includes/components/sideNav.php';?>
         <div class="content-box">
-
+            <?php require_once './includes/components/topNav.php';?>
             <section class="content mt-5">
                 <a href="/projects">back to all projects</a>
                 <hr>
                 <div class="top-title d-flex justify-content-between full-width align-items-center">
                     <div class="">
-                        <h2>Add new project</h2>
+                        <h2 class="title p3">Add new project</h2>
                         <p class="p5 subtitle">Fill the form below to create a new project.</p>
                     </div>
                 </div>

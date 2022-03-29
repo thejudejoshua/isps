@@ -63,13 +63,24 @@ class Projects extends Controller
 
                 $projectData = $project->getProjectData($id);
                 $metricsData = $project->getMetrics($sector);
-              
+                
+                if($projectData[0]['sector'] == 'Railway Construction'){
+                    $table_prefix = 'railway';
+                }else if($array['sector'] == 'Highway Construction'){
+                    $table_prefix = 'highway';
+                }
+                
+                $projectMetricsData = $project->getProjectMetrics($table_prefix, $id);
+                $projectMetricsScore = $project->getProjectMetricsScores($table_prefix, $id);
+
                 $this->views('projects/view/index', [
                     'project' => $projectname,
                     'sector' => $sector,
                     'id' => $id,
                     'metricsData' => $metricsData,
                     'projectData' => $projectData,
+                    'projectMetricsData' => $projectMetricsData,
+                    'projectMetricsScore' => $projectMetricsScore,
                 ]);
 
             }else{

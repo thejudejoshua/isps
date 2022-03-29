@@ -5,6 +5,7 @@
 <div class="wrapper d-flex">
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box">
+        <?php require_once './includes/components/topNav.php';?>
         <?php
             foreach ($data['userDataList'] as $user) {
                 echo '

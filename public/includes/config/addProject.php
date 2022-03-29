@@ -137,7 +137,6 @@ switch($_POST){
                                                     }
                                                 }else
                                                 {
-                                                    // var_dump($resultData);
                                                     $matches = array_search($resultData, $result) + 1;
                                                     if($matches < ceil(count($result)/2))
                                                     {

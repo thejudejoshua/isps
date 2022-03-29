@@ -5,11 +5,11 @@
 <div class="wrapper d-flex">
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box">
+        <?php require_once './includes/components/topNav.php';?>
         <section class="content">
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
-                    <h2 class="title">All Unapproved Projects</h2>
-                    <p class="p5 subtitle">All projects that have not been approved on this system, are displayed here.</p>
+                    <h2 class="title p3">All Unapproved Projects</h2>
                 </div>
             </div>
             <hr>

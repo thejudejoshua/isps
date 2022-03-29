@@ -384,11 +384,42 @@ class Project extends Db
         }
     }
 
-
     public function getProjectData($id)
     {
         try{
-            $query = "SELECT * FROM `projects` WHERE `id` = :id";
+            $query = "SELECT * FROM `projects` JOIN `projects_details` WHERE `projects_details`.`project_id` = `projects`.`id` AND `projects`.`id`=:id";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                ':id' => $id
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+        
+    }
+
+    public function getProjectMetrics($table_prefix, $id)
+    {
+        try{
+            $query = "SELECT * FROM `".$table_prefix."_projects_metrics` WHERE `".$table_prefix."_projects_metrics`.`project_id`=:id";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                ':id' => $id
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+        
+    }
+
+    public function getProjectMetricsScores($table_prefix, $id)
+    {
+        try{
+            $query = "SELECT * FROM `".$table_prefix."_projects_metrics` JOIN `".$table_prefix."_projects_scores` WHERE `".$table_prefix."_projects_metrics`.`id` = `".$table_prefix."_projects_scores`.`metrics_id` AND `".$table_prefix."_projects_metrics`.`project_id`=:id";
             $stmt = $this->connect()->prepare($query);
             $stmt->execute([
                 ':id' => $id

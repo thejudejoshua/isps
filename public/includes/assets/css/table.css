@@ -4,7 +4,7 @@ table {
     min-width: 900px;
     width: 100%;
     /* box-shadow: 0px 4px 11px 3px rgb(0 0 0 / 6%); */
-    border-radius: 12px;
+    /* border-radius: 12px; */
     overflow: hidden;
 }
 
@@ -16,11 +16,12 @@ thead {
 
 th {
     text-align: left;
-    padding: 24px 20px 24px;
-    color: var(--neutral);
+    padding: 24px 20px;
+    color: var(--primary);
     /* border-bottom: 1px solid var(--gray-200); */
     margin-bottom: 24px;
-    background: var(--primary);
+    background: var(--gray-200);
+    text-transform: uppercase;
 }
 
 th:first-child,
@@ -29,17 +30,18 @@ td:first-child {
 }
 
 th:last-child {
-    border-radius: 0 32px 32px 0;
+    border-radius: 0 5px 5px 0;
 }
 
 th:first-child {
-    border-radius: 32px 0 0 32px;
+    border-radius: 5px 0 0 5px;
 }
 
 td {
     text-align: left;
-    padding: 20px 32px 20px;
+    padding: 16px 32px 16px;
     vertical-align: middle;
+    border-bottom: 1px solid var(--gray-100);
 }
 
 tr:last-child td {
@@ -47,19 +49,23 @@ tr:last-child td {
 }
 
 tr:first-child td {
-    padding-top: 32px;
+    padding-top: 20px;
 }
 
-tbody tr:nth-child(even) {
-    background: var(--gray-200);
+tbody tr:hover {
+    background: var(--gray-100);
+}
+
+tbody tr {
+    transition: 0.6s;
 }
 
 tbody tr:nth-child(even) td:first-child {
-    border-radius: 36px 0 0 36px;
+    /* border-radius: 36px 0 0 36px; */
 }
 
 tbody tr:nth-child(even) td:last-child {
-    border-radius: 0 36px 36px 0;
+    /* border-radius: 0 36px 36px 0; */
 }
 
 .action:last-child {

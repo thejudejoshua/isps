@@ -1,153 +1,143 @@
-#midwayBox {
-    width: 100%;
+.p-name {
+    color: gray;
+    letter-spacing: 0.2px;
+    font-size: 16px;
+    font-weight: 400;
+    /* text-decoration: underline; */
 }
 
-#midway {
-    display: inline;
-    margin-left: 20px;
-    width: 80px;
-}
-
-.col-sm-4>span {
-    padding-left: 25px;
-}
-
-#cover {
-    height: 100vh;
-    margin: auto;
-    max-width: 900px;
-    padding: 0 5%;
-    width: 100%;
-}
-
-#mainContainer {
-    box-shadow: 0px 4px 20px 18px rgba(0, 0, 0, 0.06);
-    height: 70%;
-    min-height: 480px;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 12px;
-    background-color: var(--bs-white);
-    border: 1px solid var(--bs-gray-300);
-}
-
-h3 {
-    font-size: 14px;
-    font-weight: 800;
-    /* font-family: 'PT Sans', sans-serif !important; */
-}
-
-#main,
-#imgBox {
-    height: 100%;
-    width: 50%
-}
-
-#imgBox img {
-    height: 100%;
-    width: 100%;
-    /* border-radius: 20px; */
-}
-
-.custom-form {
-    display: block;
-    width: 100%;
-    padding: 12px 12px 12px;
-    padding-left: 0;
-    font-size: 13px;
+.p-data {
+    color: green;
+    font-size: 17px;
+    line-height: 1.5;
     font-weight: 600;
-    color: var(--bs-body-color);
-    outline: 0 !important;
-    border: none;
-    border-bottom: 1px solid var(--bs-gray-300);
-    background-color: transparent;
 }
 
-.custom-form:focus-visible {
-    background-color: var(--bs-gray-200);
-    border-color: transparent;
-}
-
-.custom-form::placeholder {
-    color: var(--bs-gray-500);
-    font-weight: 500;
-}
-
-.form-content {
-    padding: 60px 40px;
-}
-
-.form-label {
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--bs-green);
-    letter-spacing: 0.1px;
-    margin-bottom: 0;
+.details {
     display: inline-block;
+    width: 48%;
 }
 
-.form-label span {
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.custom-btn {
-    color: var(--bs-white);
-    width: auto;
-    padding: 15px 48px;
-    border-radius: 6px;
-    background-image: linear-gradient(to right, var(--bs-green) 0%, var(--bs-teal) 51%, var(--bs-green) 100%);
-    background-size: 200% auto;
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-    /* text-transform: uppercase; */
-    display: inline-block;
-    top: 0;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+.metric {
     font-size: 14px;
 }
 
-.custom-btn.secondary {
-    border: 1px solid var(--bs-teal);
-    background-image: linear-gradient(to right, #bfefe1 0%, #ffffff 51%, #bfefe1 100%);
-    color: var(--bs-green);
+.bar {
+    border-radius: 1px;
+    height: 30px;
+    width: 90%;
 }
 
-.custom-btn.secondary:hover {
-    color: var(--bs-green);
+.circular-progress {
+    position: relative;
+    height: 240px;
+    margin: 0 auto;
+    width: 240px;
+    background-color: #eee;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
 }
 
-.custom-btn:focus {
-    box-shadow: none;
+.circular-progress::before {
+    content: "";
+    position: absolute;
+    height: 84%;
+    width: 84%;
+    background-color: #fff;
+    border-radius: 50%;
 }
 
-.custom-btn:hover {
-    color: var(--bs-white);
-    background-position: right center;
-    top: -1px;
+.value-container {
+    position: relative;
+    font-size: 50px;
+    color: #231c3d;
 }
 
-.contact {
-    color: #7a7a7a
+.hidden {
+    display: none;
 }
 
-#forgotPass {
+.rank {
+    color: green;
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.tiny {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.selections {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.v-btn {
+    background-color: #fff;
+    border: 1px solid green;
+    border-radius: 0.3rem;
+    color: green;
+    margin: 30px 0;
+    padding: 8px 12px;
     text-decoration: none;
-    color: var(--bs-purple);
-    font-weight: 700;
-    font-size: 11px;
+    height: 42px;
 }
 
-#forgotPass:hover {
-    text-decoration: underline;
+.v-btn:hover {
+    background-color: green;
+    color: white;
+}
+
+.remove {
+    border: 1px solid red;
+    color: red;
+}
+
+.remove:hover {
+    background-color: red;
+    color: white;
+}
+
+.delete {
+    background-color: red;
+    border: 1px solid rgb(235, 2, 2);
+    color: white;
+    border-radius: 0.3rem;
+    margin: 30px 0;
+    padding: 8px 12px;
+}
+
+.delete:hover {
+    background-color: rgb(226, 4, 4);
+    color: white;
 }
 
 @media (max-width: 768px) {
-    #imgBox {
-        display: none;
+    .cat-set,
+    .v-btn,
+    .assess-cat,
+    .proj-info,
+    .title {
+        text-align: center;
     }
-    #main {
-        margin: auto 0;
-        width: 100%
+    .v-btn,
+    .delete {
+        width: 100%;
+    }
+    .vbuttons,
+    .first3 {
+        flex-direction: column;
+    }
+    .p-score {
+        margin-top: 40px;
+    }
+    hr {
+        margin: 0 auto;
+        width: 90%;
+    }
+    .title {
+        margin-bottom: 30px;
     }
 }

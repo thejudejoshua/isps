@@ -33,7 +33,7 @@
     --gray-700: #495057;
     --gray-800: #343a40;
     --gray-900: #212529;
-    --primary-100: #32fca7;
+    --primary-100: #008000;
     --primary-200: #12eb90;
     --primary-300: #08d57f;
     --primary-400: #05be70;
@@ -69,6 +69,7 @@ body {
 
 body {
     overflow-x: hidden;
+    padding-left: 20%;
 }
 
 .d-flex {
@@ -146,6 +147,23 @@ span#toggle-pass:hover {
     gap: 0;
 }
 
+.top-title {
+    gap: 48px;
+    padding: 24px 0;
+}
+
+.top-title>* {
+    width: fit-content;
+}
+
+.top-title>div {
+    width: 75%;
+}
+
+.top-title>a {
+    flex-grow: 0;
+}
+
 .full-width {
     width: 100%;
 }
@@ -156,11 +174,15 @@ span#toggle-pass:hover {
 
 .content-box {
     margin: 0;
-    width: 80%;
-    padding: 72px 48px 72px 48px;
+    width: 100%;
+    padding: 0px 0 72px;
     overflow-y: auto;
-    left: 20%;
+    left: 0;
     height: 100%;
+}
+
+.content {
+    padding: 24px 32px;
 }
 
 hr {
@@ -255,16 +277,16 @@ hr {
 }
 
 span#notify {
-    width: auto;
-    height: auto;
+    width: 10px;
+    height: 10px;
     border-radius: 30px;
     color: var(--neutral);
     align-self: center;
-    left: 60px;
+    left: 76px;
     background: var(--notify);
     font-size: 11px;
     font-weight: 700;
-    padding: 5px 8px;
+    padding: 0;
 }
 
 .subtitle {
@@ -276,4 +298,9 @@ span#notify {
     color: var(--primary);
     font-weight: 500;
     line-height: 24px;
+}
+
+.d-block {
+    display: block;
+    width: 100%;
 }
