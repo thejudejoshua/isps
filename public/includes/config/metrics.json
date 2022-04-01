@@ -3,30 +3,22 @@
             "label": "Construction Type",
             "element": "select",
             "options": {
-                "New Construction": 5,
-                "Relocation": 5,
-                "Major Widening": 0,
-                "Minor Widening": 0,
-                "Restoration/Rehabilitation": 0,
-                "New Bridge": 5,
-                "Bridge Replacement": 0,
-                "Bridge Rehabilitation": 0
+                "New Construction": 10,
+                "Restoration/Rehabilitation": 20
             }
         }]
     },
     {
         "Technical Considerations": [{
-                "label": "Average Daily Customers or Cargo",
-                "element": "input",
-                "type": "number",
-                "data-score": {
-                    "High": 40,
-                    "Medium": 30,
-                    "Low": 20
+                "label": "Type of technology",
+                "element": "select",
+                "options": {
+                    "Gravity Induced System Dams": 30,
+                    "Electricity Powered Systems": 20
                 }
             },
             {
-                "label": "Volume to Capacity Ratio",
+                "label": "Capacity of water containment structure",
                 "element": "input",
                 "type": "number",
                 "data-score": {
@@ -36,18 +28,34 @@
                 }
             },
             {
-                "label": "Railway Classification",
+                "label": "Are there technical personnel for the maintenance of the facility?",
                 "element": "select",
                 "options": {
-                    "Standard Guage": 30,
-                    "Single Guage": 20
+                    "Yes": 30,
+                    "No": 0
                 }
             },
             {
-                "label": "Macro Corridor Completion",
+                "label": "Availability of replacement parts",
                 "element": "select",
                 "options": {
                     "Yes": 20,
+                    "No": 0
+                }
+            },
+            {
+                "label": "Availability of major energy source",
+                "element": "select",
+                "options": {
+                    "Yes": 20,
+                    "No": 0
+                }
+            },
+            {
+                "label": "Are the water supply pipes and assiciated facilities already in place?",
+                "element": "select",
+                "options": {
+                    "Yes": 10,
                     "No": 0
                 }
             }
@@ -166,8 +174,8 @@
                 "label": "Ability to mitigate against environmental degradation",
                 "element": "select",
                 "options": {
-                    "Electric": 10,
-                    "Diesel/Gas": 0
+                    "Yes": 10,
+                    "No": 0
                 }
             },
             {
@@ -175,9 +183,9 @@
                 "element": "input",
                 "type": "number",
                 "data-score": {
-                    "High": 15,
+                    "High": 5,
                     "Medium": 10,
-                    "Low": 5
+                    "Low": 15
                 }
             },
             {
@@ -227,8 +235,8 @@
         }]
     },
     {
-        "Intermodal Connectivity": [{
-            "label": "Unique Multimodal Impacts",
+        "Accessibility": [{
+            "label": "Availability of access roads to plant, security",
             "element": "select",
             "options": {
                 "Yes": 40,

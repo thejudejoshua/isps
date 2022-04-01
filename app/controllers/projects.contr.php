@@ -14,11 +14,14 @@ class Projects extends Controller
 
             $project = $this->model('Project');
             $emptyMetrics = $project->findEmptyMetrics($_SESSION['name']);
-            $allProjects  = $project->getAllUserSectorProjects($_SESSION['sector']);
+            $allProjects  = $project->getAllActiveUserSectorProjects($_SESSION['sector']);
 
+            $project_scores = $this->rank_projects($_SESSION['sector']);
+            
             $this->views('projects/index', [
                 'emptyMetrics' => $emptyMetrics,
-                'projectsList' => $allProjects
+                'projectsList' => $allProjects,
+                'project_scores' => $project_scores
             ]);
         }
     }
@@ -63,15 +66,35 @@ class Projects extends Controller
 
                 $projectData = $project->getProjectData($id);
                 $metricsData = $project->getMetrics($sector);
+                foreach ($metricsData as $key => $metrics){
+                    $metricsData = json_decode($metrics['metrics_data'], TRUE);
+                }
                 
-                if($projectData[0]['sector'] == 'Railway Construction'){
-                    $table_prefix = 'railway';
-                }else if($array['sector'] == 'Highway Construction'){
-                    $table_prefix = 'highway';
+                switch ($_SESSION['sector']) {
+                    case 'Railway Construction':
+                        $table_prefix = 'railway';
+                        break;
+                    
+                    case 'Highway Construction':
+                        $table_prefix = 'highway';
+                        break;
                 }
                 
                 $projectMetricsData = $project->getProjectMetrics($table_prefix, $id);
                 $projectMetricsScore = $project->getProjectMetricsScores($table_prefix, $id);
+
+                $totalMetricsScore = $this->find_metrics_total_score($metricsData, $projectMetricsData);
+
+                $project_scores = $this->rank_projects($sector);
+                $project_rank_overall = count($project_scores);
+                foreach ($project_scores as $key => $value) {
+                    if($id == $value['id'])
+                    {
+                        $project_rank = array_search($value, $project_scores) + 1;
+                    }else{
+                        $project_rank = '';
+                    }
+                }
 
                 $this->views('projects/view/index', [
                     'project' => $projectname,
@@ -81,8 +104,10 @@ class Projects extends Controller
                     'projectData' => $projectData,
                     'projectMetricsData' => $projectMetricsData,
                     'projectMetricsScore' => $projectMetricsScore,
+                    'totalMetricsScore' => $totalMetricsScore,
+                    'project_rank' => $project_rank,
+                    'project_rank_overall' => $project_rank_overall
                 ]);
-
             }else{
                 $error = new Errors;
                 $error->not_found();//404 error
@@ -104,8 +129,51 @@ class Projects extends Controller
             $project = $this->model('Project');
             $allProjects  = $project->getUnapprovedProjects($_SESSION['sector']);
 
+            $project_scores = $this->rank_projects($_SESSION['sector']);
+
+            $this->views('projects/approve/index', [
+                'projectsList' => $allProjects,
+                'project_scores' => $project_scores
+            ]);
+        }
+    }
+
+    public function unapproved()
+    {
+        if(!isset($_SESSION['logged'])){
+
+            $redirect = $this->model('Redirect');
+            $dashboard = '/dashboard';
+            $redirect->redirectTo($dashboard);
+            
+        }else{
+
+            $project = $this->model('Project');
+            $allProjects  = $project->getUnapprovedProjects($_SESSION['sector']);
+
             $this->views('projects/approve/index', [
                 'projectsList' => $allProjects
+            ]);
+        }
+    }
+
+    public function suspended(){
+        if(!isset($_SESSION['logged'])){
+
+            $redirect = $this->model('Redirect');
+            $dashboard = '/dashboard';
+            $redirect->redirectTo($dashboard);
+            
+        }else{
+
+            $project = $this->model('Project');
+            $allProjects  = $project->getSuspendedProjects($_SESSION['sector']);
+
+            $project_scores = $this->rank_projects($_SESSION['sector']);
+
+            $this->views('projects/suspended/index', [
+                'projectsList' => $allProjects,
+                'project_scores' => $project_scores
             ]);
         }
     }
@@ -160,4 +228,34 @@ class Projects extends Controller
             }
         }   
     }
+    
+    private function find_metrics_total_score($metricsData, $projectMetricsData){
+        $totalMetricsScore = 0;
+        foreach($metricsData as $key => $val){
+            foreach($val as $key => $metrics){
+                foreach($metrics as $key => $label){
+                    foreach ($projectMetricsData[0] as $formDataKey => $value) {
+                        $newDataKey = str_replace('_', ' ', $formDataKey); //remove the underscore from the form-input names as in the $array
+                        if($newDataKey === $label['label']){
+                            if($label['element'] == 'select')
+                            {
+                                $totalMetricsScore += max($label['options']);
+                            }else
+                            {
+                                $totalMetricsScore += max($label['data-score']);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $totalMetricsScore;
+    }
+
+    private function rank_projects($sector){
+        $db_model = $this->model('Db');
+        $sql = "SELECT `id`, `score` FROM `projects` WHERE `sector` = '".$sector."' AND `suspended` != '1' ORDER BY `score` DESC";
+        return $db_model->runSelectQuery($sql);
+    }
+
 }

@@ -101,7 +101,7 @@ form {
     width: auto;
     padding: 20px 40px;
     border-radius: 6px;
-    background-image: linear-gradient(to right, var(--primary) 0%, var(--primary-400) 51%, var(--primary) 100%);
+    background-image: linear-gradient(to right, var(--primary) 0%, var(--primary) 51%, var(--primary) 100%);
     background-size: 200% auto;
     transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
     display: inline-block;
@@ -120,14 +120,24 @@ form {
 }
 
 .btn.secondary {
-    background: none;
-    color: var(--background-circles);
-    border: 1px solid var(--background-circles);
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid;
+}
+
+.btn.danger {
+    background: var(--danger);
+    color: var(--neutral);
+    border: 1px solid var(--danger);
 }
 
 .btn.tertiary {
-    background: none;
-    color: var(--background-circles);
+    background: transparent;
+    color: var(--primary);
+}
+
+.btn~.btn {
+    margin-left: 8px;
 }
 
 form#newUserForm .col-md-6 {
@@ -202,4 +212,72 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+label.container {
+    display: inline-block;
+    position: relative;
+    padding-left: 21px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gray-600);
+    margin-right: 24px;
+    height: 17px;
+}
+
+label.container:last-child {
+    margin-right: 0;
+}
+
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 17px;
+    width: 17px;
+    background-color: var(--gray-400);
+    border-radius: 50%;
+}
+
+.container:hover input~.checkmark {
+    background-color: var(--gray-300);
+}
+
+.container input:checked~.checkmark {
+    background-color: var(--primary);
+}
+
+.container input:checked~.checkmark~* {
+    color: var(--primary);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    top: 5px;
+    left: 5px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--neutral);
+}
+
+.radio-container {
+    padding: 16px 0;
+    margin: 20px 0;
 }

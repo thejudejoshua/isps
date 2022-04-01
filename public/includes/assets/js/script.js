@@ -127,28 +127,10 @@ $(document).ready(function() {
             }
         })
     });
-    //=================================================================================================
-    //                                             V I E W  U S E R
-    //=================================================================================================
-    $('.view-user').click(function(e) {
-        e.preventDefault();
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
-        let link = $(this).attr('href');
-
-        $.ajax({
-            url: link,
-            type: "POST",
-            success: function(response) {
-                $('body').replaceWith(response);
-                history.pushState(" ", " ", "/users/view");
-            }
-        })
-    });
 
     //=================================================================================================
     //                                  A D D  M I D W A Y  I N F O
     //=================================================================================================
-
     var input = $('#midway');
     input.attr('readonly', false);
     $('span#plus').on('click', function() {
@@ -225,7 +207,6 @@ $(document).ready(function() {
     //=================================================================================================
     //                                  S T A T E S  A N D  C A P I T A L
     //=================================================================================================
-
     function getLGAs($param, $lga) {
         let link = '/includes/config/findProjectLocData.php?check=lga';
         $.ajax({
@@ -296,7 +277,6 @@ $(document).ready(function() {
     //=================================================================================================
     //                                             A D D  P R O J E C T S
     //=================================================================================================
-
     $('input.number-input').keyup(function(e) {
         $(this).val(function(index, value) {
             // Keep only digits and decimal points:
@@ -402,13 +382,184 @@ $(document).ready(function() {
     });
 
     //=================================================================================================
-    //                                             M O D A L  C L O S E
+    //                                     M O D A L  C L O S E
     //=================================================================================================
-    $('#modal-close').on('click', function(e) {
+    $(document).on('click', '.modal-close', function(e) {
         e.preventDefault();
         $('.modal').addClass('fadeOut');
         setTimeout(() => {
             $('.modal').addClass('hidden');
         }, 600);
+    })
+
+    //=================================================================================================
+    //                             A P P R O V E  P R O J E C T S  M O D A L
+    //=================================================================================================
+    $('.approve').on('click', function(e) {
+        e.preventDefault();
+        $('.content').append(
+            `<div class="modal full-width text-align-center d-flex flex-column justify-content-center align-items-center">
+                <div class="modal-content">
+                    <div class="modal-content-text">
+                        <p class="h4 notice"><i class="las la-check-circle"></i><br/>Select a list below to finish approving this project...</p>
+                    </div>
+                    <div class="radio-container d-flex full-width justify-content-center align-items-center">
+                        <label class="container">
+                            <input type="radio" name="project-type-list" value="priority-list">
+                            <span class="checkmark"></span>
+                            <span>Priority List</span>
+                        </label>
+                        <label class="container">
+                            <input type="radio" name="project-type-list" value="execution-list">
+                            <span class="checkmark"></span>
+                            <span>Execution List</span>
+                        </label>
+                    </div>
+                    <div class="modal-content-cta d-flex flex-row justify-content-center align-items-center">
+                        <a class="btn tertiary modal-close" href="#" id="modal-close">I\'ll do that later</a>
+                        <a class="btn approve-go" href="#" id="go-metrics">Approve this project</a>
+                    </div>
+                </div>
+            </div>`
+        );
+    })
+
+    $(document).on('click', '.approve-go', function(e) {
+        e.preventDefault();
+        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        let project_id = $("input#project_id").val();
+        let list_type = $("input[name='project-type-list']:checked").val();
+        let link = '/includes/config/approveProject.php';
+
+        $.ajax({
+            url: link,
+            type: "POST",
+            data: {
+                project_id: project_id,
+                list_type: list_type,
+            },
+            success: function(response) {
+                if (response.split("=")[0] === 'success!') {
+                    message = response.split("=")[1];
+                    // $('#recha').remove();
+                    alert(message);
+                    setTimeout(() => {
+                        window.location.href = '/projects';
+                    }, 500);
+                } else {
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        alert(error[1]);
+                    } else {
+                        alert(response)
+                    }
+                    // $('#recha').remove();
+                }
+            }
+        })
+    });
+    //=================================================================================================
+    //                             S U S P E N D  P R O J E C T S  M O D A L
+    //=================================================================================================
+    $('.suspend').on('click', function(e) {
+        e.preventDefault();
+        $('.content').append(
+            `<div class="modal full-width text-align-center d-flex flex-column justify-content-center align-items-center">
+                <div class="modal-content">
+                    <div class="modal-content-text">
+                        <p class="h4 notice"><i style="color: var(--danger);" class="las la-exclamation-triangle"></i><br/>Are you sure you want to suspend this project?</p>
+                    </div>
+                    <div class="modal-content-cta d-flex flex-row justify-content-center align-items-center">
+                        <a class="btn secondary modal-close" href="#" id="modal-close">No, do not suspend it</a>
+                        <a class="btn suspend-go danger" href="#" id="go-metrics">Yes, suspend it</a>
+                    </div>
+                </div>
+            </div>`
+        );
+    })
+    $(document).on('click', '.suspend-go', function(e) {
+        e.preventDefault();
+        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        let project_id = $("input#project_id").val();
+        let link = '/includes/config/suspendProject.php';
+
+        $.ajax({
+            url: link,
+            type: "POST",
+            data: {
+                project_id: project_id,
+            },
+            success: function(response) {
+                if (response.split("=")[0] === 'success!') {
+                    message = response.split("=")[1];
+                    // $('#recha').remove();
+                    alert(message);
+                    setTimeout(() => {
+                        window.location.href = '/projects';
+                    }, 500);
+                } else {
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        alert(error[1]);
+                    } else {
+                        alert(response);
+                    }
+                    // $('#recha').remove();
+                }
+            }
+        })
+    })
+
+    //=================================================================================================
+    //                            R E A C T I V A T E  P R O J E C T S  M O D A L
+    //=================================================================================================
+    $('.activate').on('click', function(e) {
+        e.preventDefault();
+        $('.content').append(
+            `<div class="modal full-width text-align-center d-flex flex-column justify-content-center align-items-center">
+                <div class="modal-content">
+                    <div class="modal-content-text">
+                        <p class="h4 notice"><i class="las la-check-circle"></i><br/>Are you sure you want to re-activate this project?</p>
+                    </div>
+                    <div class="modal-content-cta d-flex flex-row justify-content-center align-items-center">
+                        <a class="btn tertiary modal-close" href="#" id="modal-close">No, leave it</a>
+                        <a class="btn activate-go" href="#" id="go-metrics">Yes, re-activate it</a>
+                    </div>
+                </div>
+            </div>`
+        );
+    })
+
+    $(document).on('click', '.activate-go', function(e) {
+        e.preventDefault();
+        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        let project_id = $("input#project_id").val();
+        let link = '/includes/config/reactivateProject.php';
+
+        $.ajax({
+            url: link,
+            type: "POST",
+            data: {
+                project_id: project_id,
+            },
+            success: function(response) {
+                if (response.split("=")[0] === 'success!') {
+                    message = response.split("=")[1];
+                    // $('#recha').remove();
+                    alert(message);
+                    setTimeout(() => {
+                        window.location.href = '/projects';
+                    }, 500);
+                } else {
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        alert(error[1]);
+                    } else {
+                        alert(response);
+                    }
+                    // $('#recha').remove();
+                }
+            }
+        })
     })
 })

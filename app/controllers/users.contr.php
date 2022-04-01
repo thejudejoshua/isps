@@ -13,7 +13,7 @@ class Users extends Controller
         }else{
 
             $user = $this->model('User');
-            if($_SESSION['sector'] == 'dev_admin_sector'){
+            if($_SESSION['designation'] == 'admin'){
                 $usersList = $user->getAllUsers();
             }else{
                 $usersList = $user->getAllSectorUsers($_SESSION['sector']);
@@ -40,7 +40,7 @@ class Users extends Controller
         }
     }
 
-    public function view()
+    public function view($designation = '', $id = '')
     {
         if(!isset($_SESSION['logged']) || $_SESSION['designation'] == 'budgeting officer'){
 
@@ -49,10 +49,10 @@ class Users extends Controller
             $redirect->redirectTo($dashboard);
             
         }else{
-            if(isset($_GET['id']) && isset($_GET['role']))
+            if(isset($designation) && isset($id))
             {
 
-                $array = [(INT)$_GET['id'], $_GET['role']];
+                $array = [(INT)$id, $designation];
 
                 $input = $this->model('Input');
                 $user = $this->model('User');

@@ -8,7 +8,7 @@
     <div class="content-box">
         <section class="content">
             <div class="full-width v70h text-align-center d-flex flex-column justify-content-center">
-                <p class="h0">404</p><p class="h4 notice">The requested resource could not be found. Click <a href="/dashboard">here</a> to return to a working link</p>
+                <p class="h0">404</p><p class="h3">NOT FOUND</p><br/><p class="h4 notice">The requested resource could not be found. Click <a href="<?=$_SERVER['HTTP_REFERER']?>">here</a> to return to a working link</p>
             </div>
         </section>
     </div>

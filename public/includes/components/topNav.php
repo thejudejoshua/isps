@@ -6,7 +6,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="profile-link nav-link dropdown-toggle text-center text-light" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span><?=$_SESSION['name']?></span><br><span id="nav-email"><?=$_SESSION['designation']?></span>
+                        <span><?=$_SESSION['name']?></span><br><span id="nav-email"><?=$_SESSION['sector'] . '  '. $_SESSION['designation'] ?></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="#">Edit Profile</a></li>

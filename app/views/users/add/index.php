@@ -1,4 +1,5 @@
 <?php
+    $title = 'Add new User';
     require_once './includes/components/header.php';
 ?>
 
@@ -43,7 +44,24 @@
                 <div class="form-group">
                     <div class="full-width">
                         <label for="sector" class="form-label">Select a Sector <span>(Required)</span></label>
-                        <input type="sector" class="form-control" name="sector" id="sector" placeholder="Highway Constuction" value="<?=$_SESSION['sector']?>" readonly>
+                        <?php
+                            if($_SESSION['designation'] == "admin"){
+                                echo'
+                                <select id="sector" name="sector" class="form-control" required>
+                                    <option value=" " disabled selected hidden>Choose a sector...</option>
+                                    <option>Highway Construction</option>
+                                    <option>Railway Construction</option>
+                                    <option>Power Generation</option>
+                                    <option>Power Transmission</option>
+                                    <option>Water Supply</option>
+                                </select>
+                                ';
+                            }else{
+                                echo '
+                                    <input type="sector" class="form-control" name="sector" id="sector" placeholder="Highway Constuction" value="'.$_SESSION['sector'].'" readonly>
+                                ';
+                            }
+                        ?>
                     </div>
                 </div>
                 <div class="form-group">

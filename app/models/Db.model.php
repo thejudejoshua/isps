@@ -16,8 +16,8 @@ class Db
                 date_default_timezone_set('Africa/Lagos');
                 $dbd = 'mysql:host=' . $this->host . ';dbname=' . $this->dbName;
                 $dbConn = new PDO($dbd, $this->usernm, $this->password);
-                $dbConn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);// set the PDO fetch mode to fetch_assoc
-                $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);// set the PDO error mode to warning
+                $dbConn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); // set the PDO fetch mode to fetch_assoc
+                $dbConn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // set the PDO error mode to warning
              }
             //echo "Connected to database successfully!";
             return $dbConn;
@@ -26,15 +26,30 @@ class Db
         }
     }
     
-    public function runQuery($sql)//inset query to run to database
+    public function runSelectQuery($sql)//select query to run to database
     {
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute();
-        if($stmt->rowCount() == 0){
-            return false;
-        }else{
-            $data = $stmt->fetchAll();
-            return $data;
+        try{
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute();
+            if($stmt->rowCount() == 0){
+                return false;
+            }else{
+                $data = $stmt->fetchAll();
+                return $data;
+            }
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function runInsertQuery($sql)//insert and update query to run to database
+    {
+        try{
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute();
+            return true;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
         }
     }
 

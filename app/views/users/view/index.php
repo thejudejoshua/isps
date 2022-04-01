@@ -1,4 +1,5 @@
 <?php
+    $title = 'View User';
     require_once './includes/components/header.php';
 ?>
 
@@ -6,10 +7,10 @@
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box">
         <?php require_once './includes/components/topNav.php';?>
-        <?php
-            foreach ($data['userDataList'] as $user) {
-                echo '
-                    <section class="content mt-5">
+        <section class="content mt-5">
+            <?php
+                foreach ($data['userDataList'] as $user) {
+                    echo '
                         <a href="/users">back to all users</a>
                         <hr>
                         <h1 class="title">'.$user['firstName'].' '.$user['lastName'].'</h1>
@@ -23,10 +24,10 @@
                         <h4>Number of Users added: 0</h4>
                         <hr>
                         <a href="#" id="btn-submit" class="action">Suspend</a>
-                    </section>
-                ';
-            }
-        ?>
+                    ';
+                }
+            ?>
+        </section>
     </div>
 </div>                
 

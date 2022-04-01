@@ -1,4 +1,5 @@
 <?php
+    $title = 'All unapproved Projects';
     require_once './includes/components/header.php';
 ?>
 
@@ -27,8 +28,8 @@
                         <thead>
                             <tr>
                                 <th><h4>Project Name</h4></th>
-                                <th><h4>Project Sector</h4></th>
                                 <th><h4>Project Score</h4></th>
+                                <th><h4>Project Rank</h4></th>
                                 <th><h4>Added by</h4></th>
                                 <th><h4>Date Added</h4></th>
                                 <th></th>
@@ -40,8 +41,15 @@
                         echo'
                             <tr>
                                 <td><h5>'.$project['name'].'</h5></td>
-                                <td><p class="p5">'.$project['sector'].'</p></td>
                                 <td><p class="p5">'.$project['score'].'</p></td>
+                                <td><p class="p5">';
+                                foreach ($data['project_scores'] as $key => $value) {
+                                    if($project['id'] == $value['id'])
+                                    {
+                                        echo $project_rank = array_search($value, $data['project_scores']) + 1;
+                                    }
+                                };
+                                echo '</p></td>
                                 <td><p class="p5">'.$project['added_by'].'</p></td>
                                 <td><p class="p5">'.date('d M, Y', strtotime( $project['date_added'])).'</p></td>
                                 <td>

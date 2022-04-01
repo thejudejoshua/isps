@@ -1,4 +1,5 @@
 <?php
+    $title = 'Add Project Metrics';
     require_once './includes/components/header.php';
 ?>
 
@@ -28,10 +29,15 @@
                                                 <fieldset>
                                                     <legend>'.$key.'</legend>';
                                                     foreach ($metrics as $key => $form_data) {
+                                                        if($form_data['label'] == 'GDP of local economy (state)' || $form_data['label'] == 'Cost Effectiveness (cost/average daily traffic)' || $form_data['label'] == 'Project cost (amount to be spent by government)'){
+                                                            $naira = '₦';
+                                                        }else{
+                                                            $naira = '';
+                                                        }
                                                         echo '
                                                             <div class="form-group">
                                                                 <div class="full-width">
-                                                                    <label for="'.str_replace(' ', '_', $form_data['label']).'" class="form-label">'.$form_data['label'].' <span>(Required)</span></label>';
+                                                                    <label for="'.str_replace(' ', '_', $form_data['label']).'" class="form-label">'.$form_data['label'].' <span>(Required) '.$naira.'</span></label>';
                                                                 if($form_data['element'] == 'select'){
                                                                     echo'
                                                                     <select class="form-control" name="'.str_replace(' ', '_', $form_data['label']).'" id="'.str_replace(' ', '_', $form_data['label']).'">

@@ -2,8 +2,8 @@
     require_once './includes/components/header.php';
 ?>
 
-<body>
-    <section id="cover" class="d-flex justify-content-center align-items-center">
+<body id="login">
+    <section id="cover" class="d-flex v100h justify-content-center align-items-center">
         <div id="mainContainer">
             <img id="animation-image" src="/includes/assets/img/account.png">
             <div id="main" class="form-content">

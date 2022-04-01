@@ -1,4 +1,5 @@
 <?php
+    $title = 'Add a new project';
     require_once './includes/components/header.php';
 ?>
 
@@ -6,7 +7,7 @@
         <?php require_once './includes/components/sideNav.php';?>
         <div class="content-box">
             <?php require_once './includes/components/topNav.php';?>
-            <section class="content mt-5">
+            <section class="content">
                 <a href="/projects">back to all projects</a>
                 <hr>
                 <div class="top-title d-flex justify-content-between full-width align-items-center">

@@ -1,4 +1,5 @@
 <?php
+    $title = 'All Users';
     require_once './includes/components/header.php';
 ?>
 
@@ -34,7 +35,7 @@
                                     <td><p class="p5">'.$user['added_by'].' <span class="p5">('.$user['designation'].')<span></p></td>
                                     <td><p class="p5">'.date('d M, Y', strtotime( $user['date_added'])).'</p></td>
                                     <td>
-                                        <a href="/users/view?role='.$user['designation'].'&id='.$user['id'].'" class="action view-user">View</a>
+                                        <a href="/users/view/'.$user['designation'].'/'.$user['id'].'" class="action view-user">View</a>
                                         <a href="#" class="action">Delete</a>
                                     </td>
                                 </tr>

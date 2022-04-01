@@ -1,5 +1,5 @@
 <?php
-    $title = 'All Projects';
+    $title = 'Suspended Projects';
     require_once './includes/components/header.php';
 ?>
 
@@ -10,9 +10,8 @@
         <section class="content">
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
-                    <h2 class="title p3">All Projects</h2>
+                    <h2 class="title p3">All Unapproved Projects</h2>
                 </div>
-                <?=$_SESSION['designation'] == 'director' ? '<a href="/projects/add" class="btn">+ Add a New Project</a>' : ''?>
             </div>
             <hr>
             <?php
@@ -20,7 +19,7 @@
                 {
                     echo '
                         <div class="full-width text-align-center d-flex flex-column v50h justify-content-center">
-                            <p class="h4 notice"><i class="las la-exclamation-triangle"></i><br/>There are no active projects here yet.<br/>Use the "Add a New Project" button to add a new project or '; echo $_SESSION['designation'] == 'budgeting officer' ? 'ask a superior to approve one' : 'approve one to continue'; echo'!</p>
+                            <p class="h4 notice"><i class="las la-exclamation-triangle"></i><br/>There are no suspended projects to view. When a project is suspended, it will appear here.</p>
                         </div>
                     ';
                 }else{
@@ -30,9 +29,10 @@
                             <tr>
                                 <th><h4>Project Name</h4></th>
                                 <th><h4>Project Score</h4></th>
-                                <th><h4>Project Rank</h4></th>
                                 <th><h4>Added by</h4></th>
                                 <th><h4>Date Added</h4></th>
+                                <th><h4>Suspended by</h4></th>
+                                <th><h4>Date Suspended</h4></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -43,16 +43,10 @@
                             <tr>
                                 <td><h5>'.$project['name'].'</h5></td>
                                 <td><p class="p5">'.$project['score'].'</p></td>
-                                <td><p class="p5">';
-                                foreach ($data['project_scores'] as $key => $value) {
-                                    if($project['id'] == $value['id'])
-                                    {
-                                        echo $project_rank = array_search($value, $data['project_scores']) + 1;
-                                    }
-                                };
-                                echo '</p></td>
                                 <td><p class="p5">'.$project['added_by'].'</p></td>
                                 <td><p class="p5">'.date('d M, Y', strtotime( $project['date_added'])).'</p></td>
+                                <td><p class="p5">'.$project['suspended_by'].'</p></td>
+                                <td><p class="p5">'.date('d M, Y', strtotime( $project['date_suspended'])).'</p></td>
                                 <td>
                                     <a href="/projects/view/'.$project['sector'].'/'.$project['name'].'/'.$project['id'].'" class="action view-project">View</a>
                                 </td>
@@ -75,9 +69,9 @@
                             <p class="h4 notice"><i class="las la-exclamation-triangle"></i><br/>You have an incomplete project upload. Do you want to continue from where you stopped?</p>
                         </div>
                         <div class="modal-content-cta d-flex flex-row justify-content-center align-items-center">
-                            <a class="btn tertiary modal-close" href="#" id="modal-close">I\'ll do that later</a>
+                            <a class="btn tertiary" href="#" id="modal-close">I\'ll do that later</a>
                             <a class="btn" href="/projects/metrics/'.$data['emptyMetrics'][0]['name'].'/'.$data['emptyMetrics'][0]['id'].'/'.$data['emptyMetrics'][0]['sector'].'" id="go-metrics">Okay, I\'ll finish it now</a>
-                        </div>
+                        </a>
                     </div>
                 </div>
             ';

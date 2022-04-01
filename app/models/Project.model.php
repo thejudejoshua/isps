@@ -130,7 +130,7 @@ class Project extends Db
     {
         try
         {
-            $insert = "INSERT INTO `railway_projects_metrics`(`project_id`, `sector`, `Construction_Type`, `Average_Daily_Customers_or_Cargo`, `Volume_to_Capacity_Ratio`, `Railway_Classification`, `Macro_Corridor_Completion`, `Enhances_Inter-regional_Trade`, `Economic_benefits_to_other_regions`, `Creates_job_oppotunities_for_other_regions`, `Number_of_jobs_created`, `Number_of_jobs_that_would_be_retained`, `GDP_of_local_economy_(state)`, `Cost_Effectiveness_(cost/average_daily_traffic)`, `Project_cost_(amount_to_be_spent_by_government)`, `Investment_Payback_Period_(in_years)`, `Compensation_and_Relocation`, `Population_to_be_served`, `Ability_to_mitigate_against_environmental_degradation`, `Amount_of_Co2_Emmissions_from_the_project`, `Environmental_Impact_Category`, `Waste_management_policy`, `Occupational_Health_and_Safety_policy`, `Use_of_naturally_occuring_materials_within_the_corridor`, `Private/Public/Local_Participation`, `Unique_Multimodal_Impacts`, `Ability_to_spur_urban_renewal/compliment_key_business_activities`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $insert = "INSERT INTO `railway_projects_metrics`(`project_id`, `sector`, `Construction_Type`, `Average_Daily_Customers_or_Cargo`, `Volume_to_Capacity_Ratio`, `Railway_Classification`, `Macro_Corridor_Completion`, `Enhances_Inter-regional_Trade`, `Economic_benefits_to_other_regions`, `Creates_job_opportunities_for_other_regions`, `Number_of_jobs_created`, `Number_of_jobs_that_would_be_retained`, `GDP_of_local_economy_(state)`, `Cost_Effectiveness_(cost/average_daily_traffic)`, `Project_cost_(amount_to_be_spent_by_government)`, `Investment_Payback_Period_(in_years)`, `Compensation_and_Relocation`, `Population_to_be_served`, `Ability_to_mitigate_against_environmental_degradation`, `Amount_of_Co2_Emmissions_from_the_project`, `Environmental_Impact_Category`, `Waste_management_policy`, `Occupational_Health_and_Safety_policy`, `Use_of_naturally_occuring_materials_within_the_corridor`, `Private/Public/Local_Participation`, `Unique_Multimodal_Impacts`, `Ability_to_spur_urban_renewal/compliment_key_business_activities`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $this->connect()->prepare($insert);
             $stmt->execute([
                 $array['project_id'],
@@ -142,7 +142,7 @@ class Project extends Db
                 $array['Macro_Corridor_Completion'],
                 $array['Enhances_Inter-regional_Trade'],
                 $array['Economic_benefits_to_other_regions'],
-                $array['Creates_job_oppotunities_for_other_regions'],
+                $array['Creates_job_opportunities_for_other_regions'],
                 $array['Number_of_jobs_created'],
                 $array['Number_of_jobs_that_would_be_retained'],
                 $array['GDP_of_local_economy_(state)'],
@@ -180,7 +180,7 @@ class Project extends Db
     {
         try
         {
-            $insert = "INSERT INTO `railway_projects_scores`(`metrics_id`, `Construction_Type`, `Average_Daily_Customers_or_Cargo`, `Volume_to_Capacity_Ratio`, `Railway_Classification`, `Macro_Corridor_Completion`, `Enhances_Inter-regional_Trade`, `Economic_benefits_to_other_regions`, `Creates_job_oppotunities_for_other_regions`, `Number_of_jobs_created`, `Number_of_jobs_that_would_be_retained`, `GDP_of_local_economy_(state)`, `Cost_Effectiveness_(cost/average_daily_traffic)`, `Project_cost_(amount_to_be_spent_by_government)`, `Investment_Payback_Period_(in_years)`, `Compensation_and_Relocation`, `Population_to_be_served`, `Ability_to_mitigate_against_environmental_degradation`, `Amount_of_Co2_Emmissions_from_the_project`, `Environmental_Impact_Category`, `Waste_management_policy`, `Occupational_Health_and_Safety_policy`, `Use_of_naturally_occuring_materials_within_the_corridor`, `Private/Public/Local_Participation`, `Unique_Multimodal_Impacts`, `Ability_to_spur_urban_renewal/compliment_key_business_activities`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $insert = "INSERT INTO `railway_projects_scores`(`metrics_id`, `Construction_Type`, `Average_Daily_Customers_or_Cargo`, `Volume_to_Capacity_Ratio`, `Railway_Classification`, `Macro_Corridor_Completion`, `Enhances_Inter-regional_Trade`, `Economic_benefits_to_other_regions`, `Creates_job_opportunities_for_other_regions`, `Number_of_jobs_created`, `Number_of_jobs_that_would_be_retained`, `GDP_of_local_economy_(state)`, `Cost_Effectiveness_(cost/average_daily_traffic)`, `Project_cost_(amount_to_be_spent_by_government)`, `Investment_Payback_Period_(in_years)`, `Compensation_and_Relocation`, `Population_to_be_served`, `Ability_to_mitigate_against_environmental_degradation`, `Amount_of_Co2_Emmissions_from_the_project`, `Environmental_Impact_Category`, `Waste_management_policy`, `Occupational_Health_and_Safety_policy`, `Use_of_naturally_occuring_materials_within_the_corridor`, `Private/Public/Local_Participation`, `Unique_Multimodal_Impacts`, `Ability_to_spur_urban_renewal/compliment_key_business_activities`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $this->connect()->prepare($insert);
             $stmt->execute([
                 $array['metrics_id'],
@@ -191,7 +191,7 @@ class Project extends Db
                 $array['Macro_Corridor_Completion'],
                 $array['Enhances_Inter-regional_Trade'],
                 $array['Economic_benefits_to_other_regions'],
-                $array['Creates_job_oppotunities_for_other_regions'],
+                $array['Creates_job_opportunities_for_other_regions'],
                 $array['Number_of_jobs_created'],
                 $array['Number_of_jobs_that_would_be_retained'],
                 $array['GDP_of_local_economy_(state)'],
@@ -229,7 +229,7 @@ class Project extends Db
     {
         try
         {
-            $insert = "INSERT INTO `highway_projects_metrics`(`project_id`, `sector`, `Construction_Type`, `Average_Daily_Traffic`, `Volume_to_Capacity_Ratio`, `Roadway_Classification`, `Macro_Corridor_Completion`, `Accident_Rate`, `Enhances_Inter-regional_Trade`, `Economic_benefits_to_other_regions`, `Creates_job_oppotunities_for_other_regions`, `Number_of_jobs_created`, `Number_of_jobs_that_would_be_retained`, `GDP_of_local_economy_(state)`, `Cost_Effectiveness_(cost/average_daily_traffic)`, `Project_cost_(amount_to_be_spent_by_government)`, `Investment_Payback_Period_(in_years)`, `Compensation_and_Relocation`, `Population_to_be_served`, `Ability_to_mitigate_against_environmental_degradation`, `Amount_of_Co2_Emmissions_from_the_project`, `Environmental_Impact_Category`, `Waste_management_policy`, `Occupational_Health_and_Safety_policy`, `Use_of_naturally_occuring_materials_within_the_corridor`, `Private/Public/Local_Participation`, `Unique_Multimodal_Impacts`, `Ability_to_spur_urban_renewal/compliment_key_business_activities`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $insert = "INSERT INTO `highway_projects_metrics`(`project_id`, `sector`, `Construction_Type`, `Average_Daily_Traffic`, `Volume_to_Capacity_Ratio`, `Roadway_Classification`, `Macro_Corridor_Completion`, `Accident_Rate`, `Enhances_Inter-regional_Trade`, `Economic_benefits_to_other_regions`, `Creates_job_opportunities_for_other_regions`, `Number_of_jobs_created`, `Number_of_jobs_that_would_be_retained`, `GDP_of_local_economy_(state)`, `Cost_Effectiveness_(cost/average_daily_traffic)`, `Project_cost_(amount_to_be_spent_by_government)`, `Investment_Payback_Period_(in_years)`, `Compensation_and_Relocation`, `Population_to_be_served`, `Ability_to_mitigate_against_environmental_degradation`, `Amount_of_Co2_Emmissions_from_the_project`, `Environmental_Impact_Category`, `Waste_management_policy`, `Occupational_Health_and_Safety_policy`, `Use_of_naturally_occuring_materials_within_the_corridor`, `Private/Public/Local_Participation`, `Unique_Multimodal_Impacts`, `Ability_to_spur_urban_renewal/compliment_key_business_activities`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $this->connect()->prepare($insert);
             $stmt->execute([
                 $array['project_id'],
@@ -237,12 +237,12 @@ class Project extends Db
                 $array['Construction_Type'],
                 $array['Average_Daily_Traffic'],
                 $array['Volume_to_Capacity_Ratio'],
-                $array['Road_Classification'],
+                $array['Roadway_Classification'],
                 $array['Macro_Corridor_Completion'],
                 $array['Accident_Rate'],
                 $array['Enhances_Inter-regional_Trade'],
                 $array['Economic_benefits_to_other_regions'],
-                $array['Creates_job_oppotunities_for_other_regions'],
+                $array['Creates_job_opportunities_for_other_regions'],
                 $array['Number_of_jobs_created'],
                 $array['Number_of_jobs_that_would_be_retained'],
                 $array['GDP_of_local_economy_(state)'],
@@ -280,19 +280,19 @@ class Project extends Db
     {
         try
         {
-            $insert = "INSERT INTO `highway_projects_scores`(`metrics_id`, `Construction_Type`, `Average_Daily_Traffic`, `Volume_to_Capacity_Ratio`, `Roadway_Classification`, `Macro_Corridor_Completion`, `Accident_Rate`, `Enhances_Inter-regional_Trade`, `Economic_benefits_to_other_regions`, `Creates_job_oppotunities_for_other_regions`, `Number_of_jobs_created`, `Number_of_jobs_that_would_be_retained`, `GDP_of_local_economy_(state)`, `Cost_Effectiveness_(cost/average_daily_traffic)`, `Project_cost_(amount_to_be_spent_by_government)`, `Investment_Payback_Period_(in_years)`, `Compensation_and_Relocation`, `Population_to_be_served`, `Ability_to_mitigate_against_environmental_degradation`, `Amount_of_Co2_Emmissions_from_the_project`, `Environmental_Impact_Category`, `Waste_management_policy`, `Occupational_Health_and_Safety_policy`, `Use_of_naturally_occuring_materials_within_the_corridor`, `Private/Public/Local_Participation`, `Unique_Multimodal_Impacts`, `Ability_to_spur_urban_renewal/compliment_key_business_activities`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $insert = "INSERT INTO `highway_projects_scores`(`metrics_id`, `Construction_Type`, `Average_Daily_Traffic`, `Volume_to_Capacity_Ratio`, `Roadway_Classification`, `Macro_Corridor_Completion`, `Accident_Rate`, `Enhances_Inter-regional_Trade`, `Economic_benefits_to_other_regions`, `Creates_job_opportunities_for_other_regions`, `Number_of_jobs_created`, `Number_of_jobs_that_would_be_retained`, `GDP_of_local_economy_(state)`, `Cost_Effectiveness_(cost/average_daily_traffic)`, `Project_cost_(amount_to_be_spent_by_government)`, `Investment_Payback_Period_(in_years)`, `Compensation_and_Relocation`, `Population_to_be_served`, `Ability_to_mitigate_against_environmental_degradation`, `Amount_of_Co2_Emmissions_from_the_project`, `Environmental_Impact_Category`, `Waste_management_policy`, `Occupational_Health_and_Safety_policy`, `Use_of_naturally_occuring_materials_within_the_corridor`, `Private/Public/Local_Participation`, `Unique_Multimodal_Impacts`, `Ability_to_spur_urban_renewal/compliment_key_business_activities`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $stmt = $this->connect()->prepare($insert);
             $stmt->execute([
                 $array['metrics_id'],
                 $array['Construction_Type'],
                 $array['Average_Daily_Traffic'],
                 $array['Volume_to_Capacity_Ratio'],
-                $array['Road_Classification'],
+                $array['Roadway_Classification'],
                 $array['Macro_Corridor_Completion'],
                 $array['Accident_Rate'],
                 $array['Enhances_Inter-regional_Trade'],
                 $array['Economic_benefits_to_other_regions'],
-                $array['Creates_job_oppotunities_for_other_regions'],
+                $array['Creates_job_opportunities_for_other_regions'],
                 $array['Number_of_jobs_created'],
                 $array['Number_of_jobs_that_would_be_retained'],
                 $array['GDP_of_local_economy_(state)'],
@@ -354,10 +354,10 @@ class Project extends Db
         }
     }
 
-    public function getAllUserSectorProjects($sector)
+    public function getAllActiveUserSectorProjects($sector)
     {
         try{
-            $query = "SELECT * FROM `projects` WHERE `metrics` != '0' AND `sector` = :sector ORDER BY `score` DESC";
+            $query = "SELECT * FROM `projects` WHERE `metrics` != '0' AND `sector` = :sector AND `approved` = '1' AND `suspended` != '1' ORDER BY `score` DESC";
             $stmt = $this->connect()->prepare($query);
             $stmt->execute([
                 ':sector' => $sector
@@ -372,7 +372,22 @@ class Project extends Db
     public function getUnapprovedProjects($sector)
     {
         try{
-            $query = "SELECT * FROM `projects` WHERE `metrics` != '0' AND `approved` = '0' AND `sector`=:sector";
+            $query = "SELECT * FROM `projects` WHERE `metrics` != '0' AND `approved` = '0' AND `sector`=:sector AND `suspended` != '1'";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                ':sector' => $sector
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function getSuspendedProjects($sector)
+    {
+        try{
+            $query = "SELECT * FROM `projects` WHERE `metrics` != '0' AND `sector`=:sector AND `suspended` = '1'";
             $stmt = $this->connect()->prepare($query);
             $stmt->execute([
                 ':sector' => $sector
@@ -459,4 +474,86 @@ class Project extends Db
             return "error=Failed! <br>" . $e->getMessage();
         }
     }
+
+    public function addProjectPriority($id)
+    {
+        try{
+            $insert = "INSERT INTO `priority_list`(`project_id`) VALUES (:id)";
+            $stmt = $this->connect()->prepare($insert);
+            $stmt->execute([
+                ':id' => $id
+            ]);
+            return true;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function addProjectExecution($id)
+    {
+        try{
+            $insert = "INSERT INTO `execution_list`(`project_id`) VALUES (:id)";
+            $stmt = $this->connect()->prepare($insert);
+            $stmt->execute([
+                ':id' => $id
+            ]);
+            return true;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function approveproject($id, $approved_by, $approved_by_designation)
+    {
+        try{
+            $update = "UPDATE `projects` SET `approved` = '1', `approved_by` = :approved_by, `approved_by_designation` = :approved_by_designation WHERE `id` = :id";
+            $stmt = $this->connect()->prepare($update);
+            $stmt->execute([
+                ':approved_by' => $approved_by,
+                ':approved_by_designation' => $approved_by_designation,
+                ':id' => $id
+            ]);
+            return 'success!=You have successfully approved this project!';
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function suspendproject($id, $suspender, $suspended_by_designation, $suspension_date)
+    {
+        try{
+            $update = "UPDATE `projects` SET `suspended` = '1', `suspended_by` = ?, `suspended_by_designation` = ?, `date_suspended` = ? WHERE `id` = ?";
+            $stmt = $this->connect()->prepare($update);
+            $stmt->execute([
+                $suspender,
+                $suspended_by_designation,
+                $suspension_date,
+                $id
+            ]);
+            return true;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function reactivateProject($id, $suspender, $suspended_by_designation, $suspension_date, $approved, $approved_by,$approved_by_designation)
+    {
+        try{
+            $update = "UPDATE `projects` SET `suspended` = '0', `suspended_by` = ?, `suspended_by_designation` = ?, `date_suspended` = ?, `approved` = ?, `approved_by` = ?,  `approved_by_designation` = ? WHERE `id` = ?";
+            $stmt = $this->connect()->prepare($update);
+            $stmt->execute([
+                $suspender,
+                $suspended_by_designation,
+                $suspension_date,
+                $approved,
+                $approved_by,
+                $approved_by_designation,
+                $id
+            ]);
+            return true;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
 }
