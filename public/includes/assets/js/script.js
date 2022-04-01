@@ -61,17 +61,6 @@ $(document).ready(function() {
     //=================================================================================================
     $('select#designaton').on('change', function() {
         switch ($(this).val()) {
-            case 'director':
-                var level = ["level 17"];
-                $(this).parent().removeClass('full-width');
-                if ($(".rank").length == 0) {
-                    $(this).parent().parent().addClass('dual').append('<div class="rank"><label for="rank" class="form-label">Choose a level <span>(Required)</span></label><select id="rank" name="rank" class="form-control" required><option value="" disabled selected hidden>Choose...</option></select></div>');
-                }
-                $('.rank select').find('option').remove().end().append($('<option value=" " disabled selected hidden>Choose...</option>'));
-                $.each(level, function(key, value) {
-                    $('.rank select').append($('<option>', { value: value }).text(value));
-                });
-                break;
 
             case 'budgeting officer':
                 var level = ["level 8", "level 9", "level 10", "level 11", "level 12", "level 13", "level 14", "level 15", "level 16"];

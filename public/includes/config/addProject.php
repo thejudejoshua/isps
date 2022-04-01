@@ -88,11 +88,13 @@ switch($_POST){
                
                 $emptyCheck = $input->caseEmpty($array);
                 if($emptyCheck === true){
-                    if($array['sector'] == 'Railway Construction'){
-                        $table_prefix = 'railway';
-                    }else if($array['sector'] == 'Highway Construction'){
-                        $table_prefix = 'highway';
-                    }
+
+                    $table_prefix = $project->table_prefix($array['sector']);
+                    // if($array['sector'] == 'Railway Construction'){
+                    //     $table_prefix = 'railway';
+                    // }else if($array['sector'] == 'Highway Construction'){
+                    //     $table_prefix = 'highway';
+                    // }
                     
                     foreach($array as  $key => $value)
                     {

@@ -288,6 +288,10 @@ hr {
     line-height: 20px;
 }
 
+.notice a {
+    text-decoration: underline;
+}
+
 .notice i {
     font-size: 128px;
     margin-bottom: 24px;

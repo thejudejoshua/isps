@@ -35,7 +35,7 @@ switch($_POST){
                             case 'director':
                                 $array['rank'] = '2';
                                 $array['approved'] = '0';
-                                $array['level'] = $_POST['rank'];
+                                $array['level'] = '17';
                                 break;
                                 
                             default:
@@ -53,9 +53,6 @@ switch($_POST){
                             $passwordCheck = $input->checkPassword($array['password'], $array['confirm password']);
     
                             if ($passwordCheck == $array['password']) {
-    
-                                $_SESSION['designation'] = 'dev_admin';
-                                $_SESSION['sector'] = 'dev_admin_sector';
     
                                 $array['added_by'] = $_SESSION['name'];
                                 $array['added_by_designation'] = $_SESSION['designation'];

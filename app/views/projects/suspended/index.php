@@ -10,7 +10,7 @@
         <section class="content">
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
-                    <h2 class="title p3">All Unapproved Projects</h2>
+                    <h2 class="title p3">All Suspended Projects</h2>
                 </div>
             </div>
             <hr>

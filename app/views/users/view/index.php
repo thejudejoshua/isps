@@ -17,7 +17,7 @@
                         <h4>Role: '.$user['designation'].'</h4>
                         <h4>Level: '.$user['level'].'</h4>
                         <h4>Sector: '.$user['sector'].'</h4>
-                        <h4>Added by: <a href="#">'.$user['added_by'].'</a></h4>
+                        <h4>Added by: <a href="/users/view/'.$user['added_by_designation'].'/'.$data['added_by_id'].'">'.$user['added_by'].'</a></h4>
                         <h4>Date added: '.date('d M, Y', strtotime( $user['date_added'])).'</h4>
                         <hr>
                         <h4>Number of Projects added: 0</h4>

@@ -70,16 +70,8 @@ class Projects extends Controller
                     $metricsData = json_decode($metrics['metrics_data'], TRUE);
                 }
                 
-                switch ($_SESSION['sector']) {
-                    case 'Railway Construction':
-                        $table_prefix = 'railway';
-                        break;
-                    
-                    case 'Highway Construction':
-                        $table_prefix = 'highway';
-                        break;
-                }
-                
+                $table_prefix = $project->table_prefix($_SESSION['sector']);
+
                 $projectMetricsData = $project->getProjectMetrics($table_prefix, $id);
                 $projectMetricsScore = $project->getProjectMetricsScores($table_prefix, $id);
 
@@ -257,5 +249,6 @@ class Projects extends Controller
         $sql = "SELECT `id`, `score` FROM `projects` WHERE `sector` = '".$sector."' AND `suspended` != '1' ORDER BY `score` DESC";
         return $db_model->runSelectQuery($sql);
     }
+
 
 }

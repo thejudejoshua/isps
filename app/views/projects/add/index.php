@@ -41,7 +41,7 @@
                                 <input type="number" class="form-control" name="projectDuration" id="projectDuration" min="0" placeholder="E.g. 4" required>
                             </div>
                             <div class="">
-                                <label for="projectCost" class="form-label">Project Cost (In Naira) <span>(Required)</span></label>
+                                <label for="projectCost" class="form-label">Project Cost (₦) <span>(Required)</span></label>
                                 <input type="text" class="form-control number-input" name="projectCost" id="projectCost" placeholder="E.g. 2,309,332" required>
                             </div>
                         </div>

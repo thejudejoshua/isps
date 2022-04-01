@@ -55,7 +55,7 @@ class App{
     protected function parseUrl()
     {
         if(isset($_GET['url'])){
-            return $url = explode('/', str_replace('\/', ' ', filter_var(str_replace(' ', '\/', rtrim($_GET['url'], '/')), FILTER_SANITIZE_URL)));
+            return $url = explode('/', str_replace('-', ' ', filter_var(str_replace(' ', '-', rtrim($_GET['url'], '/')), FILTER_SANITIZE_URL)));
         }
     }
 
