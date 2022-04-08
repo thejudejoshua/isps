@@ -20,15 +20,7 @@ switch($_POST){
 
                 if($suspend == true)
                 {
-                    switch ($_SESSION['sector']) {
-                        case 'Railway Construction':
-                            $table_prefix = 'railway';
-                            break;
-                        
-                        case 'Highway Construction':
-                            $table_prefix = 'highway';
-                            break;
-                    }
+                    $table_prefix = $project->table_prefix($_SESSION['sector']);
                     
                     $metricsData = $project->getMetrics($_SESSION['sector']);
                     $allProjects  = $project->getAllActiveUserSectorProjects($_SESSION['sector']);
@@ -56,11 +48,12 @@ switch($_POST){
                                                 
                                                 foreach ($result as $resultKey => $resultData)
                                                 {
-                                                    $matches = array_search($resultData, $result) + 1;
-                                                    if($matches < ceil(count($result)/2))
+                                                    $average = $project->getCompared($result, $formDataKey);
+
+                                                    if($resultData[$formDataKey] > $average)
                                                     {
                                                         $newScore = $label['data-score']['High'];
-                                                    }elseif($matches > ceil(count($result)/2))
+                                                    }elseif($resultData[$formDataKey] < $average)
                                                     {
                                                         $newScore = $label['data-score']['Low'];
                                                     }else

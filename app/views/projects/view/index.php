@@ -8,7 +8,7 @@
     <div class="content-box">
         <?php require_once './includes/components/topNav.php';?>
         <section class="content">
-            <a href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/projects' ?>">back to projects list</a>
+            <a href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/projects' ?>">Back to projects list</a>
             <hr>
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
@@ -16,9 +16,21 @@
                     <input type="hidden" id="project_id" value="<?= $data['projectData'][0]['project_id']?>">
                 </div>
                 <div class="">
-                    <?=$_SESSION['designation'] == 'director' ? ' <a class="btn secondary">Edit project</a>' : ''?>
+                    <?=$_SESSION['designation'] == 'director' ? ' <a href="/projects/edit/'.$data['projectData'][0]['sector'].'/'.$data['projectData'][0]['name'].'/'.$data['projectData'][0]['project_id'].'" class="btn secondary">Edit project</a>' : ''?>
                     <?=$data['projectData'][0]['approved'] == '0' && $_SESSION['designation'] != 'budgeting officer' && $data['projectData'][0]['suspended'] == '0' ? '<a class="btn approve">Approve project</a>' : ''?>
-                    <?=$_SESSION['designation'] != 'budgeting officer' && $data['projectData'][0]['suspended'] == '0' ? '<a href="/projects/add" class="btn danger suspend">Suspend project</a>' : '<a class="btn activate">Reactivate project</a>'?>
+                    <?php
+                        if($_SESSION['designation'] != 'budgeting officer'){
+                            if($data['projectData'][0]['suspended'] == '0'){
+                                echo'
+                                    <a href="/projects/add" class="btn danger suspend">Suspend project</a>
+                                ';
+                            }else{
+                                echo '
+                                    <a class="btn activate">Reactivate project</a>
+                                ';
+                            }
+                        }
+                    ?>
                 </div>
             </div>
             <hr>
@@ -75,13 +87,13 @@
                                 foreach ($midwayStates as $key => $midway) {
                                     echo '
                                         <div class="details">
-                                            <span class="d-block p-name mt-3 mb-2">Project Midway State (1)</span>
+                                            <span class="d-block p-name mt-3 mb-2">Project Midway State ('.($key + 1).')</span>
                                             <P class="p-data">
                                                 '.$midway.'
                                             </p>
                                         </div>
                                         <div class="details">
-                                            <span class="d-block p-name mt-3 mb-2">Project Midway City (1)</span>
+                                            <span class="d-block p-name mt-3 mb-2">Project Midway City ('.($key + 1).')</span>
                                             <P class="p-data">
                                                 '.$midwayCities[$key].'
                                             </p>
@@ -171,7 +183,7 @@
                                                     }
                                                     echo '
                                                         <div class="full-width">
-                                                        <div class="span-hold d-flex justify-content-between align-content-end">
+                                                            <div class="span-hold d-flex justify-content-between align-content-end">
                                                                 <span class="p-name d-block p5">'.$label['label'].':<br/><span>'.$naira.' '.number_format($value, '0', '', ',').'</span></span>
                                                                 <span class="p-name d-block">('.$data['projectMetricsScore'][0][$formDataKey].'/'.max($label['data-score']).')</span>
                                                             </div>
@@ -196,11 +208,23 @@
             <hr>
             <div class="d-flex justify-content-between">
                 <div class="info_cta_left">
-                    <?=$_SESSION['designation'] == 'director' ? ' <a class="btn secondary">Edit project</a>' : ''?>
+                    <?=$_SESSION['designation'] == 'director' ? ' <a href="/projects/edit/'.$data['projectData'][0]['sector'].'/'.$data['projectData'][0]['name'].'/'.$data['projectData'][0]['project_id'].'" class="btn secondary">Edit project</a>' : ''?>
                     <?=$data['projectData'][0]['approved'] == '0' && $_SESSION['designation'] != 'budgeting officer' && $data['projectData'][0]['suspended'] == '0' ? '<a class="btn approve">Approve project</a>' : ''?>
                 </div>
                 <div class="info_cta_right">
-                    <?=$_SESSION['designation'] != 'budgeting officer' && $data['projectData'][0]['suspended'] == '0' ? '<a href="/projects/add" class="btn danger suspend">Suspend project</a>' : '<a class="btn activate">Reactivate project</a>'?>
+                    <?php
+                        if($_SESSION['designation'] != 'budgeting officer'){
+                            if($data['projectData'][0]['suspended'] == '0'){
+                                echo'
+                                    <a href="/projects/add" class="btn danger suspend">Suspend project</a>
+                                ';
+                            }else{
+                                echo '
+                                    <a class="btn activate">Reactivate project</a>
+                                ';
+                            }
+                        }
+                    ?>
                 </div>
             </div>
         </section>

@@ -18,7 +18,7 @@
 
 .info_top_left {
     width: 54%;
-    column-gap: 4%;
+    column-gap: 7px;
     row-gap: 24px;
 }
 
@@ -99,7 +99,7 @@
 }
 
 .details {
-    width: 248px;
+    width: 238px;
     height: fit-content;
 }
 

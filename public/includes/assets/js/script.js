@@ -146,7 +146,11 @@ $(document).ready(function() {
         show_midway($(this));
     });
 
-    var totNum = 0;
+    if ($('.rem.mid-content.edit').length > 0) {
+        var totNum = $('.rem.mid-content.edit').length;
+    } else {
+        var totNum = 0;
+    }
 
     function show_midway(params) {
         var num = params.val();
@@ -313,23 +317,8 @@ $(document).ready(function() {
         })
     });
     //=================================================================================================
-    //                                             A D D  P R O J E C T  M E T R I C S
+    //                                         A D D  P R O J E C T  M E T R I C S
     //=================================================================================================
-    // $('#go-metrics').click(function(e) {
-    //     e.preventDefault();
-    //     // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
-    //     var link = $(this).attr('href');
-    //     let metrics_id = $(this).data('id');
-    //     let metrics_sector = $(this).data('sector');
-    //     let data = '/' + metrics_id + '/' + metrics_sector
-
-    //     let href = link + data;
-    //     setTimeout(() => {
-    //         window.location.href = href
-    //     }, 500);
-
-    // });
-
     $('#newProjectMetricsForm #btn-submit').click(function(e) {
         e.preventDefault();
         // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
@@ -363,6 +352,85 @@ $(document).ready(function() {
                         alert(error[1]);
                     } else {
                         alert(response)
+                    }
+                    // $('#recha').remove();
+                }
+            }
+        })
+    });
+
+    //=================================================================================================
+    //                                             E D I T  P R O J E C T S
+    //=================================================================================================
+    $('#editProjectForm #btn-submit').click(function(e) {
+        e.preventDefault();
+        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        let link = '/includes/config/editProject.php';
+        let form = $('#editProjectForm')[0]; // You need to use standard javascript object here
+        let data = new FormData(form);
+
+        $.ajax({
+            url: link,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            data: data,
+            success: function(response) {
+                if (response.split("=")[0] === 'success!') {
+                    href = response.split("=")[1];
+                    // $('#recha').remove();
+                    alert('The project data was saved successfully! You\'ll be directed to enter the project metrics shortly.');
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 500);
+                } else {
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        alert(error[1]);
+                    } else {
+                        alert(response)
+                    }
+                    // $('#recha').remove();
+                }
+            }
+        })
+    });
+    //=================================================================================================
+    //                                             E D I T  P R O J E C T  M E T R I C S
+    //=================================================================================================
+    $('#editProjectMetricsForm #btn-submit').click(function(e) {
+        e.preventDefault();
+        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        let link = '/includes/config/editProject.php';
+        let form = $('#editProjectMetricsForm')[0]; // You need to use standard javascript object here
+        let data = new FormData(form);
+
+        $.ajax({
+            url: link,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            data: data,
+            success: function(response) {
+                if (response.split("=")[0] === 'success!') {
+                    href = response.split("=")[1];
+                    // $('#recha').remove();
+                    alert('The project metrics was saved successfully!');
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 500);
+                } else {
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        const error_element = error[1].split("for ")[1];
+
+                        $('html, body').animate({
+                            scrollTop: $("#" + error_element).offset().top - 100
+                        }, 1000);
+
+                        alert(error[1]);
+                    } else {
+                        alert(response);
                     }
                     // $('#recha').remove();
                 }
@@ -518,7 +586,6 @@ $(document).ready(function() {
             </div>`
         );
     })
-
     $(document).on('click', '.activate-go', function(e) {
         e.preventDefault();
         // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
@@ -550,5 +617,83 @@ $(document).ready(function() {
                 }
             }
         })
+    })
+
+    //=================================================================================================
+    //                            C O M P A R E  P R O J E C T S
+    //=================================================================================================
+    $(document).on('change', '.compare-select', function(e) {
+        var parent_siblings = $(this).parent().parent().siblings('.form-group');
+        var parent_next_select = $(this).parent().parent().next().find('.compare-select');
+        var options = $(this).children("option:not(:selected)").clone();
+        // var options_all = $(this).children("option").clone();
+        var id = $(this).find('option:selected').attr('id');
+        var finder = ($(this).attr('id')).split("-")[1];
+
+
+        if ($(parent_next_select).children().length == 1) {
+            $(parent_next_select).empty().append(options);
+        } else {
+            // if ($(parent_next_select).children().length > 1) {}
+            for (let len = 0; len <= parent_siblings.length; len++) {
+                // for (let len = 0; len < parent_siblings.length; len++) {
+
+                if ($(this).val() === $(parent_siblings[len]).find('.compare-select').val()) {
+                    var find_val_class = ($(parent_siblings[len]).find('.compare-select').attr('id')).split("-")[1];
+                    $('p[id$="-' + find_val_class + '"]').html('-');
+                    $(parent_siblings[len]).find('.compare-select option#' + id).remove();
+                }
+
+                for (let option_len = 0; option_len < options.length; option_len++) {
+                    var option_id = options[option_len].id;
+                    if (option_id != '') {
+                        if (!$(parent_siblings[len]).find('.compare-select option#' + option_id).length) {
+                            $(parent_siblings[len]).find('.compare-select').remove('option#' + option_id).append('<option id="' + option_id + '" value="' + options[option_len].value + '">' + options[option_len].value + '</option>');
+                        }
+                    }
+                }
+            }
+        }
+
+        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        let link = '/includes/config/compareProject.php';
+        var project = $(this).find('option:selected').val();
+
+        $.ajax({
+            url: link,
+            type: "POST",
+            data: {
+                project: project,
+            },
+            success: function(response) {
+                if (response.split("=")[0] === 'success!') {
+                    // $('#recha').remove();
+                    var rankingsList = response.split("=")[1];
+                    var ranking = rankingsList.split("-");
+
+                    $('.val').html() == '-' || $('.val').html() != '' ? '' : $('.val').html('-');
+
+                    $('#score-' + finder).html(ranking[0]);
+                    $('#rank-' + finder).html(ranking[1]);
+                    $('#fund-' + finder).html(ranking[2]);
+                    $('#population-' + finder).html(ranking[3].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                    $('#co2-' + finder).html(ranking[4].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                    $('#jobs-' + finder).html(ranking[5].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+
+                    $('.compare-bottom').removeClass('hidden');
+
+                } else {
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        alert(error[1]);
+                    } else {
+                        alert(response);
+                    }
+                    // $('#recha').remove();
+                }
+            }
+        })
+
+
     })
 })

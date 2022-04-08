@@ -48,11 +48,11 @@ switch($_POST){
                                                 
                                                 foreach ($result as $resultKey => $resultData)
                                                 {
-                                                    $matches = array_search($resultData, $result) + 1;
-                                                    if($matches < ceil(count($result)/2))
+                                                    $average = $project->getCompared($result, $formDataKey);
+                                                    if($resultData[$formDataKey] > $average)
                                                     {
                                                         $newScore = $label['data-score']['High'];
-                                                    }elseif($matches > ceil(count($result)/2))
+                                                    }elseif($resultData[$formDataKey] < $average)
                                                     {
                                                         $newScore = $label['data-score']['Low'];
                                                     }else

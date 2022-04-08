@@ -12,7 +12,7 @@
                 <div class="">
                     <h2 class="title p3">All Projects</h2>
                 </div>
-                <?=$_SESSION['designation'] == 'director' ? '<a href="/projects/add" class="btn">+ Add a New Project</a>' : ''?>
+                <?=$_SESSION['designation'] != 'secretariat' ? '<a href="/projects/add" class="btn">+ Add a New Project</a>' : ''?>
             </div>
             <hr>
             <?php

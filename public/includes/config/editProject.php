@@ -42,6 +42,7 @@ switch($_POST){
                         $midway_lga = implode(',', $midway_lga);
                         $midway_longitude = implode(',', $midway_longitude);
                         $midway_latitude = implode(',', $midway_latitude);
+
                     }else{
                         $midway_state = null;
                         $midway_lga = null;
@@ -50,6 +51,7 @@ switch($_POST){
                     }
 
                     $array['project sector'] = $_SESSION['sector'];
+                    $array['project_id'] = $_POST['project_id'];
                     $array['year_of_entry'] = date("Y");
                     $array['origin_longitude'] = $_POST['originLongitude'];
                     $array['origin_latitude'] = $_POST['originLatitude'];
@@ -60,13 +62,8 @@ switch($_POST){
                     $array['midway_lga'] = $midway_lga;
                     $array['midway_latitude'] = $midway_latitude;
                     $array['midway_longitude'] = $midway_longitude;
-                    $array['approved'] = $_SESSION['designation'] != 'budgeting officer' ? '1' : '0';
-                    $array['added_by'] = $_SESSION['name'];
-                    $array['added_by_designation'] = $_SESSION['designation'];
-                    $array['date_added'] = date("Y-m-d");
-                    $array['metrics'] = '0';
 
-                    echo $project->addProject($array);
+                    echo $project->editProject($array);
 
                 }else{
                     echo $emptyCheck;
@@ -87,6 +84,8 @@ switch($_POST){
                 $array = $_POST;
                
                 unset($array['Investment_Payback_Period_(in_years)']);//remove investment payback period has it is not required;
+                unset($array['metrics_id']);//remove the metrics id and add it later;
+                unset($array['project_id']);//remove the project id because it's not needed for updating;
                 unset($array['project_name']);//remove the metrics id and add it later;
                 unset($array['sector']);
                 
@@ -107,20 +106,14 @@ switch($_POST){
                         }
                     }
 
-                    $sql = "INSERT INTO `".$table_prefix."_projects_metrics` SET ";
+                    $sql = "UPDATE `".$table_prefix."_projects_metrics` SET ";
                     foreach ($array as $key => $value) {
                         $sql .=  "`".$key."` = '".$value."', ";
                     }
                     $sql = rtrim($sql, ', ');
+                    $sql .= " WHERE `id` = ".$_POST['metrics_id']."";
 
                     $project->runInsertQuery($sql);
-
-                    $update = "UPDATE `projects` SET `metrics` = '1' WHERE `id` = '".$_POST['project_id']."'";
-                    $project->runInsertQuery($update);
-
-                    $getmetricsId = "SELECT `id` FROM `".$table_prefix."_projects_metrics` WHERE `project_id` = '".$_POST['project_id']."' ORDER BY `id` DESC LIMIT 1";
-                    $addedMetricsId = $project->runSelectQuery($getmetricsId)[0]['id'];
-
 
                     $metricsData = $project->getMetrics($_POST['sector']);
                     foreach ($metricsData as $key => $metrics){
@@ -144,7 +137,8 @@ switch($_POST){
 
                                             foreach ($result as $resultKey => $resultData)
                                             {
-                                                if($addedMetricsId == $resultData['id'])
+                                               
+                                                if($_POST['metrics_id'] == $resultData['id'])
                                                 {
                                                     if($formDataKey == 'Investment_Payback_Period_(in_years)' && $array[$formDataKey] == '0'){
                                                         $array[$formDataKey] = $label['data-score']['No-Payback'];
@@ -184,16 +178,15 @@ switch($_POST){
                                                         }
                                                     }
 
-                                                    $sql = "UPDATE `".$table_prefix."_projects_scores` SET `".$formDataKey."` = '".$newScore."' WHERE `metrics_id` = '".$resultData['id']."'";
+                                                    $sql = "UPDATE `".$table_prefix."_projects_scores` SET `".$formDataKey."` = ".$newScore." WHERE `metrics_id` = ".$resultData['id']."";
                                                     $project->runInsertQuery($sql);
                                                     
-                                                    $query = "SELECT * FROM `".$table_prefix."_projects_scores` WHERE `metrics_id` = '".$resultData['id']."'";
+                                                    $query = "SELECT * FROM `".$table_prefix."_projects_scores` WHERE `metrics_id` = ".$resultData['id']."";
                                                     $oldMetricsList = $project->runSelectQuery($query);
                                                     $oldMetricsLists = $oldMetricsList[0];
 
-                                                    unset($oldMetricsLists['id']);
-                                                    unset($oldMetricsLists['metrics_id']);
-
+                                                    array_shift($oldMetricsLists);
+                                                    array_shift($oldMetricsLists);
                                                     $oldMetricsTotalScore = array_sum($oldMetricsLists);
                                                     
                                                     $query = "SELECT `".$table_prefix."_projects_metrics`.`project_id` FROM `".$table_prefix."_projects_metrics` WHERE `".$table_prefix."_projects_metrics`.`id` = ".$resultData['id']."";
@@ -211,16 +204,15 @@ switch($_POST){
                         }
                     }
 
-                    unset($array['project_id']);
-                    $total_score = array_sum($array);
-                    $array['metrics_id'] = $addedMetricsId;
-
-                    $sql = "INSERT INTO `".$table_prefix."_projects_scores` SET ";
+                    $sql = "UPDATE `".$table_prefix."_projects_scores` SET ";
                     foreach ($array as $key => $value) {
                         $sql .=  "`".$key."` = '".$value."', ";
                     }
                     $sql = rtrim($sql, ', ');
+                    $sql .= " WHERE `metrics_id` = ".$_POST['metrics_id']."";
                     $project->runInsertQuery($sql);
+
+                    $total_score = array_sum($array);
 
                     $update = "UPDATE `projects` SET `score` = '".$total_score."' WHERE `id` = '".$_POST['project_id']."'";
                     $project->runInsertQuery($update);

@@ -127,11 +127,11 @@ Class User extends Db
     public function getAllUsers()
     {
         try{
-            $get = "SELECT `secretariat`.`id`,`secretariat`.`firstName`, `secretariat`.`lastName`, `secretariat`.`sector`, `secretariat`.`designation`, `secretariat`.`email`, `secretariat`.`added_by`, `secretariat`.`designation`, `secretariat`.`date_added` FROM `secretariat`
+            $get = "SELECT `secretariat`.`id`,`secretariat`.`firstName`, `secretariat`.`lastName`, `secretariat`.`sector`, `secretariat`.`designation`, `secretariat`.`email`, `secretariat`.`added_by`, `secretariat`.`added_by_designation`, `secretariat`.`date_added` FROM `secretariat`
             UNION ALL
-            SELECT `director`.`id`,`director`.`firstName`, `director`.`lastName`, `director`.`sector`, `director`.`designation`,`director`.`email`, `director`.`added_by`, `director`.`designation`, `director`.`date_added` FROM `director`
+            SELECT `director`.`id`,`director`.`firstName`, `director`.`lastName`, `director`.`sector`, `director`.`designation`,`director`.`email`, `director`.`added_by`, `director`.`added_by_designation`, `director`.`date_added` FROM `director`
             UNION ALL
-            SELECT `budgeting officer`.`id`,`budgeting officer`.`firstName`, `budgeting officer`.`lastName`, `budgeting officer`.`sector`, `budgeting officer`.`designation`, `budgeting officer`.`email`, `budgeting officer`.`added_by`, `budgeting officer`.`designation`, `budgeting officer`.`date_added` FROM `budgeting officer`";
+            SELECT `budgeting officer`.`id`,`budgeting officer`.`firstName`, `budgeting officer`.`lastName`, `budgeting officer`.`sector`, `budgeting officer`.`designation`, `budgeting officer`.`email`, `budgeting officer`.`added_by`, `budgeting officer`.`added_by_designation`, `budgeting officer`.`date_added` FROM `budgeting officer`";
             $stmt = $this->connect()->prepare($get);
             $stmt->execute([]);
             $data = $stmt->fetchAll();
@@ -144,11 +144,11 @@ Class User extends Db
     public function getAllSectorUsers($sector)
     {
         try{
-            $get = "SELECT `secretariat`.`id`,`secretariat`.`firstName`, `secretariat`.`lastName`, `secretariat`.`sector`, `secretariat`.`designation`, `secretariat`.`email`, `secretariat`.`added_by`, `secretariat`.`designation`, `secretariat`.`date_added` FROM `secretariat` WHERE `sector` = :sector
+            $get = "SELECT `secretariat`.`id`,`secretariat`.`firstName`, `secretariat`.`lastName`, `secretariat`.`sector`, `secretariat`.`designation`, `secretariat`.`email`, `secretariat`.`added_by`, `secretariat`.`added_by_designation`, `secretariat`.`date_added` FROM `secretariat` WHERE `sector` = :sector
             UNION ALL
-            SELECT `director`.`id`,`director`.`firstName`, `director`.`lastName`, `director`.`sector`, `director`.`designation`,`director`.`email`, `director`.`added_by`, `director`.`designation`, `director`.`date_added` FROM `director` WHERE `sector` = :sector
+            SELECT `director`.`id`,`director`.`firstName`, `director`.`lastName`, `director`.`sector`, `director`.`designation`,`director`.`email`, `director`.`added_by`, `director`.`added_by_designation`, `director`.`date_added` FROM `director` WHERE `sector` = :sector
             UNION ALL
-            SELECT `budgeting officer`.`id`,`budgeting officer`.`firstName`, `budgeting officer`.`lastName`, `budgeting officer`.`sector`, `budgeting officer`.`designation`, `budgeting officer`.`email`, `budgeting officer`.`added_by`, `budgeting officer`.`designation`, `budgeting officer`.`date_added` FROM `budgeting officer` WHERE `sector` = :sector";
+            SELECT `budgeting officer`.`id`,`budgeting officer`.`firstName`, `budgeting officer`.`lastName`, `budgeting officer`.`sector`, `budgeting officer`.`designation`, `budgeting officer`.`email`, `budgeting officer`.`added_by`, `budgeting officer`.`added_by_designation`, `budgeting officer`.`date_added` FROM `budgeting officer` WHERE `sector` = :sector";
             $stmt = $this->connect()->prepare($get);
             $stmt->execute([
                 ':sector'=>$sector,

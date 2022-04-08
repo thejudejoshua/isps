@@ -7,7 +7,7 @@
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box">
         <?php require_once './includes/components/topNav.php';?>
-        <section class="content mt-5">
+        <section class="content">
             <?php
                 foreach ($data['userDataList'] as $user) {
                     echo '

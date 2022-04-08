@@ -11,6 +11,7 @@
 @import url('inputs.css');
 @import url('login.css');
 @import url('table.css');
+@import url('compare.css');
 :root {
     --neutral: #fff;
     --secondary: #000;
@@ -321,6 +322,7 @@ span#notify {
     color: var(--primary);
     font-weight: 500;
     line-height: 24px;
+    font-size: 13px;
 }
 
 .d-block {

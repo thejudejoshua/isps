@@ -70,6 +70,10 @@ input.form-control:read-only {
     margin-bottom: 0;
 }
 
+.form-group.cta {
+    gap: 0;
+}
+
 .form-group.dual>* {
     /* width: 100%; */
     flex-basis: 50%;
@@ -280,4 +284,12 @@ label.container:last-child {
 .radio-container {
     padding: 16px 0;
     margin: 20px 0;
+}
+
+.rem.mid-content {
+    margin-bottom: 32px;
+}
+
+.rem.mid-content:last-child {
+    margin-bottom: 0;
 }

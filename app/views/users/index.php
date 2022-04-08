@@ -32,7 +32,7 @@
                                 <tr>
                                     <td><h5>'.$user['firstName'].' '.$user['lastName'].'<span class="p5">'.$user['email'].'</span></h5></td>
                                     <td><p class="p5">'.$user['designation'].'</p></td>
-                                    <td><p class="p5">'.$user['added_by'].' <span class="p5">('.$user['designation'].')<span></p></td>
+                                    <td><p class="p5">'.$user['added_by'].' <span class="p5">('.$user['added_by_designation'].')<span></p></td>
                                     <td><p class="p5">'.date('d M, Y', strtotime( $user['date_added'])).'</p></td>
                                     <td>
                                         <a href="/users/view/'.$user['designation'].'/'.$user['id'].'" class="action view-user">View</a>

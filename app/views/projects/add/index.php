@@ -8,7 +8,7 @@
         <div class="content-box">
             <?php require_once './includes/components/topNav.php';?>
             <section class="content">
-                <a href="/projects">back to all projects</a>
+                <a href="/projects">Back to all projects</a>
                 <hr>
                 <div class="top-title d-flex justify-content-between full-width align-items-center">
                     <div class="">
@@ -45,12 +45,12 @@
                                 <input type="text" class="form-control number-input" name="projectCost" id="projectCost" placeholder="E.g. 2,309,332" required>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <div class="full-width">
-                                <label for="projectSector" class="form-label">Project Sector <span>(Required)</span></label>
+                                <label for="projectSector" class="form-label">Project Sector</label>
                                 <input type="text" class="form-control" name="projectSector" id="projectSector" value="<?=$_SESSION['sector']?>" placeholder="E.g. Power Generator" readonly required>
                             </div>
-                            <!-- <div class="">
+                            <div class="">
                                 <label for="projectState" class="form-label">Project State <span>(Required)</span></label>
                                 <input type="text" class="form-control state" name="projecState" id="projectState" placeholder="E.g. Adamawa">
                                 <div class="show-off"></div>
@@ -62,8 +62,8 @@
                                         <option selected hidden disabled>Select LGA...</option>
                                     </select>
                                 </div>
-                            </div> -->
-                        </div>
+                            </div>
+                        </div> -->
                     </div>
                     <div class="form-group">
                         <div class="full-width">
@@ -140,7 +140,7 @@
                             </fieldset>
                         </div>
                     </diV>
-                    <div class="form-group">
+                    <div class="form-group cta">
                         <button type="submit" class="btn" id="btn-submit">Enter Project Metrics</button>
                     </div>
                 </form>

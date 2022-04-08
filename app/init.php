@@ -21,7 +21,7 @@ spl_autoload_register(
         $extension = ".contr.php";
         $fullPath = $path . $contrFile . $extension;
         if(!file_exists($fullPath)){
-            //echo "The requested file - " . $contrFile . ", was not found!".$fullPath;
+            // echo "The requested file - " . $contrFile . ", was not found!".$fullPath;
             //return false;
             $classPath = "../app/models/";
             $classExtension = ".model.php";

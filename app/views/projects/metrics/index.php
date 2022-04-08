@@ -8,13 +8,13 @@
         <div class="content-box">
             <?php require_once './includes/components/topNav.php';?>
             <section class="content mt-5">
-                <a href="/projects">back to all projects</a>
+                <a href="/projects">Back to all projects</a>
                 <hr>
                 <h2 class="p3">Add project Metrics</h2>
                 <hr>
                 <div class="title-description">
-                    <span class="p4 description"><span>Project name:</span> <?= $data['project']?></span>
-                    <span class="p4 description"><span>Project Sector:</span> <?= $data['sector']?></span>
+                    <span class="p4 description"><span>Project name:</span> <?=$data['project']?></span>
+                    <span class="p4 description"><span>Project Sector:</span> <?=$data['sector']?></span>
                 </div>
                 <hr>
                 <form id="newProjectMetricsForm" class="d-flex flex-column">
@@ -37,14 +37,14 @@
                                                         echo '
                                                             <div class="form-group">
                                                                 <div class="full-width">
-                                                                    <label for="'.str_replace(' ', '_', $form_data['label']).'" class="form-label">'.$form_data['label'].''.$naira.'<span>(Required)</span></label>';
+                                                                    <label for="'.str_replace(' ', '_', $form_data['label']).'" class="form-label">'.$form_data['label'].''.$naira.' <span>';$form_data['label'] == 'Number of jobs created' || $form_data['label'] == 'Number of jobs that would be retained' || $form_data['label'] == 'Project cost (amount to be spent by government)' || $form_data['label'] == 'Investment Payback Period (in years)'? print '' : print '(Required)'; echo'</span></label>';
                                                                 if($form_data['element'] == 'select'){
                                                                     echo'
                                                                     <select class="form-control" name="'.str_replace(' ', '_', $form_data['label']).'" id="'.str_replace(' ', '_', $form_data['label']).'">
                                                                         <option value="" selected hidden default>Select an option...</option>';
                                                                         foreach ($form_data['options'] as $key => $option) {
                                                                             echo '
-                                                                                <option value="'.$key.'" data-value="'.$option.'">'.$key.'</option>
+                                                                                <option value="'.$key.'">'.$key.'</option>
                                                                             ';
                                                                         }
                                                                     echo'
@@ -57,7 +57,8 @@
                                                                                     data-'.$key.'='.$data_option.'
                                                                                 ';
                                                                             }
-                                                                        echo'></div></div>
+                                                                            $form_data['label'] == 'Number of jobs created' || $form_data['label'] == 'Number of jobs that would be retained' || $form_data['label'] == 'Project cost (amount to be spent by government)' ? print 'value="'.number_format($data[$form_data['label']],'0','',',').'" readonly' : print '';
+                                                                            echo'></div></div>
                                                                     ';
                                                                 }
                                                     }echo'
@@ -70,8 +71,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="hidden" name="project_id" id="id" value="<?=$data['id']?>"/>
-                        <input type="hidden" name="sector" id="sector" value="<?=$data['sector']?>"/>
+                        <div class="">
+                            <input type="hidden" name="project_id" id="project_id" value="<?=$data['id']?>"/>
+                            <input type="hidden" name="project_name" id="project_name" value="<?=$data['project']?>"/>
+                            <input type="hidden" name="sector" id="sector" value="<?=$data['sector']?>"/>
+                        </div>
                         <button type="submit" class="btn" id="btn-submit">Save Project Metrics</button>
                     </div>
                 </form>
