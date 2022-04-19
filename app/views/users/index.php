@@ -7,7 +7,7 @@
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box">
         <?php require_once './includes/components/topNav.php';?>
-        <section class="content mt-5">
+        <section class="content-box-body">
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
                     <h2 class="title p3">All Users</h2>
@@ -36,7 +36,6 @@
                                     <td><p class="p5">'.date('d M, Y', strtotime( $user['date_added'])).'</p></td>
                                     <td>
                                         <a href="/users/view/'.$user['designation'].'/'.$user['id'].'" class="action view-user">View</a>
-                                        <a href="#" class="action">Delete</a>
                                     </td>
                                 </tr>
                             ';

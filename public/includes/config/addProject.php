@@ -61,9 +61,11 @@ switch($_POST){
                     $array['midway_latitude'] = $midway_latitude;
                     $array['midway_longitude'] = $midway_longitude;
                     $array['approved'] = $_SESSION['designation'] != 'budgeting officer' ? '1' : '0';
+                    // $array['date_approved'] = $_SESSION['designation'] != 'budgeting officer' ? date("Y-m-d") : null;
                     $array['added_by'] = $_SESSION['name'];
                     $array['added_by_designation'] = $_SESSION['designation'];
                     $array['date_added'] = date("Y-m-d");
+                    
                     $array['metrics'] = '0';
 
                     echo $project->addProject($array);
@@ -87,6 +89,8 @@ switch($_POST){
                 $array = $_POST;
                
                 unset($array['Investment_Payback_Period_(in_years)']);//remove investment payback period has it is not required;
+                unset($array['Number_of_jobs_created']);
+                unset($array['Number_of_jobs_that_would_be_retained']);
                 unset($array['project_name']);//remove the metrics id and add it later;
                 unset($array['sector']);
                 
@@ -97,6 +101,9 @@ switch($_POST){
                     }else{
                         $array['Investment_Payback_Period_(in_years)'] = '0';
                     }
+
+                    $array['Number_of_jobs_that_would_be_retained'] = $_POST['Number_of_jobs_that_would_be_retained'];
+                    $array['Number_of_jobs_created'] = $_POST['Number_of_jobs_created'];
 
                     $table_prefix = $project->table_prefix($_POST['sector']);
                     
@@ -119,8 +126,7 @@ switch($_POST){
                     $project->runInsertQuery($update);
 
                     $getmetricsId = "SELECT `id` FROM `".$table_prefix."_projects_metrics` WHERE `project_id` = '".$_POST['project_id']."' ORDER BY `id` DESC LIMIT 1";
-                    $addedMetricsId = $project->runSelectQuery($getmetricsId)[0]['id'];
-
+                    $addedMetricsId = ($project->runSelectQuery($getmetricsId))[0]['id'];
 
                     $metricsData = $project->getMetrics($_POST['sector']);
                     foreach ($metricsData as $key => $metrics){
@@ -138,71 +144,70 @@ switch($_POST){
                                             $array[$formDataKey] = $label['options'][$value];
                                         }else
                                         {
-                                            $input = str_replace(',', '', $value);//remove all the commas from input formatting
                                             $sql = "SELECT `".$table_prefix."_projects_metrics`.`id`, `".$table_prefix."_projects_metrics`.`".$formDataKey."` FROM `".$table_prefix."_projects_metrics` JOIN `projects` WHERE `".$table_prefix."_projects_metrics`.`project_id` = `projects`.`id` AND `projects`.`suspended` != '1' ORDER BY `".$formDataKey."` DESC";
-                                            $result = $project->runSelectQuery($sql);
-
-                                            foreach ($result as $resultKey => $resultData)
+                                            $metrics_result = $project->runSelectQuery($sql);
+                                            
+                                            foreach ($metrics_result as $metrics_resultKey => $metrics_resultData)
                                             {
-                                                if($addedMetricsId == $resultData['id'])
+                                                if($_POST['metrics_id'] == $metrics_resultData['id'])
                                                 {
-                                                    if($formDataKey == 'Investment_Payback_Period_(in_years)' && $array[$formDataKey] == '0'){
+                                                    $compared = $project->getCompared($metrics_result, $formDataKey, $value);
+
+                                                    if($formDataKey == 'Investment_Payback_Period_(in_years)' && $metrics_resultData[$formDataKey] == '0'){
                                                         $array[$formDataKey] = $label['data-score']['No-Payback'];
                                                     }else
                                                     {
-                                                        $average = $project->getCompared($result, $formDataKey);
-
-                                                        if($resultData[$formDataKey] > $average)
+                                                        if($compared == 'Low')
                                                         {
-                                                            $array[$formDataKey] = $label['data-score']['High'];
-                                                        }elseif($resultData[$formDataKey] < $average)
+                                                            $array[$formDataKey] = $label['data-score'][$compared];
+                                                        }elseif($compared == 'Medium')
                                                         {
-                                                            $array[$formDataKey] = $label['data-score']['Low'];
-                                                        }else
+                                                            $array[$formDataKey] = $label['data-score'][$compared];
+                                                        }elseif($compared == 'High')
                                                         {
-                                                            $array[$formDataKey] = $label['data-score']['Medium'];
+                                                            $array[$formDataKey] = $label['data-score'][$compared];
                                                         }
                                                     }
-                                                }else
-                                                {
-                                                    if($formDataKey == 'Investment_Payback_Period_(in_years)' && $resultData[$formDataKey] == '0'){
-                                                        $newScore = $label['data-score']['No-Payback'];
+                                                }else{
+                                                    $compared = $project->getCompared($metrics_result, $formDataKey, $metrics_resultData[$formDataKey]);
+                                                    
+                                                    if($formDataKey == 'Investment_Payback_Period_(in_years)' && $metrics_resultData[$formDataKey] == '0'){
+                                                        $newScore[$formDataKey] = $label['data-score']['No-Payback'];
                                                     }
                                                     else
-                                                    {
-                                                        $average = $project->getCompared($result, $formDataKey);
-
-                                                        if($resultData[$formDataKey] > $average)
+                                                    {                
+                                                        if($compared == 'Low')
                                                         {
-                                                            $newScore = $label['data-score']['High'];
-                                                        }elseif($resultData[$formDataKey] < $average)
+                                                            $newScore[$formDataKey] = $label['data-score'][$compared];
+                                                        }elseif($compared == 'Medium')
                                                         {
-                                                            $newScore = $label['data-score']['Low'];
-                                                        }else
+                                                            $newScore[$formDataKey] = $label['data-score'][$compared];
+                                                        }elseif($compared == 'High')
                                                         {
-                                                            $newScore = $label['data-score']['Medium'];
+                                                            $newScore[$formDataKey] = $label['data-score'][$compared];
                                                         }
                                                     }
 
-                                                    $sql = "UPDATE `".$table_prefix."_projects_scores` SET `".$formDataKey."` = '".$newScore."' WHERE `metrics_id` = '".$resultData['id']."'";
+                                                    $old_metrics_id = $metrics_resultData['id'];
+
+                                                    $sql = "UPDATE `".$table_prefix."_projects_scores` SET `".$formDataKey."` = '".$newScore[$formDataKey]."' WHERE `metrics_id` = '".$old_metrics_id."'";
                                                     $project->runInsertQuery($sql);
+
+                                                    $query = "SELECT `".$table_prefix."_projects_scores`.*, `".$table_prefix."_projects_metrics`.`project_id` FROM `".$table_prefix."_projects_scores` JOIN `".$table_prefix."_projects_metrics` WHERE `".$table_prefix."_projects_scores`.`metrics_id` = '".$old_metrics_id."' AND `".$table_prefix."_projects_scores`.`metrics_id` = `".$table_prefix."_projects_metrics`.`id`";
+                                                    $oldMetricsList = $project->runSelectQuery($query)[0];
+                                    
+                                                    $oldProjectID = $oldMetricsList['project_id'];
                                                     
-                                                    $query = "SELECT * FROM `".$table_prefix."_projects_scores` WHERE `metrics_id` = '".$resultData['id']."'";
-                                                    $oldMetricsList = $project->runSelectQuery($query);
-                                                    $oldMetricsLists = $oldMetricsList[0];
-
-                                                    unset($oldMetricsLists['id']);
-                                                    unset($oldMetricsLists['metrics_id']);
-
-                                                    $oldMetricsTotalScore = array_sum($oldMetricsLists);
+                                                    array_shift($oldMetricsList);
+                                                    array_shift($oldMetricsList);
+                                                    array_pop($oldMetricsList);
+                                    
+                                                    $oldMetricsTotalScore = array_sum($oldMetricsList);
+                                        
+                                                    $update_old_project_score = "UPDATE `projects` SET `score` = ".$oldMetricsTotalScore." WHERE `id` = ".$oldProjectID."";
+                                                    $project->runInsertQuery($update_old_project_score);
                                                     
-                                                    $query = "SELECT `".$table_prefix."_projects_metrics`.`project_id` FROM `".$table_prefix."_projects_metrics` WHERE `".$table_prefix."_projects_metrics`.`id` = ".$resultData['id']."";
-                                                    $oldProjectID = ($project->runSelectQuery($query))[0];
-                                                    $oldProjectID['project_id'];
-
-                                                    $update = "UPDATE `projects` SET `score` = ".$oldMetricsTotalScore." WHERE `id` = ".$oldProjectID['project_id']."";
-                                                    $project->runInsertQuery($update);
-                                                }
+                                                }                                                
                                             }
                                         }
                                     }

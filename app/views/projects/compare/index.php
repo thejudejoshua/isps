@@ -7,7 +7,7 @@
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box">
         <?php require_once './includes/components/topNav.php';?>
-        <section class="content">
+        <section class="content content-box-body">
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
                     <h2 class="title p3">Compare Projects</h2>

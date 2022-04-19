@@ -7,12 +7,12 @@
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box">
         <?php require_once './includes/components/topNav.php';?>
-        <section class="content">
-            <a href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/projects' ?>">Back to projects list</a>
+        <section class="content content-box-body">
+            <a href="<?=isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], '/suspended') != false && strpos($_SERVER['HTTP_REFERER'], '/approve') != false ? $_SERVER['HTTP_REFERER'] : '/projects' ?>">Back to projects list</a>
             <hr>
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
-                    <h2 class="title p3"><?= $data['project'] ?></h2>
+                    <!-- <h2 class="title p3"><?= $data['project'] ?></h2> -->
                     <input type="hidden" id="project_id" value="<?= $data['projectData'][0]['project_id']?>">
                 </div>
                 <div class="">
@@ -34,7 +34,14 @@
                 </div>
             </div>
             <hr>
-            <div class="row proj-info">
+            
+            <div class="row proj-info" id="proj-info">
+                <div class="top-title d-flex justify-content-between full-width align-items-center">
+                    <div class="">
+                        <h2 class="title p3"><?= $data['project'] ?></h2>
+                        <input type="hidden" id="project_id" value="<?= $data['projectData'][0]['project_id']?>">
+                    </div>
+                </div>
                 <div class="info_top d-flex justify-content-between align-items-center">
                     <div class="info_top_left d-flex flex-wrap">
                         <div class="details full-width">
@@ -227,6 +234,8 @@
                     ?>
                 </div>
             </div>
+            <hr>
+            <button class="btn-info" id="downloadPDF">Print PDF</button>
         </section>
     </div>
 </div>                

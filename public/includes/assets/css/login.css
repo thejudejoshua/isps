@@ -1,0 +1,80 @@
+#mainContainer {
+    height: 100%;
+    min-height: auto;
+    width: 50%;
+    overflow: hidden;
+    background-color: var(--neutral);
+    border: 1px solid var(--accent);
+    padding-top: 38px;
+}
+
+#login h1 {
+    color: var(--primary);
+}
+
+#login hr {
+    margin: 32px 0;
+}
+
+body#login {
+    padding-left: 0;
+}
+
+#login .form-content {
+    padding-top: 42px;
+}
+
+#forgotPass {
+    width: 100%;
+    text-align: right;
+}
+
+#forgotPass a {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+#forgotPass a::after {
+    content: '';
+    height: 1.5px;
+    width: 0;
+    background-color: var(--primary);
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    transition: 1.5s;
+    border-radius: 5px;
+}
+
+#forgotPass a:hover::after {
+    width: 100%;
+}
+
+#login .main-image h2 {
+    color: var(--neutral);
+    width: 432px;
+}
+
+#login .main-image p {
+    color: var(--gray-400);
+}
+
+.main-image {
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.62), rgba(0, 0, 0, 0.82)), url('../img/construction-img-2.jpg');
+    background-size: cover;
+    background-position: bottom;
+    padding: 0 32px 64px 32px;
+    gap: 8px;
+}
+
+.main-image img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.system-own {
+    gap: 16px;
+}

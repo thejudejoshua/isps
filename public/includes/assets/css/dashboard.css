@@ -1,0 +1,151 @@
+#dashboard-section-header {
+    color: var(--gray-700);
+    margin-bottom: 4px;
+}
+
+.main_section_head {
+    margin-bottom: 32px;
+    margin-top: 24px;
+}
+
+.main_section_head p {
+    text-transform: unset;
+    font-style: italic;
+    color: var(--gray-500);
+}
+
+.main_overview {
+    margin-bottom: 32px;
+}
+
+.main_welcome {
+    margin-bottom: 24px;
+    color: var(--primary);
+}
+
+.main_overview_card {
+    padding: 20px 24px;
+    box-shadow: 0px 8px 24px 4px rgba(0, 0, 0, 0.09);
+    border-radius: 8px;
+    overflow: hidden;
+    flex-grow: 1;
+    gap: 16px;
+    /* background: var(--gray-200); */
+    min-height: 150px;
+    height: auto
+}
+
+.main_overview_card .left {
+    /* height: 100%; */
+    border-radius: 50%;
+    padding: 16px;
+    background-color: #94c2daba;
+    color: var(--links);
+    /* color: var(--neutral); */
+    /* box-shadow: rgba(0, 0, 0, 0.16) -3px 7px 7px 2px inset; */
+}
+
+.main_overview_card:nth-child(2) .left {
+    background-color: #7bddb3ba;
+    color: var(--primary);
+}
+
+.main_overview_card:nth-child(3) .left {
+    background-color: #f78a8aba;
+    color: var(--notify);
+}
+
+.main_overview_card .right .h1 {
+    color: var(--secondary);
+}
+
+.main_overview_card i {
+    font-size: 28px;
+}
+
+.main_overview_container {
+    gap: 40px;
+}
+
+.main_section>* {
+    flex-grow: 1;
+}
+
+.main_section-left {
+    width: 60%;
+    overflow: hidden;
+    padding: 20px 24px;
+    box-shadow: 0px 8px 24px 4px rgb(0 0 0 / 9%);
+    border-radius: 8px;
+}
+
+.main_section-right {
+    width: 40%;
+    padding: 20px 24px;
+    box-shadow: 0px 8px 24px 4px rgb(0 0 0 / 9%);
+    border-radius: 8px;
+}
+
+.main_section_body {
+    height: 250px;
+    display: table;
+    width: 100%;
+}
+
+.main_section {
+    gap: 32px;
+}
+
+.main_section_body p {
+    text-transform: unset;
+}
+
+.empty-icon,
+.notice span {
+    background: var(--gray-200);
+    display: inline-block;
+    padding: 20px;
+    border-radius: 50%;
+    margin-bottom: 24px;
+}
+
+.empty-icon i,
+.notice i {
+    font-size: 48px;
+    color: var(--gray-500);
+}
+
+.empty {
+    text-align: center;
+    /* gap: 24px; */
+    height: 100%;
+}
+
+canvas#pieChart {
+    width: 100%;
+    height: 318px;
+}
+
+.main_overview_card-top {
+    margin-bottom: 10px;
+    gap: 16px;
+}
+
+.main_overview_card-bottom {
+    padding-top: 20px;
+    border-top: 1px solid var(--gray-300);
+    /* text-align: right; */
+}
+
+.main_overview_card-bottom a {
+    font-weight: 600;
+    color: var(--links)
+}
+
+.main_overview_card:nth-child(2) .main_overview_card-bottom a {
+    color: var(--primary);
+}
+
+.main_overview_card:nth-child(3) .main_overview_card-bottom a {
+    color: var(--notify);
+}

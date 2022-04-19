@@ -7,7 +7,7 @@
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box">
         <?php require_once './includes/components/topNav.php';?>
-        <section class="content">
+        <section class="content content-box-body">
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
                     <h2 class="title p3">All Projects</h2>
@@ -15,12 +15,24 @@
                 <?=$_SESSION['designation'] != 'secretariat' ? '<a href="/projects/add" class="btn">+ Add a New Project</a>' : ''?>
             </div>
             <hr>
+            <div class="filter-bar d-flex justify-content-between">
+                <div class="main_project_search d-flex align-items-center">
+                    <i class="las la-search"></i>
+                    <input type="search" class="form-control" placeholder="Search for Projects">
+                </div>
+                <div class="filter-options d-flex align-items-center">
+                    <span class="filter-text p5 d-flex align-items-center">Filter by:</span>
+                    <span class="action filter" data-value="execution">Execution List</span>
+                    <span class="action filter" data-value="priority">Priority List</span>
+                </div>
+            </div>
+            <div class="projects-List">
             <?php
                 if(empty($data['projectsList']))
                 {
                     echo '
-                        <div class="full-width text-align-center d-flex flex-column v50h justify-content-center">
-                            <p class="h4 notice"><i class="las la-exclamation-triangle"></i><br/>There are no active projects here yet.<br/>Use the "Add a New Project" button to add a new project or '; echo $_SESSION['designation'] == 'budgeting officer' ? 'ask a superior to approve one' : 'approve one to continue'; echo'!</p>
+                        <div class="empty full-width text-align-center d-flex flex-column v50h justify-content-center">
+                            <p class="p4 notice"><span><i class="las la-folder-open"></i></span><br/>There are no active projects here yet.<br/>Use the "Add a New Project" button to add a new project or '; echo $_SESSION['designation'] == 'budgeting officer' ? 'ask a superior to approve one' : 'approve one to continue'; echo'!</p>
                         </div>
                     ';
                 }else{
@@ -41,7 +53,7 @@
                     foreach ($data['projectsList'] as $key => $project) {
                         echo'
                             <tr>
-                                <td><h5>'.$project['name'].'</h5></td>
+                                <td><h4>'.$project['name'].'</h4></td>
                                 <td><p class="p5">'.$project['score'].'</p></td>
                                 <td><p class="p5">';
                                 foreach ($data['project_scores'] as $key => $value) {
@@ -65,6 +77,7 @@
                     ';
                 }
             ?>
+            </div>
         </section>
         <?php
         if(!empty($data['emptyMetrics'])){
@@ -72,7 +85,7 @@
                 <div class="modal full-width text-align-center d-flex flex-column justify-content-center align-items-center">
                     <div class="modal-content">
                         <div class="modal-content-text">
-                            <p class="h4 notice"><i class="las la-exclamation-triangle"></i><br/>You have an incomplete project upload. Do you want to continue from where you stopped?</p>
+                            <p class="p4 notice"><span><i class="las la-exclamation-triangle"></i></span><br/>You have an incomplete project upload. Do you want to continue from where you stopped?</p>
                         </div>
                         <div class="modal-content-cta d-flex flex-row justify-content-center align-items-center">
                             <a class="btn tertiary modal-close" href="#" id="modal-close">I\'ll do that later</a>

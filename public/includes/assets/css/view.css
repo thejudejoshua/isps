@@ -126,7 +126,7 @@
 .circular-progress {
     position: relative;
     margin: 0 auto;
-    place-items: center;
+    /* place-items: center; */
     width: 100%;
 }
 
@@ -218,6 +218,43 @@ div.rank {
 
 .info_bottom_body span:first-child {
     width: 80%;
+}
+
+.projects-List {
+    padding-top: 48px;
+    height: 300px;
+    display: table;
+    width: 100%;
+}
+
+.main_project_search i {
+    font-size: 22px;
+    padding: 10px 11px;
+    border-radius: 0;
+    color: var(--gray-400);
+}
+
+.filter-options {
+    gap: 16px;
+}
+
+.filter-options .action {
+    margin-right: 0;
+}
+
+.filter-options .action.active {
+    background: var(--primary);
+    color: var(--neutral);
+}
+
+.filter-options .filter-text i {
+    font-size: 20px;
+}
+
+.filter-options .filter-text {
+    color: var(--gray-700);
+    font-weight: 700;
+    gap: 4px;
 }
 
 @media (max-width: 768px) {

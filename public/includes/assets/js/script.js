@@ -1,4 +1,39 @@
 $(document).ready(function() {
+    //=================================================================================================
+    //                                  D A S H B O A R D  C O U N T S
+    //=================================================================================================
+
+    $('.count').each(function() {
+        $(this).prop('Counter', 0).animate({
+            Counter: $(this).data('value')
+        }, {
+            duration: 1000,
+            easing: 'swing',
+            step: function(now) {
+                $(this).text(this.Counter.toFixed(0));
+            }
+        });
+    });
+    //=================================================================================================
+    //                                              A L E R T S
+    //=================================================================================================
+    function showAlertNotification(message, type) {
+        $('.alert').removeClass("alert-right").removeClass(type + "-message");
+        $('.alert p').text(message);
+
+        if (type == 'error') {
+            $('.alert').addClass("alert-right").addClass(type + "-message");
+        } else {
+            $('.alert').addClass("alert-right").addClass(type + "-message");
+        }
+
+        setTimeout(() => {
+            $('.alert').removeClass("alert-right") //.removeClass(type + "-message");
+        }, 5000);
+        setTimeout(() => {
+            $('.alert').removeClass(type + "-message") //.removeClass(type + "-message");
+        }, 5500);
+    }
 
     //=================================================================================================
     //                                              L O G I N
@@ -29,7 +64,7 @@ $(document).ready(function() {
     });
     $('.signin-form #btn-submit').click(function(e) {
         e.preventDefault();
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Logging you in...</p></span>');
         let link = '/includes/config/logUser.php';
         let form = $(".signin-form")[0]; // You need to use standard javascript object here
         let data = new FormData(form);
@@ -41,17 +76,17 @@ $(document).ready(function() {
             data: data,
             success: function(response) {
                 if (response.trim() === 'success!') {
-                    // $('#recha').remove();
-                    alert('Your login was successful!');
+                    $('#recha').remove();
+                    showAlertNotification('Your login was successful!', 'success');
                     setTimeout('window.location.href = "/dashboard"', 500);
                 } else {
                     error = response.split("=");
+                    $('#recha').remove();
                     if (error[0] === 'error') {
-                        alert(error[1]);
+                        showAlertNotification(error[1], 'error');
                     } else {
-                        alert(response)
+                        showAlertNotification(response, 'error')
                     }
-                    // $('#recha').remove();
                 }
             }
         })
@@ -88,7 +123,7 @@ $(document).ready(function() {
 
     $('#newUserForm #btn-submit').click(function(e) {
         e.preventDefault();
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Creating your user...</p></span>');
         let link = '/includes/config/addUser.php';
         let form = $('#newUserForm')[0]; // You need to use standard javascript object here
         let data = new FormData(form);
@@ -101,15 +136,15 @@ $(document).ready(function() {
             data: data,
             success: function(response) {
                 if (response.trim() === 'success!') {
-                    // $('#recha').remove();
-                    alert('The user data was saved successfully!');
+                    $('#recha').remove();
+                    showAlertNotification('The user data was saved successfully!', 'success');
                     setTimeout('window.location.href = "/users"', 500);
                 } else {
                     error = response.split("=");
                     if (error[0] === 'error') {
-                        alert(error[1]);
+                        showAlertNotification(error[1], 'error');
                     } else {
-                        alert(response)
+                        showAlertNotification(response, 'error');
                     }
                     // $('#recha').remove();
                 }
@@ -241,7 +276,7 @@ $(document).ready(function() {
                 if (response.includes('error')) {
                     show_off.fadeOut();
                     error = response.split("=");
-                    alert(error[1]);
+                    showAlertNotification(error[1], 'error');
                 } else {
                     if (data.length == 0) {
                         show_off.fadeOut();
@@ -270,7 +305,7 @@ $(document).ready(function() {
     //=================================================================================================
     //                                             A D D  P R O J E C T S
     //=================================================================================================
-    $('input.number-input').keyup(function(e) {
+    $(document).on('keyup', 'input.number-input', function(e) {
         $(this).val(function(index, value) {
             // Keep only digits and decimal points:
             return value
@@ -285,7 +320,7 @@ $(document).ready(function() {
     });
     $('#newProjectForm #btn-submit').click(function(e) {
         e.preventDefault();
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Redirecting you to Project metrics...</p></span>');
         let link = '/includes/config/addProject.php';
         let form = $('#newProjectForm')[0]; // You need to use standard javascript object here
         let data = new FormData(form);
@@ -299,19 +334,19 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.split("=")[0] === 'success!') {
                     href = response.split("=")[1];
-                    // $('#recha').remove();
-                    alert('The project data was saved successfully! You\'ll be directed to enter the project metrics shortly.');
+                    $('#recha').remove();
+                    showAlertNotification('The project data was saved successfully! You\'ll be directed to enter the project metrics shortly.', 'success');
                     setTimeout(() => {
                         window.location.href = href;
                     }, 500);
                 } else {
                     error = response.split("=");
+                    $('#recha').remove();
                     if (error[0] === 'error') {
-                        alert(error[1]);
+                        showAlertNotification(error[1], 'error');
                     } else {
-                        alert(response)
+                        showAlertNotification(response, 'error');
                     }
-                    // $('#recha').remove();
                 }
             }
         })
@@ -321,7 +356,7 @@ $(document).ready(function() {
     //=================================================================================================
     $('#newProjectMetricsForm #btn-submit').click(function(e) {
         e.preventDefault();
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Saving Project Metrics...</p></span>');
         let link = '/includes/config/addProject.php';
         let form = $('#newProjectMetricsForm')[0]; // You need to use standard javascript object here
         let data = new FormData(form);
@@ -335,13 +370,14 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.split("=")[0] === 'success!') {
                     href = response.split("=")[1];
-                    // $('#recha').remove();
-                    alert('The project metrics was saved successfully!');
+                    $('#recha').remove();
+                    showAlertNotification('The project metrics was saved successfully!', 'success');
                     setTimeout(() => {
                         window.location.href = href;
                     }, 500);
                 } else {
                     error = response.split("=");
+                    $('#recha').remove();
                     if (error[0] === 'error') {
                         const error_element = error[1].split("for ")[1];
 
@@ -349,11 +385,10 @@ $(document).ready(function() {
                             scrollTop: $("#" + error_element).offset().top - 100
                         }, 1000);
 
-                        alert(error[1]);
+                        showAlertNotification(error[1], 'error');
                     } else {
-                        alert(response)
+                        showAlertNotification(response, 'error');
                     }
-                    // $('#recha').remove();
                 }
             }
         })
@@ -364,7 +399,7 @@ $(document).ready(function() {
     //=================================================================================================
     $('#editProjectForm #btn-submit').click(function(e) {
         e.preventDefault();
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Updating project data...</p></span>');
         let link = '/includes/config/editProject.php';
         let form = $('#editProjectForm')[0]; // You need to use standard javascript object here
         let data = new FormData(form);
@@ -378,19 +413,19 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.split("=")[0] === 'success!') {
                     href = response.split("=")[1];
-                    // $('#recha').remove();
-                    alert('The project data was saved successfully! You\'ll be directed to enter the project metrics shortly.');
+                    $('#recha').remove();
+                    showAlertNotification('The project data was saved successfully! You\'ll be directed to enter the project metrics shortly.', 'success');
                     setTimeout(() => {
                         window.location.href = href;
                     }, 500);
                 } else {
                     error = response.split("=");
+                    $('#recha').remove();
                     if (error[0] === 'error') {
-                        alert(error[1]);
+                        showAlertNotification(error[1], 'error');
                     } else {
-                        alert(response)
+                        showAlertNotification(response, 'error');
                     }
-                    // $('#recha').remove();
                 }
             }
         })
@@ -400,7 +435,7 @@ $(document).ready(function() {
     //=================================================================================================
     $('#editProjectMetricsForm #btn-submit').click(function(e) {
         e.preventDefault();
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Updating project metrics...</p></span>');
         let link = '/includes/config/editProject.php';
         let form = $('#editProjectMetricsForm')[0]; // You need to use standard javascript object here
         let data = new FormData(form);
@@ -414,13 +449,14 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.split("=")[0] === 'success!') {
                     href = response.split("=")[1];
-                    // $('#recha').remove();
-                    alert('The project metrics was saved successfully!');
+                    $('#recha').remove();
+                    showAlertNotification('The project metrics was saved successfully!', 'success');
                     setTimeout(() => {
                         window.location.href = href;
                     }, 500);
                 } else {
                     error = response.split("=");
+                    $('#recha').remove();
                     if (error[0] === 'error') {
                         const error_element = error[1].split("for ")[1];
 
@@ -428,11 +464,10 @@ $(document).ready(function() {
                             scrollTop: $("#" + error_element).offset().top - 100
                         }, 1000);
 
-                        alert(error[1]);
+                        showAlertNotification(error[1], 'error');
                     } else {
-                        alert(response);
+                        showAlertNotification(response, 'error');;
                     }
-                    // $('#recha').remove();
                 }
             }
         })
@@ -458,7 +493,7 @@ $(document).ready(function() {
             `<div class="modal full-width text-align-center d-flex flex-column justify-content-center align-items-center">
                 <div class="modal-content">
                     <div class="modal-content-text">
-                        <p class="h4 notice"><i class="las la-check-circle"></i><br/>Select a list below to finish approving this project...</p>
+                        <p class="p4 notice"><span><i class="las la-check-circle"></i></span><br/>Select a list below to finish approving this project...</p>
                     </div>
                     <div class="radio-container d-flex full-width justify-content-center align-items-center">
                         <label class="container">
@@ -483,7 +518,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.approve-go', function(e) {
         e.preventDefault();
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Approving project...</p></span>');
         let project_id = $("input#project_id").val();
         let list_type = $("input[name='project-type-list']:checked").val();
         let link = '/includes/config/approveProject.php';
@@ -498,19 +533,19 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.split("=")[0] === 'success!') {
                     message = response.split("=")[1];
-                    // $('#recha').remove();
-                    alert(message);
+                    $('#recha').remove();
+                    showAlertNotification(message, 'success');
                     setTimeout(() => {
                         window.location.href = '/projects';
                     }, 500);
                 } else {
                     error = response.split("=");
+                    $('#recha').remove();
                     if (error[0] === 'error') {
-                        alert(error[1]);
+                        showAlertNotification(error[1], 'error');
                     } else {
-                        alert(response)
+                        showAlertNotification(response, 'error');
                     }
-                    // $('#recha').remove();
                 }
             }
         })
@@ -524,7 +559,7 @@ $(document).ready(function() {
             `<div class="modal full-width text-align-center d-flex flex-column justify-content-center align-items-center">
                 <div class="modal-content">
                     <div class="modal-content-text">
-                        <p class="h4 notice"><i style="color: var(--danger);" class="las la-exclamation-triangle"></i><br/>Are you sure you want to suspend this project?</p>
+                        <p class="p4 notice"><span style="background-color: #f78a8aba"><i style="color: var(--danger);" class="las la-exclamation-triangle"></i></span><br/>Are you sure you want to suspend this project?</p>
                     </div>
                     <div class="modal-content-cta d-flex flex-row justify-content-center align-items-center">
                         <a class="btn secondary modal-close" href="#" id="modal-close">No, do not suspend it</a>
@@ -536,7 +571,7 @@ $(document).ready(function() {
     })
     $(document).on('click', '.suspend-go', function(e) {
         e.preventDefault();
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Suspending project...</p></span>');
         let project_id = $("input#project_id").val();
         let link = '/includes/config/suspendProject.php';
 
@@ -549,19 +584,19 @@ $(document).ready(function() {
             success: function(response) {
                 if (response.split("=")[0] === 'success!') {
                     message = response.split("=")[1];
-                    // $('#recha').remove();
-                    alert(message);
+                    $('#recha').remove();
+                    showAlertNotification(message, 'success');
                     setTimeout(() => {
                         window.location.href = '/projects';
                     }, 500);
                 } else {
                     error = response.split("=");
+                    $('#recha').remove();
                     if (error[0] === 'error') {
-                        alert(error[1]);
+                        showAlertNotification(error[1], 'error');
                     } else {
-                        alert(response);
+                        showAlertNotification(response, 'error');;
                     }
-                    // $('#recha').remove();
                 }
             }
         })
@@ -588,7 +623,7 @@ $(document).ready(function() {
     })
     $(document).on('click', '.activate-go', function(e) {
         e.preventDefault();
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Reactivating project...</p></span>');
         let project_id = $("input#project_id").val();
         let link = '/includes/config/reactivateProject.php';
 
@@ -600,20 +635,20 @@ $(document).ready(function() {
             },
             success: function(response) {
                 if (response.split("=")[0] === 'success!') {
+                    $('#recha').remove();
                     message = response.split("=")[1];
-                    // $('#recha').remove();
-                    alert(message);
+                    showAlertNotification(message, 'success');
                     setTimeout(() => {
                         window.location.href = '/projects';
                     }, 500);
                 } else {
                     error = response.split("=");
+                    $('#recha').remove();
                     if (error[0] === 'error') {
-                        alert(error[1]);
+                        showAlertNotification(error[1], 'error');
                     } else {
-                        alert(response);
+                        showAlertNotification(response, 'error');;
                     }
-                    // $('#recha').remove();
                 }
             }
         })
@@ -623,12 +658,16 @@ $(document).ready(function() {
     //                            C O M P A R E  P R O J E C T S
     //=================================================================================================
     $(document).on('change', '.compare-select', function(e) {
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Loading project comparisons...</p></span>');
+
         var parent_siblings = $(this).parent().parent().siblings('.form-group');
         var parent_next_select = $(this).parent().parent().next().find('.compare-select');
         var options = $(this).children("option:not(:selected)").clone();
         // var options_all = $(this).children("option").clone();
         var id = $(this).find('option:selected').attr('id');
         var finder = ($(this).attr('id')).split("-")[1];
+        let link = '/includes/config/compareProject.php';
+        var project = $(this).find('option:selected').val();
 
 
         if ($(parent_next_select).children().length == 1) {
@@ -655,10 +694,6 @@ $(document).ready(function() {
             }
         }
 
-        // $('body').prepend('<span id = "recha"><i class="fas fa-3x fa-spinner fa-spin"></i></span>');
-        let link = '/includes/config/compareProject.php';
-        var project = $(this).find('option:selected').val();
-
         $.ajax({
             url: link,
             type: "POST",
@@ -667,7 +702,7 @@ $(document).ready(function() {
             },
             success: function(response) {
                 if (response.split("=")[0] === 'success!') {
-                    // $('#recha').remove();
+                    $('#recha').remove();
                     var rankingsList = response.split("=")[1];
                     var ranking = rankingsList.split("-");
 
@@ -684,16 +719,218 @@ $(document).ready(function() {
 
                 } else {
                     error = response.split("=");
+                    $('#recha').remove();
                     if (error[0] === 'error') {
-                        alert(error[1]);
+                        showAlertNotification(error[1], 'error');
                     } else {
-                        alert(response);
+                        showAlertNotification(response, 'error');;
                     }
-                    // $('#recha').remove();
                 }
             }
         })
-
-
     })
+
+
+    //=================================================================================================
+    //                            E D I T  J O B S
+    //=================================================================================================
+    $(document).on('click', '#edit-jobs', function(e) {
+        e.preventDefault();
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Please wait...</p></span>');
+        var input = $(this).parent().siblings().find('input:not(.total)');
+        input.removeAttr('readonly');
+        $(this).html('Save data');
+        $(this).attr('id', 'btn-submit');
+    })
+
+
+    $(document).on('keyup', '#jobFormEdit input:not(.total)', '#jobFormEdit input:not(.budget_per_total_jobs)', function(e) {
+        const direct = $('#jobFormEdit input.direct').val() != '' ? parseInt($('#jobFormEdit input.direct').val().replace(/,/g, '')) : 0;
+        const indirect = $('#jobFormEdit input.indirect').val() != '' ? parseInt($('#jobFormEdit input.indirect').val().replace(/,/g, '')) : 0;
+        const induced = $('#jobFormEdit input.induced').val() != '' ? parseInt($('#jobFormEdit input.induced').val().replace(/,/g, '')) : 0;
+
+        let grndTotal = direct + indirect + induced;
+
+        $('#jobFormEdit input.total').val(grndTotal);
+        $('#jobFormEdit input.total').val($('#jobFormEdit input.total').val().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+
+    });
+
+    $(document).on('change', '#jobs-sectorList', function(e) {
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Getting jobs data...</p></span>');
+        var sector = $(this).val();
+        let link = '/includes/config/jobBudget.php';
+        $.ajax({
+            url: link,
+            type: "POST",
+            data: {
+                sector: sector,
+            },
+            success: function(response) {
+                if (response.split("!=")[0] === 'success') {
+                    $('#recha').remove();
+                    var jobs_budget = response.split("!=")[1];
+                    $('#jobs-stats-metrics').html(jobs_budget);
+
+                } else {
+                    $('#recha').remove();
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        showAlertNotification(error[1], 'error');
+                    } else {
+                        showAlertNotification(response, 'error');;
+                    }
+                }
+            }
+        })
+    })
+
+    $(document).on('click', '#jobFormEdit #btn-submit', function(e) {
+        e.preventDefault();
+
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Updating jobs data...</p></span>');
+        let link = '/includes/config/jobBudget.php';
+        let form = $('#jobFormEdit')[0]; // You need to use standard javascript object here
+        let data = new FormData(form);
+        var input = $(this).parent().siblings().find('input:not(.total)');
+        var button = $(this).parent().find('button');
+
+        $.ajax({
+            url: link,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            data: data,
+            success: function(response) {
+                if (response.split("=")[0] === 'success!') {
+                    message = response.split("=")[1];
+
+                    input.prop('readonly', true);
+                    button.html('Edit data');
+                    button.prop('id', 'edit-jobs');
+
+                    $('#recha').remove();
+                    showAlertNotification(message, 'success');
+                } else {
+                    $('#recha').remove();
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        showAlertNotification(error[1], 'error');
+                    } else {
+                        showAlertNotification(response, 'error');;
+                    }
+                }
+            }
+        })
+    });
+
+    //=================================================================================================
+    //                            P R I N T E R
+    //=================================================================================================
+
+    function printDiv(divName) {
+        var printContents = divName.html();
+        var originalContents = $('body').html();
+        let header = `<div class="header" style="background-color: #049a5d; color: #fff; padding: 32px 0px; font-weight: 700; font-size: 13px;">Infrastructre Selection and Prioritization System</div><hr/>`;
+
+        $('body').css({ "padding-left": "0" }).html(header + printContents);
+        $('.p-name, .p5, legend').css({ "font-size": "10px" });
+        $('.p3').css({ "font-size": "14px" });
+        $('h2, .h2').css({ "font-size": "12px", "text-align": "left" });
+        $('.percentage').css({ "font-size": "4px" });
+        $('.progress').css({ "margin-bottom": "12px" });
+        $('.info_top_right').css({ "width": "100%", "text-align": "center" });
+        $('.info_top_left').css({ "width": "100%" });
+        $('.single-chart').css({ "justify-content": "flex-start", "text-align": "left", "width": "120px" });
+        $('.info_bottom_title').css({ "margin-bottom": "12px" });
+        $('.top-title').css({ "margin-bottom": "0" });
+        $('.circular-chart').css({ "max-height": "120px", "max-width": "100%", "margin": "10px 0", "display": "inline" });
+        $('.info_top').css({ "flex-direction": "column-reverse", "align-items": "flex-start", "padding-top": "0" });
+        $('.info_bottom_body fieldset').css({ "padding": "24px 16px" });
+        $('.info_bottom_body span:last-child, .p-data').css({ "font-size": "10px" });
+
+        window.print();
+        $('body').removeAttr('style');
+        $('.p-name, .p5, legend').removeAttr('style');
+        $('.p3').removeAttr('style');
+        $('h2, .h2').removeAttr('style');
+        $('.percentage').removeAttr('style');
+        $('.progress').removeAttr('style');
+        $('.info_top_right').removeAttr('style');
+        $('.info_top_left').removeAttr('style');
+        $('.single-chart').removeAttr('style');
+        $('.info_bottom_title').removeAttr('style');
+        $('.circular-chart').removeAttr('style');
+        $('.top-title').removeAttr('style');
+        $('.info_top').removeAttr('style');
+        $('.info_bottom_body fieldset').removeAttr('style');
+        $('.info_bottom_body span:last-child, .p-data').removeAttr('style');
+        $('body').html(originalContents);
+
+    }
+    $('#downloadPDF').click(function() {
+        let div = $('#proj-info');
+        printDiv(div);
+    });
+
+
+    //=================================================================================================
+    //                            S E A R C H  P R O J E C T S
+    //=================================================================================================
+
+    let originalList = $('.projects-List').html();
+    $('.main_project_search input').on("keyup", function() {
+
+        $('.projects-List #recha').remove();
+        $('.projects-List').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Searching...</p></span>');
+
+        if ($('.main_project_search input').val().length === 0) {
+            $('.projects-List #recha').remove();
+            $('.projects-List').html(originalList);
+        } else {
+            $.ajax({
+                url: '/includes/config/searchProjects.php',
+                type: "POST",
+                data: 'keyword=' + $(this).val(),
+                success: function(response) {
+                    $('.projects-List').html(response);
+                }
+            });
+        }
+    });
+
+    //=================================================================================================
+    //                            F I L T E R  P R O J E C T S
+    //=================================================================================================
+
+    $('.filter').on("click", function() {
+
+        $('.projects-List #recha').remove();
+        $('.projects-List').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Searching...</p></span>');
+
+        if ($(this).siblings().hasClass('active')) {
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+        } else {
+            $(this).toggleClass('active');
+        }
+
+        if ($(this).hasClass('active')) {
+            let search = $(this).data('value');
+            $.ajax({
+                url: '/includes/config/filterProjects.php',
+                type: "POST",
+                data: 'keyword=' + search,
+                success: function(response) {
+                    $('.projects-List').html(response);
+                }
+            });
+        } else {
+            $('.projects-List #recha').remove();
+            $('.projects-List').html(originalList);
+        }
+
+    });
+
+
 })

@@ -1,7 +1,5 @@
 <?php
 
-ini_set('display_errors',1); 
-error_reporting(E_ALL);
 
 class Project extends Db
 {
@@ -157,7 +155,68 @@ class Project extends Db
     public function getAllActiveUserSectorProjects($sector)
     {
         try{
-            $query = "SELECT * FROM `projects` WHERE `metrics` != '0' AND `sector` = :sector AND `approved` = '1' AND `suspended` != '1' ORDER BY `score` DESC";
+            $query = "SELECT `projects`.*, `projects_details`.`project_state` FROM `projects` JOIN `projects_details` WHERE `metrics` != '0' AND `sector` = :sector AND `approved` = '1' AND `suspended` != '1' AND `projects_details`.`project_id` = `projects`.`id` ORDER BY `score` DESC";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                ':sector' => $sector
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function searchProject($sector, $product)
+    {
+        $query = "SELECT `projects`.*, `projects_details`.`project_state` FROM `projects` JOIN `projects_details` WHERE `metrics` != '0' AND `sector` = ? AND `approved` = '1' AND `suspended` != '1' AND `projects_details`.`project_id` = `projects`.`id` AND `projects`.`name` like ? ORDER BY `score` DESC";
+        $stmt = $this->connect()->prepare($query);
+        $stmt->execute([
+            $sector,
+            $product
+        ]);
+        if($stmt->rowCount() == 0){
+            return false;
+        }else{
+            $data = $stmt->fetchAll();
+            return $data;
+        }
+    }
+
+    public function getFilterProject($sector, $table_prefix)
+    {
+        try{
+            $query = "SELECT `projects`.*, `projects_details`.`project_state` FROM `projects` JOIN `projects_details` JOIN `".$table_prefix."_list` WHERE `metrics` != '0' AND `sector` = ? AND `approved` = '1' AND `suspended` != '1' AND `projects_details`.`project_id` = `projects`.`id` AND `projects`.`id` = `".$table_prefix."_list`.`project_id` ORDER BY `score` DESC";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                $sector
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function getAllSectorProjects($sector)
+    {
+        try{
+            $query = "SELECT * FROM `projects` WHERE `metrics` != '0' AND `sector` = :sector ORDER BY `score` DESC";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                ':sector' => $sector
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function getAllNewSectorProjects($sector)
+    {
+        try{
+            $query = "SELECT * FROM `projects` WHERE `metrics` != '0' AND `sector` = :sector AND `date_added`>=SUBDATE(timestamp(now()), INTERVAL 730 HOUR)";
             $stmt = $this->connect()->prepare($query);
             $stmt->execute([
                 ':sector' => $sector
@@ -303,14 +362,15 @@ class Project extends Db
         }
     }
 
-    public function approveproject($id, $approved_by, $approved_by_designation)
+    public function approveProject($id, $approved_by, $approved_by_designation, $date_approved)
     {
         try{
-            $update = "UPDATE `projects` SET `approved` = '1', `approved_by` = :approved_by, `approved_by_designation` = :approved_by_designation WHERE `id` = :id";
+            $update = "UPDATE `projects` SET `approved` = '1', `approved_by` = :approved_by, `approved_by_designation` = :approved_by_designation, `date_approved` = :date_approved WHERE `id` = :id";
             $stmt = $this->connect()->prepare($update);
             $stmt->execute([
                 ':approved_by' => $approved_by,
                 ':approved_by_designation' => $approved_by_designation,
+                ':date_approved' => $date_approved,
                 ':id' => $id
             ]);
             return 'success!=You have successfully approved this project!';
@@ -336,10 +396,10 @@ class Project extends Db
         }
     }
 
-    public function reactivateProject($id, $suspender, $suspended_by_designation, $suspension_date, $approved, $approved_by,$approved_by_designation)
+    public function reactivateProject($id, $suspender, $suspended_by_designation, $suspension_date, $approved, $approved_by,$approved_by_designation, $date_approved)
     {
         try{
-            $update = "UPDATE `projects` SET `suspended` = '0', `suspended_by` = ?, `suspended_by_designation` = ?, `date_suspended` = ?, `approved` = ?, `approved_by` = ?,  `approved_by_designation` = ? WHERE `id` = ?";
+            $update = "UPDATE `projects` SET `suspended` = '0', `suspended_by` = ?, `suspended_by_designation` = ?, `date_suspended` = ?, `approved` = ?, `approved_by` = ?,  `approved_by_designation` = ?, `date_approved` = ? WHERE `id` = ?";
             $stmt = $this->connect()->prepare($update);
             $stmt->execute([
                 $suspender,
@@ -348,6 +408,7 @@ class Project extends Db
                 $approved,
                 $approved_by,
                 $approved_by_designation,
+                $date_approved,
                 $id
             ]);
             return true;
@@ -401,6 +462,34 @@ class Project extends Db
 
     }
 
+    public function getJobsBudget($sector)
+    {
+        try {
+            $query = "SELECT `jobs`.`id`, `sectors`.`sector_name`,`jobs`.`direct`, `jobs`.`indirect`, `jobs`.`induced`, `jobs`.`total`, `jobs`.`budget_per_total_jobs` FROM `jobs`JOIN `sectors` WHERE `sectors`.`id` = `jobs`.`sector_id` AND `sectors`.`sector_name` = :sector";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                ':sector' => $sector
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        } catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+    public function getAllJobsBudget()
+    {
+        try {
+            $query = "SELECT `jobs`.`id`, `sectors`.`sector_name`,`jobs`.`direct`, `jobs`.`indirect`, `jobs`.`induced`, `jobs`.`total`, `jobs`.`budget_per_total_jobs` FROM `jobs`JOIN `sectors` WHERE `sectors`.`id` = `jobs`.`sector_id`";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute();
+            $data = $stmt->fetchAll();
+            return $data;
+        } catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
     public function table_prefix($sector){
         switch ($sector) {
             case 'Railway Construction':
@@ -426,15 +515,75 @@ class Project extends Db
         return $table_prefix;
     }
 
-    public function getCompared($array, $keyToCompare)
+    public function getCompared($array, $keyToCompare, $valueToFind)
     {
-        $sum = 0;
         foreach ($array as $key => $value) {
-            $sum += $value[$keyToCompare];
-            $average = $sum/count($array);
+            array_shift($array[$key]);//remove the id key
         }
-        return $average;
+        asort($array);
+        
+        //split the array into three equal percentile parts...100/3*0.01. First part will be low. Second part will be medium, and the third part will be high.
+        $low = 0.33 * count($array);
+        $low_range = array_slice($array, 0, $low);
+        
+        $medium = 0.66 * count($array);
+        $medium_range = array_slice(array_slice($array, 0, $medium), $low, $medium);
+        
+        $high = 0.99 * count($array);
+        $high_range = array_slice($array, $medium, $high);
+
+        if ($this->recursive_array_search($valueToFind, $medium_range) == TRUE) {
+            return 'Medium';
+        }elseif ($this->recursive_array_search($valueToFind, $low_range) == TRUE) 
+        {
+            return 'Low';
+        }else{
+            return 'High';
+        }
     }
 
+    public function updateCurrentProject($table_prefix, $current_project_array, $metrics_id, $project_id){
+        $sql = "UPDATE `".$table_prefix."_projects_scores` SET ";
+        foreach ($current_project_array as $key => $value) {
+            $sql .=  "`".$key."` = '".$value."', ";
+        }
+        $sql = rtrim($sql, ', ');
+        $sql .= " WHERE `metrics_id` = ".$_POST['metrics_id']."";
+        $this->runInsertQuery($sql);
+
+        $total_score = array_sum($current_project_array);
+
+        $update = "UPDATE `projects` SET `score` = '".$total_score."' WHERE `id` = '".$project_id."'";
+        $this->runInsertQuery($update);
+
+        return true;
+
+    }
+
+    public function getAllRegionProjects($sector)
+    {
+        try {
+            $query = "SELECT COUNT(`states`.`region`) AS `count`, `states`.`region` FROM `states` JOIN `projects_details` JOIN `projects` WHERE `projects_details`.`origin_state` = `states`.`state` AND `projects_details`.`project_id` = `projects`.`id` AND `projects`.`approved` = '1' AND `projects`.`suspended` != '1' AND `projects`.`sector` = ? GROUP BY `states`.`region`";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                $sector
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        } catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
+
+    public function recursive_array_search($needle,$haystack) {
+        foreach($haystack as $key=>$value) {
+           $current_key=$key;
+           if($needle===$value || (is_array($value) && $this->recursive_array_search($needle,$value) !== false)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

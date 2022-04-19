@@ -15,34 +15,80 @@ class App{
             if(file_exists('../app/controllers/'. $url[0] . '.contr.php'))
             {
                 $this->controller = $url[0];
-                unset($url[0]);
+                $option = $this->controller . '.contr.php';
             }
             else
             {
                 $this->controller = 'errors';
                 $this->method = 'not_found';
+                $option = $this->controller . '.contr.php';
                 unset($url[0]);
             }
+        }else{
+            $option = $this->controller . '.contr.php';
         }
 
-        require_once '../app/controllers/'. $this->controller . '.contr.php';
+        require_once '../app/controllers/'. $option;
 
         $this->controller = new $this->controller;
 
+        
         if(isset($url[1]))
         {
-            if(method_exists($this->controller, $url[1]))
+            if(isset($url[2]))
             {
-                $this->method = $url[1];
-                unset($url[1]);
-            }
-            else
-            {
-                $this->controller = 'errors';
-                $this->method = 'not_found';
-                unset($url[1]);
-                require_once '../app/controllers/'. $this->controller . '.contr.php';
+                if (file_exists('../app/controllers/'. $url[0] .'/' . $url[1] . '.contr.php'))
+                {
+
+                    $this->controller = $url[1];
+                    unset($url[1]);
+                    
+                    $option =  $url[0] .'/'. $this->controller . '.contr.php';
+                    require_once '../app/controllers/'. $option;
+
+                    if(method_exists($this->controller, $url[2]))
+                    {
+                        $this->method = $url[2];
+                        unset($url[2]);
+                    }else{
+                        $this->controller = 'errors';
+                        $this->method = 'not_found';
+                        $option = $this->controller . '.contr.php';
+                        unset($url[2]);
+                    }
+
+                }else{
+                    if(method_exists($this->controller, $url[1]))
+                    {
+                        $this->method = $url[1];
+                        unset($url[1]);
+                    }else{
+                        $this->controller = 'errors';
+                        $this->method = 'not_found';
+                        $option = $this->controller . '.contr.php';
+                        unset($url[1]);
+                    }
+                }
+
+                unset($url[0]);
+                require_once '../app/controllers/'. $option;
                 $this->controller = new $this->controller;
+
+            }else{
+                if(method_exists($this->controller, $url[1]))
+                {
+                    $this->method = $url[1];
+                    unset($url[1]);
+                }
+                else
+                {
+                    $this->controller = 'errors';
+                    $this->method = 'not_found';
+                    unset($url[1]);
+                    
+                    require_once '../app/controllers/'. $this->controller . '.contr.php';
+                    $this->controller = new $this->controller;
+                }
             }
         }
 

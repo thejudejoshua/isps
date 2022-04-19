@@ -84,6 +84,8 @@ class Projects extends Controller
                         if($id == $value['id'])
                         {
                             $project_rank = array_search($value, $project_scores) + 1;
+                        }else{
+                            $project_rank = '';
                         }
                     }
                 }else{
@@ -278,7 +280,7 @@ class Projects extends Controller
     
                     $jobs = $this->get_jobs($sector);//get the job total for this sector
     
-                    $project_jobs_created = round(($projectData[0]['cost'] * $jobs[0]['total'])/$jobs[0]['per_invested']);
+                    $project_jobs_created = round(($projectData[0]['cost'] * $jobs[0]['total'])/$jobs[0]['budget_per_total_jobs']);
 
                     
                     if(is_array($metricsData))
@@ -365,7 +367,7 @@ class Projects extends Controller
     protected function get_jobs($sector)
     {
         $db_model = $this->model('Db');
-        $sql = "SELECT `jobs`.`total`,  `jobs`.`per_invested` FROM `sectors` JOIN `jobs` WHERE `sector_name` = '".$sector."' AND `jobs`.`sector_id` = `sectors`.`id`";
+        $sql = "SELECT `jobs`.`total`,  `jobs`.`budget_per_total_jobs` FROM `sectors` JOIN `jobs` WHERE `sector_name` = '".$sector."' AND `jobs`.`sector_id` = `sectors`.`id`";
         return $db_model->runSelectQuery($sql);
     }
 

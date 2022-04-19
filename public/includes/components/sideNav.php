@@ -10,7 +10,7 @@
                 <ul class="nav nav-pills flex-column">
                     <li>
                         <a class="side-link '; isset(explode('/', $url)[1]) && explode('/', $url)[1] == 'dashboard' || !isset(explode('/', $url)[1]) ? print 'active' : print ''; echo'" href="/dashboard">
-                            <i class="las la-home"></i>Dashboard</a>
+                        <i class="las la-icons"></i>Dashboard</a>
                     </li>
                     <li>
                         <a class="side-link '; echo isset(explode('/', $url)[1]) && explode('/', $url)[1] == 'projects' || explode('/', $url)[1] == 'edit' ? 'active' : ''; echo'" href="/projects">
@@ -43,7 +43,7 @@
                     </li>
                     <li>
                         <a class="side-link" href="/logout">
-                            <i class="las la-power-off"></i>Power Down</a>
+                            <i class="las la-power-off"></i>Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -55,7 +55,7 @@
                 <ul class="nav nav-pills flex-column">
                     <li>
                         <a class="side-link '; echo isset(explode('/', $url)[1]) && explode('/', $url)[1] == 'dashboard' ? 'active' : ''; echo'" href="/dashboard">
-                            <i class="las la-home"></i>Dashboard</a>
+                        <i class="las la-icons"></i>Dashboard</a>
                     </li>
                     <li>
                         <a class="side-link '; echo isset(explode('/', $url)[1]) && explode('/', $url)[1] == 'projects' ? 'active' : ''; echo'" href="/projects">
@@ -74,7 +74,7 @@
                     </li>
                     <li>
                         <a class="side-link" href="/logout">
-                            <i class="las la-power-off"></i>Power Down</a>
+                            <i class="las la-power-off"></i>Log Out</a>
                     </li>
                 </ul>
             </div>

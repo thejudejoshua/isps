@@ -12,6 +12,8 @@
 @import url('login.css');
 @import url('table.css');
 @import url('compare.css');
+@import url('jobs.css');
+@import url('dashboard.css');
 :root {
     --neutral: #fff;
     --secondary: #000;
@@ -38,7 +40,10 @@
     --primary-200: #12eb90;
     --primary-300: #08d57f;
     --primary-400: #05be70;
-    --primary: #049a5d;
+    /* --primary: linear-gradient(180deg, #0AC984 0%, #0A8148 80.87%); */
+    /* --primary: green; */
+    --primary: #0A8148;
+    --primary-hover: rgb(201, 240, 193);
 }
 
 * {
@@ -60,7 +65,7 @@
 html,
 body {
     width: 100%;
-    background: var(--neutral);
+    background: var(--gray-200);
     scroll-behavior: smooth;
     color: var(--gray-800);
     height: 100%;
@@ -73,8 +78,60 @@ body {
     padding-left: 20%;
 }
 
-body#login {
-    padding-left: 0;
+.alert {
+    position: absolute;
+    z-index: 10000;
+    padding: 24px;
+    color: var(--neutral);
+    width: 300px;
+    height: 100px;
+    border-radius: 8px 0 0 8px;
+    right: -350px;
+    left: unset;
+    top: 20px;
+    transition: 0.8s right !important;
+    display: flex;
+    align-items: center;
+}
+
+.alert p {
+    text-transform: unset;
+    font-weight: 700;
+}
+
+.alert-right {
+    right: 0;
+    box-shadow: -3px 5px 19px 4px rgba(0, 0, 0, 0.18);
+}
+
+.error-message {
+    background: var(--danger);
+}
+
+.success-message {
+    background: var(--primary-400);
+}
+
+#recha {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 10000000;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    font-size: 48px;
+    color: var(--primary);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#recha i {
+    animation: spin 3s infinite;
+    animation-timing-function: cubic-bezier(1, 1, 0, 0);
 }
 
 .d-flex {
@@ -89,6 +146,10 @@ body#login {
     align-items: center;
 }
 
+.align-items-end {
+    align-items: end;
+}
+
 .align-content-end {
     align-items: end;
 }
@@ -101,24 +162,20 @@ body#login {
     justify-content: space-between;
 }
 
+.justify-content-end {
+    justify-content: flex-end;
+}
+
+.justify-items-end {
+    justify-items: flex-end;
+}
+
 .flex-column {
     flex-direction: column;
 }
 
 .flex-row {
     flex-direction: row;
-}
-
-#mainContainer {
-    box-shadow: 0px 4px 20px 18px rgb(0 0 0 / 6%);
-    height: auto;
-    min-height: auto;
-    width: auto;
-    overflow: hidden;
-    border-radius: 12px;
-    background-color: var(--neutral);
-    border: 1px solid var(--accent);
-    padding-top: 38px;
 }
 
 #main {
@@ -155,9 +212,10 @@ span#toggle-pass:hover {
 }
 
 .wrapper {
-    /* height: 100vh; */
+    height: 100%;
     width: 100%;
     gap: 0;
+    background: var(--gray-200);
 }
 
 .top-title {
@@ -193,14 +251,18 @@ span#toggle-pass:hover {
 .content-box {
     margin: 0;
     width: 100%;
-    padding: 0px 0 72px;
+    padding: 0px 32px 72px 0;
     overflow-y: auto;
     left: 0;
     height: 100%;
+    /* background: var(--neutral); */
 }
 
-.content {
-    padding: 24px 40px;
+.content-box-body {
+    padding: 48px;
+    background: var(--neutral);
+    border-radius: 20px;
+    min-height: 100%;
 }
 
 hr {
@@ -285,7 +347,7 @@ hr {
 }
 
 .notice {
-    color: var(--gray-600);
+    text-align: center;
     line-height: 20px;
 }
 
@@ -293,12 +355,14 @@ hr {
     text-decoration: underline;
 }
 
+
+/* 
 .notice i {
     font-size: 128px;
     margin-bottom: 24px;
-    /* color: var(--background-circles); */
+    color: var(--background-circles);
     color: var(--primary);
-}
+} */
 
 span#notify {
     width: 10px;
@@ -328,4 +392,47 @@ span#notify {
 .d-block {
     display: block;
     width: 100%;
+}
+
+.mb-40 {
+    margin-bottom: 40px;
+}
+
+iframe#printer {
+    width: 100%;
+    border: none;
+    height: 3000px;
+}
+
+@-moz-keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

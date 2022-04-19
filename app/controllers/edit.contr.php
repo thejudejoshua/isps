@@ -32,7 +32,7 @@ class Edit extends Projects
                 
                 $jobs = $this->get_jobs($sector);//get the job total for this sector
                 
-                $project_jobs_created = round(($projectData[0]['cost'] * $jobs[0]['total'])/$jobs[0]['per_invested']);
+                $project_jobs_created = round(($projectData[0]['cost'] * $jobs[0]['total'])/$jobs[0]['budget_per_total_jobs']);
                 
                 $table_prefix = $project->table_prefix($_SESSION['sector']);
                 

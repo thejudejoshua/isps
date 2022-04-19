@@ -7,7 +7,7 @@
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box">
         <?php require_once './includes/components/topNav.php';?>
-        <section class="content mt-5">
+        <section class="content content-box-body">
             <a href="/users">back to all users</a>
             <hr>
             <div class="top-title d-flex justify-content-between full-width align-items-center">

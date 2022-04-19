@@ -1,5 +1,8 @@
-<nav id="top-nav" class="navbar d-flex">
-    <!-- <input type="search" class="form-control" placeholder="Search..."> -->
+<nav id="top-nav" class="navbar d-flex justify-content-between align-items-center">
+    <div class="system-own d-flex align-items-center">
+        <img src="/includes/assets/img/Coat_of_arms.png">
+        <p class="paragraphsdescriptions">Federal Ministry of Finance, Budgeting and National Planning</p>
+    </div>
 
     <div class="">
         <div class="" id="navbarSupportedContent">

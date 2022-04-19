@@ -7,7 +7,7 @@
     <?php require_once './includes/components/sideNav.php';?>
     <div class="content-box">
         <?php require_once './includes/components/topNav.php';?>
-        <section class="content">
+        <section class="content content-box-body">
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
                     <h2 class="title p3">All Unapproved Projects</h2>
@@ -18,8 +18,8 @@
                 if(empty($data['projectsList']))
                 {
                     echo '
-                        <div class="full-width text-align-center d-flex flex-column v50h justify-content-center">
-                            <p class="h4 notice"><i class="las la-exclamation-triangle"></i><br/>There are no projects to approve. When the budgeting officer adds a project, it will appear here.</p>
+                        <div class="empty full-width text-align-center d-flex flex-column v50h justify-content-center">
+                            <p class="p4 notice"><span><i class="las la-folder-open"></i></span><br/>There are no projects to approve. When the budgeting officer adds a project, it will appear here.</p>
                         </div>
                     ';
                 }else{

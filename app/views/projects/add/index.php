@@ -7,7 +7,7 @@
         <?php require_once './includes/components/sideNav.php';?>
         <div class="content-box">
             <?php require_once './includes/components/topNav.php';?>
-            <section class="content">
+            <section class="content content-box-body">
                 <a href="/projects">Back to all projects</a>
                 <hr>
                 <div class="top-title d-flex justify-content-between full-width align-items-center">

@@ -21,7 +21,9 @@ switch($_POST){
                         $project->addProjectExecution($_POST['project_id']);
                     }
 
-                    echo $project->approveproject($_POST['project_id'], $_SESSION['name'], $_SESSION['designation']);
+                    $date_approved = date("Y-m-d");
+
+                    echo $project->approveProject($_POST['project_id'], $_SESSION['name'], $_SESSION['designation'], $date_approved);
                }
             break;
         }

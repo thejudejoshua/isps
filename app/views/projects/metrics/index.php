@@ -7,7 +7,7 @@
         <?php require_once './includes/components/sideNav.php';?>
         <div class="content-box">
             <?php require_once './includes/components/topNav.php';?>
-            <section class="content mt-5">
+            <section class="content content-box-body">
                 <a href="/projects">Back to all projects</a>
                 <hr>
                 <h2 class="p3">Add project Metrics</h2>

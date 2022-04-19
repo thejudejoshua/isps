@@ -29,7 +29,7 @@ input.form-control:read-only {
 }
 
 .form-control:focus-visible {
-    background-color: var(--gray-100);
+    background-color: var(--gray-200);
     border-color: transparent;
 }
 
@@ -40,12 +40,11 @@ input.form-control:read-only {
 }
 
 .form-label {
-    font-size: 12px;
-    color: var(--secondary);
-    letter-spacing: 0.1px;
+    font-size: 13px;
+    color: var(--gray-700);
     margin-bottom: 12px;
     display: inline-block;
-    font-weight: 600;
+    font-weight: 900;
 }
 
 .form-label i {
@@ -105,22 +104,29 @@ form {
     width: auto;
     padding: 20px 40px;
     border-radius: 6px;
-    background-image: linear-gradient(to right, var(--primary) 0%, var(--primary) 51%, var(--primary) 100%);
-    background-size: 200% auto;
-    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
-    display: inline-block;
+    background: var(--primary);
+    transition: background 0.6s, gap 0.6s;
     top: 0;
     font-weight: 700;
-    letter-spacing: 0.5px;
-    font-size: 12px;
+    letter-spacing: 0;
+    font-size: 13px;
     height: fit-content;
     cursor: pointer;
     border: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn i {
+    font-size: 18px;
 }
 
 .btn:hover {
     color: var(--neutral);
-    background-position: right center;
+    background: var(--primary-400);
+    gap: 12px;
 }
 
 .btn.secondary {

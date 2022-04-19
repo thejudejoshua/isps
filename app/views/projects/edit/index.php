@@ -7,8 +7,8 @@
         <?php require_once './includes/components/sideNav.php';?>
         <div class="content-box">
             <?php require_once './includes/components/topNav.php';?>
-            <section class="content">
-                <a href="/projects">back to all projects</a>
+            <section class="content content-box-body">
+                <a href="<?=$_SERVER['HTTP_REFERER']?>">Back to view project</a>
                 <hr>
                 <div class="top-title d-flex justify-content-between full-width align-items-center">
                     <div class="">
