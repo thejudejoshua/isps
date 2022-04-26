@@ -334,6 +334,21 @@ class Project extends Db
         }
     }
 
+    public function getSectorData($sector)
+    {
+        try{
+            $query = "SELECT * FROM `sectors` WHERE `sector_name` = ?";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                $sector,
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
     public function addProjectPriority($id)
     {
         try{
@@ -462,35 +477,8 @@ class Project extends Db
 
     }
 
-    public function getJobsBudget($sector)
+    public function table_prefix($sector)
     {
-        try {
-            $query = "SELECT `jobs`.`id`, `sectors`.`sector_name`,`jobs`.`direct`, `jobs`.`indirect`, `jobs`.`induced`, `jobs`.`total`, `jobs`.`budget_per_total_jobs` FROM `jobs`JOIN `sectors` WHERE `sectors`.`id` = `jobs`.`sector_id` AND `sectors`.`sector_name` = :sector";
-            $stmt = $this->connect()->prepare($query);
-            $stmt->execute([
-                ':sector' => $sector
-            ]);
-            $data = $stmt->fetchAll();
-            return $data;
-        } catch(PDOException $e){
-            return "error=Failed! <br>" . $e->getMessage();
-        }
-    }
-
-    public function getAllJobsBudget()
-    {
-        try {
-            $query = "SELECT `jobs`.`id`, `sectors`.`sector_name`,`jobs`.`direct`, `jobs`.`indirect`, `jobs`.`induced`, `jobs`.`total`, `jobs`.`budget_per_total_jobs` FROM `jobs`JOIN `sectors` WHERE `sectors`.`id` = `jobs`.`sector_id`";
-            $stmt = $this->connect()->prepare($query);
-            $stmt->execute();
-            $data = $stmt->fetchAll();
-            return $data;
-        } catch(PDOException $e){
-            return "error=Failed! <br>" . $e->getMessage();
-        }
-    }
-
-    public function table_prefix($sector){
         switch ($sector) {
             case 'Railway Construction':
                 $table_prefix = 'railway';
@@ -542,7 +530,8 @@ class Project extends Db
         }
     }
 
-    public function updateCurrentProject($table_prefix, $current_project_array, $metrics_id, $project_id){
+    public function updateCurrentProject($table_prefix, $current_project_array, $metrics_id, $project_id)
+    {
         $sql = "UPDATE `".$table_prefix."_projects_scores` SET ";
         foreach ($current_project_array as $key => $value) {
             $sql .=  "`".$key."` = '".$value."', ";
@@ -575,8 +564,23 @@ class Project extends Db
         }
     }
 
+    public function getAllSectorProjectSummary($sector, $table_prefix)
+    {
+        try {
+            $query = "SELECT `".$table_prefix."_projects_metrics`.*, `projects`.*, COUNT(`states`.`region`) AS `count`, `states`.`region`, `projects_details`.`project_state`, `projects_details`.`project_lga` FROM `".$table_prefix."_projects_metrics` JOIN `projects` JOIN `projects_details` JOIN `states` WHERE `projects_details`.`origin_state` = `states`.`state` AND `projects_details`.`project_id` = `projects`.`id` AND `".$table_prefix."_projects_metrics`.`project_id` = `projects`.`id` AND `projects`.`approved` = '1' AND `projects`.`suspended` != '1' AND `projects`.`sector` = ? GROUP BY `states`.`region`";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                $sector
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        } catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
 
-    public function recursive_array_search($needle,$haystack) {
+    public function recursive_array_search($needle,$haystack)
+    {
         foreach($haystack as $key=>$value) {
            $current_key=$key;
            if($needle===$value || (is_array($value) && $this->recursive_array_search($needle,$value) !== false)) {
@@ -585,5 +589,21 @@ class Project extends Db
         }
         return false;
     }
+
+    public function getExecutionList($sector)
+    {
+        try{
+            $query = "SELECT `projects`.*, `execution_list`.* FROM `projects` JOIN `execution_list` WHERE `metrics` != '0' AND `sector` = ? AND `approved` = '1' AND `suspended` != '1' AND `projects`.`id` = `execution_list`.`project_id` ORDER BY `score` DESC";
+            $stmt = $this->connect()->prepare($query);
+            $stmt->execute([
+                $sector
+            ]);
+            $data = $stmt->fetchAll();
+            return $data;
+        }catch(PDOException $e){
+            return "error=Failed! <br>" . $e->getMessage();
+        }
+    }
+
 
 }

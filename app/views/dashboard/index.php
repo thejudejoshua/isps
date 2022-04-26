@@ -37,7 +37,7 @@
                                     </div>
                                 </div>
                                 <div class="main_overview_card-bottom full-width">
-                                    <!-- <a href="#">View Projects</a> -->
+                                    <!-- <a href="#">View New Projects</a> -->
                                 </div>
                             </div>
                             <div class="main_overview_card flex-column d-flex align-items-center">
@@ -51,7 +51,7 @@
                                     </div>
                                 </div>
                                 <div class="main_overview_card-bottom full-width">
-                                    <a href="/projects">View Projects</a>
+                                    <a href="/projects">View Active Projects</a>
                                 </div>
                             </div>
                             <div class="main_overview_card flex-column d-flex align-items-center">
@@ -65,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="main_overview_card-bottom full-width">
-                                    <a href="/projects/suspended">View Projects</a>
+                                    <a href="/projects/suspended">View Suspended Projects</a>
                                 </div>
                             </div>
                         </div>
@@ -75,12 +75,12 @@
             <hr/>
             <div class="row">
                 <div class="main_section d-flex full-width justify-content-between">
-                    <div class="main_section-left">
+                    <div class="main_section-left flex-column d-flex align-items-center">
                         <div class="main_section_head">
                             <h3 id="dashboard-section-header">Happening in your sector</h3>
                             <p class="p5">This shows you the activities performed in your sector</p>
                         </div>
-                        <div class="main_section_body">
+                        <div class="main_section_body flex-column d-flex align-items-center">
                             <?php
                                 // if(is_array($data['notifications'])){
                                 //     foreach($data['notifications'] as $notifications){
@@ -105,19 +105,24 @@
                             ?>
                         </div>
                     </div>
-                    <div class="main_section-right">
+                    <div class="main_section-right flex-column d-flex align-items-center">
                         <div class="main_section_head">
                             <h3 id="dashboard-section-header">Project Regions</h3>
                             <p class="p5">This displays your sector projects by regions</p>
                         </div>
-                        <div class="main_section_body">
+                        <div class="main_section_body flex-column d-flex align-items-center">
                             <?php
                                 if(count($data['getChartRegions']) > 0){
                                     echo '
+                                        <div class="canvas-summary">
                                         <script>
                                             var chartRegions = '.json_encode($data["getChartRegions"]).'
                                         </script>
-                                        <canvas id="pieChart"></canvas>
+                                        <canvas id="geoPieChart"></canvas>
+                                        </div>
+                                        <div class="main_overview_card-bottom full-width">
+                                            <a href="/sector">View Sector summary</a>
+                                        </div>
                                     ';
                                 }else{
                                     echo '
@@ -138,40 +143,6 @@
         </div>
     </div>
 </div>
-
-<script src="/includes/assets/js/chart.min.js"></script>
-<script>
-    var data = {labels: [], count: [] }
-
-    for (let i = 0; i < chartRegions.length; i++) {        
-        data.labels.push(chartRegions[i]['region'])
-        data.count.push(chartRegions[i]['count'])
-    }
-
-    var canvasP = document.getElementById("pieChart");
-    var ctxP = canvasP.getContext('2d');
-    var myPieChart = new Chart(
-        ctxP, {
-        type: 'doughnut',
-        data: {
-            labels: data.labels,
-            datasets: [{
-                data: data.count,
-                backgroundColor: ["#64B5F6", "#1dbd47", "#002c91", "#FFC107", "#db3737", "#a56e2a"],
-                hoverBackgroundColor: ["#B2EBF2", "#95e0a8", "#698ad5", "#ffd557", "#e56d6d", "#b98e59"]
-            }]
-        },
-        options: {
-            responsive: false,
-            spacing: 0,
-            borderRadius: 2,
-            legend: {
-                display: true,
-                position: "right"
-            }
-        }
-    })
-</script>
 
 <?php
     require_once './includes/components/footer.php';

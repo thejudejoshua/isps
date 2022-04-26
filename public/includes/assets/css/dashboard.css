@@ -4,8 +4,11 @@
 }
 
 .main_section_head {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     margin-top: 24px;
+    width: 100%;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--gray-300);
 }
 
 .main_section_head p {
@@ -87,9 +90,10 @@
 }
 
 .main_section_body {
-    height: 250px;
-    display: table;
+    min-height: 250px;
     width: 100%;
+    gap: 24px;
+    height: 100%;
 }
 
 .main_section {
@@ -121,9 +125,9 @@
     height: 100%;
 }
 
-canvas#pieChart {
+canvas {
     width: 100%;
-    height: 318px;
+    /* height: 318px; */
 }
 
 .main_overview_card-top {
@@ -139,11 +143,11 @@ canvas#pieChart {
 
 .main_overview_card-bottom a {
     font-weight: 600;
-    color: var(--links)
+    color: var(--primary);
 }
 
-.main_overview_card:nth-child(2) .main_overview_card-bottom a {
-    color: var(--primary);
+.main_overview_card:nth-child(1) .main_overview_card-bottom a {
+    color: var(--links)
 }
 
 .main_overview_card:nth-child(3) .main_overview_card-bottom a {

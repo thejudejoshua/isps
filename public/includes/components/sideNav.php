@@ -14,33 +14,39 @@
                     </li>
                     <li>
                         <a class="side-link '; echo isset(explode('/', $url)[1]) && explode('/', $url)[1] == 'projects' || explode('/', $url)[1] == 'edit' ? 'active' : ''; echo'" href="/projects">
-                            <i class="las la-folder-open"></i>Projects'; echo $unapproved_projects > 0 ? '<span id="notify"></span>' : ''; echo'</a>
-                            <ul>
-                                <li><a href="/projects" class="side-link '; echo explode('/', $url)[1] == 'projects' && isset(explode('/', $url)[2]) == '' ? 'active' : ''; echo'">Active Projects</a></li>';
-                                if($_SESSION['designation'] == 'director')
-                                {
-                                    echo'
-                                        <li><a href="/projects/add" class="side-link '; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'add' ? 'active' : ''; echo'">Add a new project</a></li>
-                                    ';
-                                } echo'
-                                <li><a href="/projects/approve" class="side-link'; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'approve' ? ' active' : ''; echo'">Approve a project'; echo $unapproved_projects > 0 ? '<span id="notify">'.$unapproved_projects.'</span>' : ''; echo'</a></li>
-                                <li><a href="/projects/compare" class="side-link '; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'compare' ? 'active' : ''; echo'">Compare Projects</a></li>
-                                <li><a href="/projects/suspended" class="side-link '; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'suspended' ? 'active' : ''; echo'">Suspended Projects</a></li>
-                            </ul>
+                            <i class="las la-folder-open"></i>Manage Projects'; echo $unapproved_projects > 0 ? '<span id="notify"></span>' : ''; echo'
+                        </a>
+                        <ul>
+                            <li><a href="/projects" class="side-link '; echo explode('/', $url)[1] == 'projects' && isset(explode('/', $url)[2]) == '' ? 'active' : ''; echo'">Active Projects</a></li>';
+                            if($_SESSION['designation'] == 'director')
+                            {
+                                echo'
+                                    <li><a href="/projects/add" class="side-link '; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'add' ? 'active' : ''; echo'">Add a new project</a></li>
+                                ';
+                            } echo'
+                            <li><a href="/projects/approve" class="side-link'; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'approve' ? ' active' : ''; echo'">Approve a project'; echo $unapproved_projects > 0 ? '<span id="notify">'.$unapproved_projects.'</span>' : ''; echo'</a></li>
+                            <li><a href="/projects/compare" class="side-link '; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'compare' ? 'active' : ''; echo'">Compare Projects</a></li>
+                            <li><a href="/projects/suspended" class="side-link '; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'suspended' ? 'active' : ''; echo'">Suspended Projects</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="side-link '; echo isset(explode('/', $url)[1]) && explode('/', $url)[1] == 'sector' || explode('/', $url)[1] == 'edit' ? 'active' : ''; echo'" href="/sector">
+                            <i class="las la-chart-pie"></i>Sector Management
+                        </a>
+                        <ul>
+                            <li><a href="/sector" class="side-link '; echo explode('/', $url)[1] == 'sector' && isset(explode('/', $url)[2]) == '' ? 'active' : ''; echo'">Sector Summary</a></li>
+                            <li><a class="side-link'; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'budget' ? ' active' : ''; echo'" href="/sector/budget">Manage Budget</a></li>  
+                            <li><a class="side-link'; echo isset(explode('/', $url)[2]) && explode('/', $url)[2] == 'jobs' ? ' active' : ''; echo'" href="/sector/jobs">Sector Jobs</a></li>  
+                        </ul>
                     </li>
                     <li>
                         <a class="side-link'; echo isset(explode('/', $url)[1]) && explode('/', $url)[1] == 'users' ? ' active' : ''; echo'" href="/users">
                             <i class="las la-user-friends"></i>User Management</a>
-                    </li>
-                    <li>
-                        <a class="side-link'; echo isset(explode('/', $url)[1]) && explode('/', $url)[1] == 'budget' ? ' active' : ''; echo'" href="/budget">
-                            <i class="las la-clipboard"></i>Budget</a>
-                    </li>
-                            
-                    <li>
+                    </li> 
+                    <!--<li>
                         <a class="side-link '; echo isset(explode('/', $url)[1]) && explode('/', $url)[1] == 'metrics' ? 'active' : ''; echo'" href="/metrics">
                             <i class="las la-chart-bar"></i>Manage Metrics</a>
-                    </li>
+                    </li>-->
                     <li>
                         <a class="side-link" href="/logout">
                             <i class="las la-power-off"></i>Log Out</a>

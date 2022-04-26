@@ -1,5 +1,5 @@
 <?php
-    $title = 'Jobs and Budgeting';
+    $title = 'Manage Jobs';
     require_once './includes/components/header.php';
 ?>
 
@@ -10,7 +10,7 @@
         <section class="content content-box-body">
             <div class="top-title d-flex justify-content-between full-width align-items-center">
                 <div class="">
-                    <h2 class="title p3">Jobs and Budgeting</h2>
+                    <h2 class="title p3">Sector Jobs</h2>
                     <p class="p5 subtitle">Here, you can set how much is spent on job creation in your sector.</p>
                 </div>
                 <!-- <a href="/budget/jobs/add" class="btn add-jobs">Add New Job Budget</a> -->

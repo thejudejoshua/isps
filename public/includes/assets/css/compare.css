@@ -23,6 +23,22 @@
 
 .val {
     color: var(--primary);
-    font-size: 24px;
+    font-size: 32px;
     font-weight: 700;
+}
+
+.summary-total .row {
+    gap: 30px;
+}
+
+.summary-total .row .full-width {
+    margin-bottom: 24px;
+}
+
+.summary-total .row.charts {
+    gap: 24px;
+}
+
+.summary-total .row fieldset {
+    padding: 24px 8px;
 }

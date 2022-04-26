@@ -1,3 +1,77 @@
 .jobs-find {
     width: 20%;
 }
+
+.budget-body fieldset {
+    gap: 32px;
+}
+
+.budget-body fieldset div.budget-top {
+    gap: 32px;
+}
+
+.budget-display {
+    background-image: linear-gradient(to bottom right, var(--primary), var(--primary-400));
+    border-radius: 5px;
+    height: auto;
+    padding: 24px 34px;
+    min-width: 105px;
+    width: auto;
+    color: var(--neutral);
+    display: inline-block;
+    margin-bottom: 32px;
+}
+
+.budget-display p {
+    margin-bottom: 4px;
+}
+
+.budget-display p:last-child {
+    margin-bottom: 0;
+}
+
+fieldset .modal-content-cta {
+    margin-top: 0;
+}
+
+fieldset .modal-content-cta .btn {
+    width: 65%;
+    margin: 0;
+}
+
+fieldset .modal-content-cta .btn.tertiary {
+    width: 35%;
+}
+
+.budget-body table {
+    min-width: 100%;
+}
+
+.budget-body table td:last-child {
+    text-align: left;
+}
+
+.budget-body form#budget-list {
+    gap: 32px;
+}
+
+.budget-body form#budget-list .btn.tertiary {
+    background: #e0fae3;
+}
+
+.budget-body table {
+    counter-reset: serial-number;
+}
+
+.budget-body table td:first-child:before {
+    counter-increment: serial-number;
+    content: counter(serial-number);
+}
+
+#execProjects div {
+    margin-top: 20px;
+}
+
+#summary-table td:last-child {
+    text-align: left;
+}

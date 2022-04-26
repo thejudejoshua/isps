@@ -305,18 +305,82 @@ $(document).ready(function() {
     //=================================================================================================
     //                                             A D D  P R O J E C T S
     //=================================================================================================
-    $(document).on('keyup', 'input.number-input', function(e) {
-        $(this).val(function(index, value) {
-            // Keep only digits and decimal points:
-            return value
-                .replace(/[^\d.]/g, "")
-                // Remove duplicated decimal point, if one exists:
-                .replace(/^(\d*\.)(.*)\.(.*)$/, '$1$2$3')
-                // Keep only two digits past the decimal point:
-                .replace(/\.(\d{2})\d+/, '.$1')
-                // Add thousands separators:
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        });
+    function formatNumber(n) {
+        // format number 1000000 to 1,234,567
+        return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
+
+    function formatCurrency(input, blur) {
+
+        // get input value
+        var input_val = input.val();
+
+        // don't validate empty input
+        if (input_val === "") { return; }
+
+        // original length
+        var original_len = input_val.length;
+
+        // initial caret position 
+        var caret_pos = input.prop("selectionStart");
+
+        // check for decimal
+        if (input_val.indexOf(".") >= 0) {
+            // get position of first decimal this prevents multiple decimals from being entered
+            var decimal_pos = input_val.indexOf(".");
+
+            // split number by decimal point
+            var left_side = input_val.substring(0, decimal_pos);
+            var right_side = input_val.substring(decimal_pos);
+
+            // add commas to left side of number
+            left_side = formatNumber(left_side);
+
+            // validate right side
+            right_side = formatNumber(right_side);
+
+            // On blur make sure 2 numbers after decimal
+            if (blur === "blur") {
+                right_side += "00";
+            }
+
+            // Limit decimal to only 2 digits
+            right_side = right_side.substring(0, 2);
+
+            // join number by .
+            // input_val = "$" + left_side + "." + right_side;
+            input_val = left_side + "." + right_side;
+        } else {
+            // no decimal entered
+            // add commas to number
+            // remove all non-digits
+            input_val = formatNumber(input_val);
+            // input_val = "$" + input_val;
+            input_val = input_val;
+
+            // final formatting
+            if (blur === "blur") {
+                // input_val += ".00";
+                input_val += "";
+            }
+        }
+
+        // send updated string to input
+        input.val(input_val);
+
+        // put caret back in the right position
+        var updated_len = input_val.length;
+        caret_pos = updated_len - original_len + caret_pos;
+        input[0].setSelectionRange(caret_pos, caret_pos);
+    }
+
+    $('input.number-input').on({
+        keyup: function() {
+            formatCurrency($(this));
+        },
+        blur: function() {
+            formatCurrency($(this), "blur");
+        }
     });
     $('#newProjectForm #btn-submit').click(function(e) {
         e.preventDefault();
@@ -481,6 +545,14 @@ $(document).ready(function() {
         $('.modal').addClass('fadeOut');
         setTimeout(() => {
             $('.modal').addClass('hidden');
+        }, 600);
+    })
+    $(document).on('click', '.modal-open', function(e) {
+        e.preventDefault();
+        let modal = $(this).data('modal');
+        $('.' + modal).removeClass('hidden');
+        setTimeout(() => {
+            $('.' + modal).removeClass('fadeOut');
         }, 600);
     })
 
@@ -728,8 +800,190 @@ $(document).ready(function() {
                 }
             }
         })
-    })
+    });
 
+    //=================================================================================================
+    //                            C R E A T E   B U D G E T
+    //=================================================================================================
+    $(document).on('click', '#budget-create', function(e) {
+        e.preventDefault();
+
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Creating budget...</p></span>');
+        let link = '/includes/config/jobBudget.php';
+        let form = $('#budget-form')[0]; //You need to use standard javascript object here
+        let data = new FormData(form);
+        var input = $(this).parent().siblings().find('input:not(.total)');
+        var button = $(this).parent().find('button');
+
+        $.ajax({
+            url: link,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            data: data,
+            success: function(response) {
+                if (response.split("=")[0] === 'success!') {
+                    message = response.split("=")[1];
+
+                    $('#recha').remove();
+                    showAlertNotification(message, 'success');
+                    setTimeout(() => {
+                        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Refreshing...</p></span>');
+                        window.location.href = window.location.href;
+                    }, 5500);
+                } else {
+                    $('#recha').remove();
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        showAlertNotification(error[1], 'error');
+                    } else {
+                        showAlertNotification(response, 'error');
+                    }
+                }
+            }
+        })
+    });
+
+    $(document).on('click', '#edit-budget', function(e) {
+        e.preventDefault();
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Please wait...</p></span>');
+        var input = $(this).parent().siblings().find('input#amount');
+        input.removeAttr('readonly');
+        $(this).html('Update Annual Budget');
+        $(this).attr('id', 'budget-create');
+        $('#recha').remove();
+    });
+
+    $(document).on('input', '#funding', function(e) {
+        let main_budget = parseFloat($('#fullBudget').val().replace(/,/g, ''));
+        input_keyup = 1;
+        distributeBudget($(this), main_budget, input_keyup);
+    });
+
+    $(document).on('click', '#assign-evenly', function(e) {
+        e.preventDefault();
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Please wait...</p></span>');
+        let main_budget = parseFloat($('#fullBudget').val().replace(/,/g, ''));
+
+        var input = $("input#funding");
+        var inputs = input.length;
+        input_keyup = 0;
+
+        var funding = main_budget / inputs;
+
+        input.each(function() {
+            $(this).val(funding.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+            distributeBudget($(this), main_budget, input_keyup);
+        });
+
+        $('#recha').remove();
+    });
+
+    $(document).on('click', '#assign-score', function(e) {
+        e.preventDefault();
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Please wait...</p></span>');
+        let main_budget = parseFloat($('#fullBudget').val().replace(/,/g, ''));
+
+        var input = $("input#funding");
+        input_keyup = 0;
+
+        total_score = 0
+        input.each(function() {
+            total_score += parseInt($(this).data('score'));
+        });
+
+        score = total_score
+
+        input.each(function() {
+            var funding = parseFloat($(this).data('score') / score) * main_budget;
+            $(this).val(funding.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+            distributeBudget($(this), main_budget, input_keyup);
+        });
+
+        $('#recha').remove();
+    });
+
+    function distributeBudget(input, budget, input_keyup) {
+        var siblings_input = input.parent().parent().siblings().find('input#funding')
+
+        funding = 0
+        sum = 0
+        siblings_input.each(function() {
+            sum += parseFloat($(this).val().replace(/,/g, ''))
+        });
+
+        var project_cost = input.data('cost');
+
+        if (input.val().length === 0) {
+            funding = 0
+        } else {
+            var funding = parseFloat(input.val().replace(/,/g, ''));
+        }
+
+        totalfunding = parseFloat(sum.toFixed(2)) + parseFloat(funding.toFixed(2));
+
+        if (funding < project_cost) {
+            var shortfall = 0;
+        } else {
+            var shortfall = funding - project_cost;
+        }
+
+        if (totalfunding > budget && input_keyup === 1) {
+            showAlertNotification('You cannot enter an amount that will result in a sum greater than the total budget!', 'error');
+            setTimeout(() => {
+                remaining_budget = parseFloat($('.funding-val').text().replace(/,/g, ''));
+                input.val((budget - sum - remaining_budget).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+                input.parent().siblings().find('#shortfall').val(((budget - sum - remaining_budget) - project_cost).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+
+            }, 2500);
+            budgetleft = 0
+        } else {
+            var budgetleft = budget - totalfunding;
+        }
+
+        $('.funding-val').text(budgetleft.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+        $('#leftBudget').val(budgetleft.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+        input.parent().siblings().find('#shortfall').val(shortfall.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+    };
+
+    $(document).on('click', '#budget-dist-save', function(e) {
+        e.preventDefault();
+
+        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Updating project budget...</p></span>');
+        let link = '/includes/config/jobBudget.php';
+        let form = $('#budget-list-form')[0]; //You need to use standard javascript object here
+        let data = new FormData(form);
+        var input = $(this).parent().siblings().find('input:not(.total)');
+        var button = $(this).parent().find('button');
+
+        $.ajax({
+            url: link,
+            processData: false,
+            contentType: false,
+            type: "POST",
+            data: data,
+            success: function(response) {
+                if (response.split("=")[0] === 'success!') {
+                    message = response.split("=")[1];
+
+                    $('#recha').remove();
+                    showAlertNotification(message, 'success');
+                    setTimeout(() => {
+                        $('body').prepend('<span id="recha"><i class="las la-sync"></i><p class="p4">Refreshing...</p></span>');
+                        window.location.href = window.location.href;
+                    }, 5500);
+                } else {
+                    $('#recha').remove();
+                    error = response.split("=");
+                    if (error[0] === 'error') {
+                        showAlertNotification(error[1], 'error');
+                    } else {
+                        showAlertNotification(response, 'error');
+                    }
+                }
+            }
+        })
+    });
 
     //=================================================================================================
     //                            E D I T  J O B S
@@ -741,7 +995,8 @@ $(document).ready(function() {
         input.removeAttr('readonly');
         $(this).html('Save data');
         $(this).attr('id', 'btn-submit');
-    })
+        $('#recha').remove();
+    });
 
 
     $(document).on('keyup', '#jobFormEdit input:not(.total)', '#jobFormEdit input:not(.budget_per_total_jobs)', function(e) {
@@ -827,7 +1082,6 @@ $(document).ready(function() {
     //=================================================================================================
     //                            P R I N T E R
     //=================================================================================================
-
     function printDiv(divName) {
         var printContents = divName.html();
         var originalContents = $('body').html();
@@ -877,7 +1131,6 @@ $(document).ready(function() {
     //=================================================================================================
     //                            S E A R C H  P R O J E C T S
     //=================================================================================================
-
     let originalList = $('.projects-List').html();
     $('.main_project_search input').on("keyup", function() {
 
@@ -902,7 +1155,6 @@ $(document).ready(function() {
     //=================================================================================================
     //                            F I L T E R  P R O J E C T S
     //=================================================================================================
-
     $('.filter').on("click", function() {
 
         $('.projects-List #recha').remove();
@@ -929,8 +1181,191 @@ $(document).ready(function() {
             $('.projects-List #recha').remove();
             $('.projects-List').html(originalList);
         }
-
     });
 
+    //=================================================================================================
+    //                            D A S H B O A R D  C H A R T
+    //=================================================================================================
+    if (window.location.href.indexOf("dashboard") > -1 || window.location.pathname == '/' || window.location.href.indexOf("sector") > -1) {
+        //--------------------------------------------
+        //------------------Regions categorization
+        //--------------------------------------------
+        var data = { labels: [], count: [] }
+
+        for (let i = 0; i < chartRegions.length; i++) {
+            data.labels.push(chartRegions[i]['region'])
+            data.count.push(chartRegions[i]['count'])
+        }
+
+        var type = 'project(s)';
+        var fixed_num = 0;
+        var currency = '';
+        var geoPieElement = document.getElementById("geoPieChart");
+        makePieChat(geoPieElement, data, type, fixed_num, currency);
+
+
+        //--------------------------------------------
+        //---------------------Funds categorization
+        //--------------------------------------------
+        var funds = { labels: [], count: [] }
+
+        for (let i = 0; i < chartFunds.length; i++) {
+            funds.labels.push(chartFunds[i]['label'])
+            funds.count.push(chartFunds[i]['count'])
+        }
+
+        var type = 'project(s)';
+        var fixed_num = 0;
+        var currency = '';
+        var fundPieElement = document.getElementById("fundingTypeChart");
+        makePieChat(fundPieElement, funds, type, fixed_num, currency);
+        //--------------------------------------------
+        //-----Funding and shortfalls categorization
+        //--------------------------------------------
+        var funding = { labels: [], count: [] }
+
+        for (let i = 0; i < projectShortfallTypeChart.length; i++) {
+            funding.labels.push(projectShortfallTypeChart[i]['label'])
+            funding.count.push(projectShortfallTypeChart[i]['count'])
+        }
+
+        var type = '';
+        var fixed_num = 2;
+        var currency = '₦';
+        var fundPieElement = document.getElementById("projectShortfallTypeChart");
+        makePieChat(fundPieElement, funding, type, fixed_num, currency);
+        //--------------------------------------------
+        //-----Category Type categorization
+        //--------------------------------------------
+        var metrics = { labels: [], fullLabels: [], count: [] }
+
+        for (let i = 0; i < metricsArrayBarChart.length; i++) {
+            metrics.labels.push(metricsArrayBarChart[i]['label'].substring(0, 3))
+            metrics.fullLabels.push(metricsArrayBarChart[i]['label'])
+            metrics.count.push(metricsArrayBarChart[i]['count'])
+        }
+        console.log(metricsArrayBarChart)
+
+        var metricsBarElement = document.getElementById("metricsArrayBarChart");
+        makeBarChat(metricsBarElement, metrics, bp = 0.5);
+    }
+
+    function makePieChat(pieElement, data, type, fixed_num, currency) {
+        var canvasP = pieElement;
+        var ctxP = canvasP.getContext('2d');
+        var myPieChart = new Chart(
+            ctxP, {
+                type: 'doughnut',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Number of Projects',
+                        data: data.count,
+                        backgroundColor: ["#64B5F6", "#1dbd47", "#002c91", "#ff6e07", "#db3737", "#a56e2a"],
+                        hoverBackgroundColor: ["#B2EBF2", "#95e0a8", "#698ad5", "#ffd557", "#e56d6d", "#b98e59"]
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    spacing: 0,
+                    borderRadius: 2,
+                    plugins: {
+                        labels: {
+                            render: function(ctxP) {
+                                let sum = 0;
+                                let dataArr = ctxP.dataset.data;
+                                $.each(dataArr, function() {
+                                    sum += parseInt(this, 10);
+                                });
+                                let percentage = ((ctxP.value / sum) * 100).toFixed(2) + "%";
+
+                                return `${percentage}`;
+                            },
+                            fontColor: '#fff',
+                            fontStyle: 'bold',
+                            fontSize: 11,
+                        },
+                        legend: {
+                            display: true,
+                            position: "top",
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 10
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(ctxP) {
+                                    return `${ctxP.label} - ${currency}${ctxP.parsed.toFixed(fixed_num).replace(/\d(?=(\d{3})+\.)/g, '$&,')} ${type}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        )
+    }
+
+    function makeBarChat(barElement, data, bp) {
+        var canvasP = barElement;
+        var ctxP = canvasP.getContext('2d');
+        var myBarChart = new Chart(
+            ctxP, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        barPercentage: bp,
+                        label: 'Project Type Distribution',
+                        data: data.count,
+                        backgroundColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(204, 175, 186)',
+                            'rgb(15, 209, 15)',
+                            'rgb(232, 162, 126)',
+                            'rgb(249, 22, 246)',
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)',
+                            'rgb(255, 205, 86)',
+                            'rgb(204, 175, 186)',
+                            'rgb(15, 209, 15)',
+                            'rgb(232, 162, 126)',
+                            'rgb(249, 22, 246)',
+                            'rgb(255, 99, 132)',
+                        ],
+                        hoverOffset: 4
+                    }]
+
+                },
+                options: {
+                    legend: {
+                        display: false,
+                        position: 'bottom',
+                        labels: {
+                            boxWidth: 0
+                        }
+                    },
+                    plugins: {
+                        labels: {
+                            render: () => {}
+                        },
+                        tooltip: {
+                            callbacks: {
+                                afterTitle: (ctxP) => 'Project Type: ' + data.fullLabels[ctxP['0'].dataIndex]
+                            }
+                        },
+                        legend: {
+                            display: false,
+                            labels: {
+                                boxWidth: 0
+                            }
+                        }
+                    },
+                }
+            }
+        )
+    }
 
 })
